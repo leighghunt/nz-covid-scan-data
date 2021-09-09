@@ -3,8 +3,8 @@
 
 // init project
 const express = require('express');
-// var Sequelize = require('sequelize');
-// const {Op} = require('sequelize');
+var Sequelize = require('sequelize');
+const {Op} = require('sequelize');
 const axios = require('axios');
 
 const moment = require('moment');
@@ -45,23 +45,27 @@ sequelize.authenticate()
   .then(function(err) {
     console.log('Connection has been established successfully.');
 
-    Cancellation = sequelize.define('cancellations', {
+    Cancellation = sequelize.define('stats', {
       id: {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      
+      timestamp: {
+        type: Sequelize.DATE
+      },
 
-      routeId: {
-        type: Sequelize.STRING
+      qr_code_scans_today: {
+        type: Sequelize.INT
       },
 
 
-      cause: {
-        type: Sequelize.STRING
+      manual_entires_today: {
+        type: Sequelize.INT
       },
 
-      effect: {
-        type: Sequelize.STRING
+      people_with_bluetooth_tracing_active_today: {
+        type: Sequelize.INT
       },
 
       route_short_name: {
