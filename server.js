@@ -3,8 +3,8 @@
 
 // init project
 const express = require('express');
-var Sequelize = require('sequelize');
-const {Op} = require('sequelize');
+// var Sequelize = require('sequelize');
+// const {Op} = require('sequelize');
 const axios = require('axios');
 
 const moment = require('moment');
