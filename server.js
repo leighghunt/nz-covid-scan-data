@@ -16,9 +16,7 @@ var server = require('http').Server(app);
 const io = require('socket.io')(server);
 var cron = require('node-cron');
 
-var Cancellation
-
-var routes
+var Stats
 
 
 
@@ -45,7 +43,7 @@ sequelize.authenticate()
   .then(function(err) {
     console.log('Connection has been established successfully.');
 
-    Cancellation = sequelize.define('stats', {
+    Stats = sequelize.define('stats', {
       id: {
         primaryKey: true,
         type: Sequelize.INTEGER
@@ -68,28 +66,26 @@ sequelize.authenticate()
         type: Sequelize.INT
       },
 
-      route_short_name: {
-        type: Sequelize.STRING
+      all_time_app_registrations: {
+        type: Sequelize.INT
       },
 
-      description: {
-        type: Sequelize.STRING
+
+      all_time_app_registrations_daily_change: {
+        type: Sequelize.INT
+      },
+
+      all_time_posters_created: {
+        type: Sequelize.INT
+      },
+
+
+      all_time_posters_created_daily_change: {
+        type: Sequelize.INT
       },
 
       JSON: {
         type: Sequelize.STRING
-      },
-
-      startDate: {
-        type: Sequelize.DATE
-      },
-
-      endDate: {
-        type: Sequelize.DATE
-      },
-
-      timestamp: {
-        type: Sequelize.DATE
       }
 
     });
@@ -103,25 +99,20 @@ sequelize.authenticate()
 // populate table with default users
 function setup(){
   console.log('setup')
-  Cancellation.sync(
+  Stats.sync(
     // {force: true}
     // { alter: true }
   ) 
     .then(function(){
 
-    Cancellation.create({routeId: -1, route_short_name: "BLAH", description: "BLAH BLAH BLAH", startDate: new Date(), endDate: new Date(), cause: "TEST", effect: "NONE"})
+    // Cancellation.create({routeId: -1, route_short_name: "BLAH", description: "BLAH BLAH BLAH", startDate: new Date(), endDate: new Date(), cause: "TEST", effect: "NONE"})
     });  
 }
 
 app.use(express.static('public'));
 
 
-let serviceAlertsURL = "https://api.opendata.metlink.org.nz/v1/gtfs-rt/servicealerts"
-let tripUpdatesURL = "https://api.opendata.metlink.org.nz/v1/gtfs-rt/tripupdates"
-let routesURL = "https://api.opendata.metlink.org.nz/v1/gtfs/routes"
-
-
-var routes = []
+let statsURL = "_https://enf.tracing.covid19.govt.nz/api/pages/stats"
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
@@ -132,57 +123,18 @@ server.listen(process.env.PORT);
 
 // var distanceBetweenLocations = require('./distanceBetweenLocations');
 
-function fixCancellations(){
-  
-    console.log('fixCancellations')
-    console.log(Cancellation)
 
-        Cancellation.findAll({
-          // limit: 10, 
-          where: {
-            route_short_name: null
-            }
-        })
-      .then(cancellations => {
-        // console.log(cancellations)
-        cancellations.forEach(async cancellation => {
-          console.log(cancellation.id + ': ' + cancellation.routeId + ', ' + cancellation.route_short_name)
-          
-          let entity = JSON.parse(cancellation.JSON);
-          
-          cancellation.routeId = entity.alert.informed_entity[0].route_id
-          var route = routes.find(route => route.route_id == cancellation.routeId)
-          // console.log(cancellation.routeId)
-          // console.log(route)
+function updateStats(){
 
-          if(route!=null){
-            cancellation.route_short_name = route.route_short_name 
-            console.log(cancellation.id + ': ' + cancellation.routeId + ', ' + cancellation.route_short_name)
-            // console.log('cancellation')
+  console.log("updateStats")
 
-            // console.log(cancellation.dataValues)
-
-            Cancellation.upsert(cancellation.dataValues)
-          }
-
-        })
-    });
-}
-// setTimeout(fixCancellations, 5000)
-
-
-
-function updateCancellations(){
-
-  console.log("updateCancellations")
-
-  axios.get(serviceAlertsURL, {
+  axios.get(statsURL, {
     headers: {
-      'x-api-key': process.env.metlink_api_key
+      // 'x-api-key': process.env.metlink_api_key
     }})
   .then(async function (apiResponse) {
     
-    console.log("updateCancellations - response")
+    console.log("updateStats - response")
 
     console.log("apiResponse.data length:" + JSON.stringify(apiResponse.data).length)
 
