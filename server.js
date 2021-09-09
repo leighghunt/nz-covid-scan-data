@@ -53,6 +53,12 @@ sequelize.authenticate()
         type: Sequelize.DATE
       },
 
+
+      generated: {
+        type: Sequelize.DATE
+      },
+
+
       qr_code_scans_today: {
         type: Sequelize.INT
       },
@@ -100,8 +106,8 @@ sequelize.authenticate()
 function setup(){
   console.log('setup')
   Stats.sync(
-    // {force: true}
-    // { alter: true }
+    {force: true},
+    { alter: true }
   ) 
     .then(function(){
 
@@ -112,7 +118,7 @@ function setup(){
 app.use(express.static('public'));
 
 
-let statsURL = "_https://enf.tracing.covid19.govt.nz/api/pages/stats"
+let statsURL = "https://enf.tracing.covid19.govt.nz/api/pages/stats"
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
@@ -124,6 +130,7 @@ server.listen(process.env.PORT);
 // var distanceBetweenLocations = require('./distanceBetweenLocations');
 
 
+updateStats()
 function updateStats(){
 
   console.log("updateStats")
@@ -137,212 +144,92 @@ function updateStats(){
     console.log("updateStats - response")
 
     console.log("apiResponse.data length:" + JSON.stringify(apiResponse.data).length)
+    
+    console.log(JSON.stringify(apiResponse.data))
+    console.log(apiResponse.data['dashboardItems'])
+
+    console.log(apiResponse.data['dashboardItems'])
+
+    // console.log(apiResponse.data['dashboardItems'].find(d => d.subtitle=='QR code scans today').value)
+return
+//     var latestStat = {
+//       timestamp: new Date(),
+//       generated: apiResponse.data.generated,
+
+//       qr_code_scans_today: apiResponse.data.dashboardItems.find(d => d.subtitle=='QR code scans today').value,
 
 
-    apiResponse.data.entity.forEach(async (entity) => {
+
+//       manual_entires_today: {
+//         type: Sequelize.INT
+//       },
+
+//       people_with_bluetooth_tracing_active_today: {
+//         type: Sequelize.INT
+//       },
+
+//       all_time_app_registrations: {
+//         type: Sequelize.INT
+//       },
+
+
+//       all_time_app_registrations_daily_change: {
+//         type: Sequelize.INT
+//       },
+
+//       all_time_posters_created: {
+//         type: Sequelize.INT
+//       },
+
+
+//       all_time_posters_created_daily_change: {
+//         type: Sequelize.INT
+//       },
+
+//       JSON: {
+//         type: Sequelize.STRING
+//       }}
+    
+    
+    
+//     apiResponse.data.entity.forEach(async (entity) => {
       
-
         
-        Cancellation.upsert(cancellation)
         
-        console.log('emitting...')
+//         Stats.upsert(stat)
+        
+//         console.log('emitting...')
 
-        console.log(cancellation)
+//         console.log(cancellation)
 
-        io.emit('cancellation', cancellation)
+//         io.emit('stat', stat)
 
-      }
-    })
+    // })
   })
   .catch(function (error) {
     // handle error
     console.log(error);
-
-    console.log("Have you set metlink_api_key environment variable?")
   })  
 }
 
-app.get('/cancellations/', async function(request, response) {
+app.get('/stats/', async function(request, response) {
 
-    var from = new Date()
-    from.setDate(from.getDate() - 1)
-  
-    if(request.query.from!=null){
-      // console.log(request.query.from)
-      // console.log(new Date(request.query.from))
-      from = new Date(request.query.from)
-    }
-
-    var to = new Date()
-  
-    if(request.query.to!=null){
-      to = new Date(request.query.to)
-    }
-
-    console.log(from)
-    console.log(to)
-
-
-    Cancellation.findAll({
-        where: {
-          timestamp: {
-            [Op.and]:[
-              {[Op.gte]: from},
-              {[Op.lte]: to}
-
-            ]
-          },
-
-          // timestamp: {[Op.gt]: from},
-
-
-        },
-        order: [
-          ['timestamp', 'ASC']
-        ]
-      })
-      .then(cancellations => {
+    Stats.findOne({order: [['timestamp']]})
+      .then(stats => {
         response.setHeader('Content-Type', 'application/json')
-        response.send(JSON.stringify(cancellations));
+        response.send(JSON.stringify(stats));
     });
 });
 
 
 
-function entityToText(entity){
-  // console.log(entity.alert)
-  // elem.alert.informed_entity.push({route_id: "BLAH"})
-  // elem.alert.informed_entity.push({route_id: "123"})
-  var routeType = "Service "
-  
-  // console.log(entity.alert.informed_entity[0])
-
-
-  switch(entity.alert.informed_entity[0].route_type){
-    case 2:
-      routeType = "Train "
-      break
-
-    case 3:
-      routeType = "Bus "
-      break
-
-    case 4:
-      routeType = "Ferry "
-      break
-
-    case 5:
-      routeType = "Cable Car "
-      break
-
-    default:
-      routeType = "Service "
-      break
-  }
-  // console.log(routeType)
-
-  var services = entity.alert.informed_entity.reduce((accumulator, currentValue) => {
-    // console.log(accumulator)
-    // console.log(currentValue)
-    
-    var route_id = currentValue.route_id
-    
-    var route = routes.find(route => route.route_id == route_id)
-    
-    if(route!=null){
-      if(accumulator==""){
-        return route.route_short_name 
-      } else
-      {
-        return accumulator + ", " + route.route_short_name 
-      }
-    } else
-    {
-      return accumulator
-    }
-    
-  }, "")
-  // console.log(services)
-  return routeType + services + ": " + entity.alert.header_text.translation[0].text
-}
-
-
-
-function getRoutes(){
-  axios.get(routesURL, {
-    headers: {
-      'x-api-key': process.env.metlink_api_key
-    }})
-  .then(function (apiResponse) {
-    
-    routes = apiResponse.data;
-    console.log("routes")
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-    console.log("Have you set metlink_api_key environment variable?")
-    // response.status(500).send(error)
-  })  
-}
-
-
-getRoutes();
 
 cron.schedule('*/1 * * * *', () => {
-  updateCancellations();
+  updateStats();
 });
 
 
 
-
-
-
-/*
-  // var timeNow = new Date()
-    // startOfToday.setHours(0,0,0,0)
-    
-    // console.log(startOfToday)
-  
-  
-  var timeNow    = new moment();
-  console.log(timeNow)
-
-  var timeNowNZTZ    = timeNow.clone().tz("Pacific/Auckland");
-  console.log(timeNowNZTZ)
-
-  var timeNowNZ = new moment(timeNowNZTZ.format())
-  console.log(timeNowNZ)
-
-   // timeNowNZ.setHours(0)
-  console.log(timeNowNZ)
-  
-  
-  
-  let now = new Date()
-  console.log(now)
-
-  // Get the current time in LA using string matching to enable the offset to be calculated
-  // This allows for daylight savings to be considered
-  // Caution the LocaleTimeString is en-US formatted. Take care if using a different locale
-  let timeInNZ = now.toLocaleTimeString('en-US', { timeZone: 'Pacific/Auckland' })
-    // .match(/([0-1]?[0-9])\:([0-5]?[0-9])\:[0-5]?[0-9]\s(AM|PM)/)
-    // // trim first element of match
-    // .slice(1)
-    //  // take account of AM/PM and convert values to integers
-    // .map( (e,i,a) => i==0 && a[3] =='PM' ? +e+12 : +e)
-    // // trim AM/PM
-    // .slice(0,-1)
-
-    console.log(timeInNZ)
-
-
-  // .tz("2014-06-01 12:00", "America/New_York");
-  // var losAngeles = newYork.clone().tz("America/Los_Angeles");
-  // var london     = newYork.clone().tz("Europe/London");
-
-// newYork.format();    // 2014-06-01T12:00:00-04:00
-*/
 
 
 io.on("connection", (socket) => {
