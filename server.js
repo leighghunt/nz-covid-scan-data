@@ -141,52 +141,7 @@ function updateStats(){
 
     apiResponse.data.entity.forEach(async (entity) => {
       
-      var existingCancellation = await Cancellation.findByPk(entity.id)
-      
-      var bNeedsUpserting = true;
-      if(existingCancellation!=null && existingCancellation.JSON == JSON.stringify(entity)){
-        // console.log("Exists and unchanged")
 
-        bNeedsUpserting = false;
-      }
-      
-      if(bNeedsUpserting){
-        if(existingCancellation!=null){
-          console.log("Needs Upserting")
-          console.log(entity.route_id)
-          console.log(existingCancellation.JSON)
-          console.log(JSON.stringify(entity))          
-        } else {
-          console.log("Needs inserting")
-        }
-        
-        var suppliedJSON = JSON.stringify(entity)
-        if(entity.route_id == null){
-          entity.route_id = entity.alert.informed_entity[0].route_id
-        }
-        console.log(entity.route_id)
-
-        var route = routes.find(route => route.route_id == entity.route_id)
-
-        var route_short_name
-        if(route!=null){
-          route_short_name = route.route_short_name 
-        } else {
-          console.log("couldn't find log")
-        }
-
-        var cancellation = {
-          id: entity.id,
-          routeId: entity.route_id,
-          route_short_name: route_short_name,
-          cause: entity.alert.cause,
-          effect: entity.alert.effect,          
-          JSON: suppliedJSON,
-          description: entityToText(entity),
-          timestamp: new Date(entity.timestamp),
-          startDate: new Date(entity.alert.active_period[0].start * 1000),
-          endDate: new Date(entity.alert.active_period[0].end * 1000),
-        }
         
         Cancellation.upsert(cancellation)
         
