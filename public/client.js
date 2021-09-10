@@ -107,38 +107,44 @@ function updateGraph(){
   startOfTodayNZ.setSeconds(0)
   startOfTodayNZ.setMilliseconds(0)
 
+  let endOfTodayNZ = new Date(startOfTodayNZ)
+  // console.log(endOfTodayNZ)
+  endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
+  // console.log(endOfTodayNZ)
+
+
 
 
   console.log(todaysQRCodeScans);
   
-  
-const data = {
-  // labels: labels,
-  datasets: [
-    {
-      label: 'QR Scans',
-      // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-      borderColor: 'rgb(255, 99, 132)',
-      fill: false,
-      // lineTension: 0,       
-      data: todaysQRCodeScans
-    },    {
-      label: 'Manual entries',
-      // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-      borderColor: 'rgb(50, 99, 255)',
-      fill: false,
-      // lineTension: 0,       
-      data: todaysManualEntries
-    }
-  ]
-};
+
+  const data = {
+    // labels: labels,
+    datasets: [
+      {
+        label: 'QR Scans',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        // lineTension: 0,       
+        data: todaysQRCodeScans
+      },    {
+        label: 'Manual entries',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(50, 99, 255)',
+        fill: false,
+        // lineTension: 0,       
+        data: todaysManualEntries
+      }
+    ]
+  };
 
   const config = {
     type: 'line',
     data,
     options: {
 
-      // elements: { point: { radius: 0 } },
+      elements: { point: { radius: 0 } },
       plugins: {
         title: {
           text: 'Chart.js Time Scale',
@@ -151,7 +157,8 @@ const data = {
           type: 'time',
           time: { 
             unit: 'hour',
-            min: startOfTodayNZ
+            min: startOfTodayNZ,
+            max: endOfTodayNZ
           },
         }],
         
