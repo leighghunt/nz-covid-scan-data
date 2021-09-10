@@ -108,16 +108,10 @@ function updateGraph(){
   startOfTodayNZ.setMilliseconds(0)
 
   let endOfTodayNZ = new Date(startOfTodayNZ)
-  // console.log(endOfTodayNZ)
   endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
-  // console.log(endOfTodayNZ)
-
-
-
 
   console.log(todaysQRCodeScans);
   
-
   const data = {
     // labels: labels,
     datasets: [
@@ -170,23 +164,7 @@ function updateGraph(){
            }
          }
        }]
-        
-        
-//           x: {
-//             type: 'time',
-//             time: {
-//               tooltipFormat: 'HH',
-//               unit:'hour'
-
-//             },
-//             title: {
-//               display: true,
-//               text: 'Date'
-//             }
-
-//           }
-      },
-      
+      },      
       animation: {
         duration:0  // prevent pesky animation, espcially on update
       }
@@ -205,6 +183,99 @@ function updateGraph(){
   } 
   
 }
+
+function updateHistoricGraph(){
+
+  // let labels = todaysStats.map(data => new Date(data.generated));
+
+  let todaysQRCodeScans = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
+
+  let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
+
+  let startOfTodayNZ = new Date()
+  startOfTodayNZ.setHours(0)
+  startOfTodayNZ.setMinutes(0)
+  startOfTodayNZ.setSeconds(0)
+  startOfTodayNZ.setMilliseconds(0)
+
+  let endOfTodayNZ = new Date(startOfTodayNZ)
+  endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
+
+  console.log(todaysQRCodeScans);
+  
+  const data = {
+    // labels: labels,
+    datasets: [
+      {
+        label: 'QR Scans',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        // lineTension: 0,       
+        data: todaysQRCodeScans
+      },    {
+        label: 'Manual entries',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(50, 99, 255)',
+        fill: false,
+        // lineTension: 0,       
+        data: todaysManualEntries
+      }
+    ]
+  };
+
+  const config = {
+    type: 'line',
+    data,
+    options: {
+
+      elements: { point: { radius: 0 } },
+      plugins: {
+        title: {
+          text: 'Chart.js Time Scale',
+          display: true
+        }
+      },      
+      
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: { 
+            unit: 'hour',
+            min: startOfTodayNZ,
+            max: endOfTodayNZ
+          },
+        }],
+        
+       yAxes: [{
+
+          ticks: {
+           callback: function(value, index, values) {
+             return value.toLocaleString("en-NZ",{});
+           }
+         }
+       }]
+      },      
+      animation: {
+        duration:0  // prevent pesky animation, espcially on update
+      }
+    }
+  };
+
+
+  if(chart==null){
+    chart = new Chart(
+      document.getElementById('chart'),
+      config
+    )
+  } else {
+    chart.config.data = data;
+    chart.update(/*{mode: 'none'}*/);
+  } 
+  
+}
+
+
 
 
 
