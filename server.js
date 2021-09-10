@@ -106,8 +106,8 @@ sequelize.authenticate()
 function setup(){
   console.log('setup')
   Stats.sync(
-    {force: true},
-    { alter: true }
+    // {force: true},
+    // { alter: true }
   ) 
     .then(function(){
 
@@ -191,7 +191,7 @@ function updateStats(){
 
     console.log('emitting...')
 
-    console.log(latestStat)
+    // console.log(latestStat)
 
     io.emit('latestStats', latestStat)
 
@@ -213,19 +213,41 @@ app.get('/latestStats/', async function(request, response) {
 });
 
 
-app.get('/last24HoursStats/', async function(request, response) {
+app.get('/stats/', async function(request, response) {
 
-    var startOfTodayNz = new Date()
+  
+    var from = new Date()
+    from.setDate(from.getDate() - 1)
+  
+    if(request.query.from!=null){
+      from = new Date(request.query.from)
+    }
+
+    
+    var to = new Date()
+  
+    if(request.query.to!=null){
+      to = new Date(request.query.to)
+    }
+
+    console.log('stats')
+    console.log(from)
+    console.log(to)
+
     Stats.findAll(
       {
-        order: [['timestamp', 'DESC']],
-        where: {
-        generated: null
-        }
-
-
+        where: { 
+          generated: {
+            [Op.and]:[
+              {[Op.gte]: from},
+              {[Op.lte]: to}
+            ]
+          }
+        },
+        order: [['generated']]
       })
       .then(stats => {
+      console.log(stats.length)
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(stats));
     });

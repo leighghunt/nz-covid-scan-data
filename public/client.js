@@ -5,6 +5,7 @@ var socket = io.connect(window.location.hostname);
 
 // var latestStats = {}
 var stats = []
+var todaysStats = []
 
 function displayStats(stats){
   
@@ -74,7 +75,14 @@ function refreshLatestStats(){
 
 refreshLatestStats()
 
-getTodaysStats()
+
+
+const todaysStatsListener = function() {
+  todaysStats = JSON.parse(this.responseText)
+  console.log(todaysStats)
+  updateGraph()
+}
+
 
 function getTodaysStats(){
   let startOfTodayNZ = new Date()
@@ -83,23 +91,20 @@ function getTodaysStats(){
   startOfTodayNZ.setSeconds(0)
   startOfTodayNZ.setMilliseconds(0)
   
-  console.log(startOfTodayNZ)
+  // console.log(startOfTodayNZ)
 
-  console.log(startOfTodayNZ.toUTCString())
+  // console.log(startOfTodayNZ.toUTCString())
 
   const todaysStatsRequest = new XMLHttpRequest();
   todaysStatsRequest.onload = todaysStatsListener;
-  todaysStatsRequest.open('get', '/todaysStats?from=' + startOfTodayNZ.toUTCString());
+  todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
   todaysStatsRequest.send();  
 }
 
+getTodaysStats()
 
 
 
-const todaysStatsListener = function() {
-  var todaysStats = JSON.parse(this.responseText)
-  console.log(todaysStats)
-}
 
 /*
 Chart stuff
