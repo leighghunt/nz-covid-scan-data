@@ -247,7 +247,14 @@ app.get('/stats/', async function(request, response) {
         order: [['generated']]
       })
       .then(stats => {
-      console.log(stats.length)
+        stats.push({
+          generated: from,
+          qr_code_scans_today: 0
+        })
+        console.log(stats)
+
+        console.log(stats.length)
+
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(stats));
     });

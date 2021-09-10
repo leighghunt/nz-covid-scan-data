@@ -13,16 +13,16 @@ function displayStats(stats){
 
   console.log(stats)
 
-  document.getElementById('qr_code_scans_today').innerText = stats.qr_code_scans_today
+  document.getElementById('qr_code_scans_today').innerText = stats.qr_code_scans_today.toLocaleString()
 
-  document.getElementById('manual_entries_today').innerText = stats.manual_entries_today
+  document.getElementById('manual_entries_today').innerText = stats.manual_entries_today.toLocaleString()
 
-  document.getElementById('people_with_bluetooth_tracing_active_today').innerText = stats.people_with_bluetooth_tracing_active_today
+  document.getElementById('people_with_bluetooth_tracing_active_today').innerText = stats.people_with_bluetooth_tracing_active_today.toLocaleString()
 
 
-  document.getElementById('all_time_app_registrations').innerText = stats.all_time_app_registrations
+  document.getElementById('all_time_app_registrations').innerText = stats.all_time_app_registrations.toLocaleString()
 
-  document.getElementById('all_time_posters_created').innerText = stats.all_time_posters_created
+  document.getElementById('all_time_posters_created').innerText = stats.all_time_posters_created.toLocaleString()
 
   /*
   
