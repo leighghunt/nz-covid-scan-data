@@ -98,7 +98,7 @@ function updateGraph(){
   let todaysData = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
   console.log(todaysData);
   
-  const data = {
+  const data_ = {
     // labels: ['A', 'b', 'c'],
     datasets: [{
       label: 'Scans Today',
@@ -107,6 +107,32 @@ function updateGraph(){
       data: todaysData,
     }]
   };
+  
+  
+const data = {
+  labels: [ // Date Objects
+    new Date('2021-09-09T01:43:14.297Z'),
+    new Date('2021-09-09T02:45:14.297Z'),
+    new Date('2021-09-09T03:48:14.297Z'),
+    new Date('2021-09-09T04:43:14.297Z'),
+    new Date('2021-09-09T05:45:14.297Z'),
+    new Date('2021-09-09T06:48:14.297Z'),
+    new Date('2021-09-09T07:43:14.297Z'),
+  ],
+  datasets: [{
+    label: 'My First dataset',
+    backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+    borderColor: Utils.CHART_COLORS.red,
+    fill: false,
+    data: Utils.numbers(NUMBER_CFG),
+  }, {
+    label: 'My Second dataset',
+    backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+    borderColor: Utils.CHART_COLORS.blue,
+    fill: false,
+    data: Utils.numbers(NUMBER_CFG)
+  }]
+};
 
   const config = {
     type: 'line',

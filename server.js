@@ -249,10 +249,10 @@ app.get('/stats/', async function(request, response) {
       .then(stats => {
       
         // Set zero value
-        // stats.unshift({
-        //   generated: from,
-        //   qr_code_scans_today: 0
-        // })
+        stats.unshift({
+          generated: from,
+          qr_code_scans_today: 0
+        })
         // console.log(stats)
 
         // console.log(stats.length)
