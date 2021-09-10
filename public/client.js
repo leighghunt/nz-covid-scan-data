@@ -124,9 +124,8 @@ function updateGraph(){
           x: {
             type: 'time',
             time: {
-              tooltipFormat: 'HH'
-              // parser: timeFormat,
-              round: 'hour',
+              tooltipFormat: 'HH',
+              unit:'hour'
 
             },
             title: {
