@@ -64,7 +64,7 @@ sequelize.authenticate()
       },
 
 
-      manual_entires_today: {
+      manual_entries_today: {
         type: Sequelize.INTEGER
       },
 
