@@ -3,46 +3,41 @@
 var io = window.io;
 var socket = io.connect(window.location.hostname);
 
-var stats = {}
+// var latestStats = {}
+var stats = []
 
-function displayStats(){
-  let qr_code_scans_today = document.getElementById('qr_code_scans_today');
-  listResults.style.display = 'block';
-  while (listResults.firstChild) {
-    listResults.removeChild(listResults.firstChild);
-  }
-
-  cancellationsDuringPeriod = cancellations.length;
-
-  if(serviceFilter==''){
-    document.getElementById('filterDescription').innerText = 'Metlink'
-  } else {
-    document.getElementById('filterDescription').innerText = serviceFilter
-  }
-
-
-  document.getElementById('howmany').innerText=cancellationsDuringPeriod
-  document.getElementById('period').innerText=(reviewPeriodDays==1?" 24 hours":reviewPeriodDays + " days")
-
-
-  cancellations.forEach((cancellation) => {
-    displayCancellation(cancellation)     
-  })
-
+function displayStats(stats){
   
-  let listOtherEvents = document.getElementById('listOtherEvents');
-  listOtherEvents.style.display = 'block';
-  while (listOtherEvents.firstChild) {
-    listOtherEvents.removeChild(listOtherEvents.firstChild);
-  }
+  console.log('displayStats')
 
-  otherEvents.forEach((otherEvent) => {
-    displayOtherEvent(otherEvent)     
-  })
+  console.log(stats)
+
+  document.getElementById('qr_code_scans_today').innerText = stats.qr_code_scans_today
+
+  document.getElementById('manual_entries_today').innerText = stats.manual_entries_today
+
+  document.getElementById('people_with_bluetooth_tracing_active_today').innerText = stats.people_with_bluetooth_tracing_active_today
 
 
+  document.getElementById('all_time_app_registrations').innerText = stats.all_time_app_registrations
+
+  document.getElementById('all_time_posters_created').innerText = stats.all_time_posters_created
+
+  /*
   
-  
+12:20 PM
+  manual_entries_today: '36,542',
+12:20 PM
+  people_with_bluetooth_tracing_active_today: '2,079,018',
+12:20 PM
+  all_time_app_registrations: '3,193,338',
+12:20 PM
+  all_time_app_registrations_daily_change: '1,323 new today',
+12:20 PM
+  all_time_posters_created: '707,199',
+12:20 PM
+  all_time_posters_created_daily_change: '0 new today',
+  */
   
   updateGraph();  
 }
@@ -51,112 +46,29 @@ function displayStats(){
 
 
 
-const getStatsListener = function() {
-  var data = JSON.parse(this.responseText)
-
-  data
-
-  cancellations = data.filter(cancellation => isCancellationOrDelay(cancellation))
-  otherEvents = data.filter(cancellation => !isCancellationOrDelay(cancellation))
-  
-
-  displayCancellations();
+const getLatestStatsListener = function() {
+  var latestStats = JSON.parse(this.responseText)
+  stats.push(latestStats)
+  displayStats(latestStats);
 }
 
 
+socket.on('latestStats', function (latestStats) {
 
-socket.on('cancellation', function (cancellation) {
-
-  addCancellation(cancellation)
+  stats.push(latestStats)
+  displayStats(latestStats);
 
 });
 
 
-
-function addCancellation(cancellation){
-
-  var cancellationIndex = cancellations.findIndex(elem => elem.id == cancellation.id)
-  if(cancellationIndex == -1){
-    cancellations.push(cancellation)
-  }else{  
-    cancellations.splice(cancellationIndex, 1, cancellation)
-  }
-
-  cancellations = cancellations.filter(cancellation => isFiltered(cancellation))
-
-  // Filter out non cancellations
-  cancellations = cancellations.filter(cancellation => isCancellationOrDelay(cancellation))
-  otherEvents = cancellations.filter(cancellation => !isCancellationOrDelay(cancellation))
-
-
-
-  // cancellations.push(cancellation)
-  // displayCancellation(cancellation)
-  // updateGraph();  
-  displayCancellations()
+function refreshLatestStats(){
+  const latestStatsRequest = new XMLHttpRequest();
+  latestStatsRequest.onload = getLatestStatsListener;
+  latestStatsRequest.open('get', '/latestStats');
+  latestStatsRequest.send();  
 }
 
-
-
-
-
-
-
-const displayCancellation = function(cancellation){
-  let listResults = document.getElementById('listResults');
-
-  var displayMessage = cancellation.description
-
-  let node = document.createElement("LI");
-  node.className = 'list-group-item list-group-item-danger';
-  var textnode = document.createTextNode(displayMessage);         // Create a text node
-  node.appendChild(textnode);                              // Append the text to <li>
-  // listResults.appendChild(node);
-
-  listResults.insertBefore(node, listResults.firstChild);
-
-
-}
-
-
-const displayOtherEvent = function(otherEvent){
-  let listOtherEvents = document.getElementById('listOtherEvents');
-
-  var displayMessage = otherEvent.description
-
-  let node = document.createElement("LI");
-  node.className = 'list-group-item list-group-item-info';
-  var textnode = document.createTextNode(displayMessage);         // Create a text node
-  node.appendChild(textnode);                              // Append the text to <li>
-  // listResults.appendChild(node);
-
-  listOtherEvents.insertBefore(node, listOtherEvents.firstChild);
-
-
-}
-
-function refreshCancellations(){
-  const cancellationsRequest = new XMLHttpRequest();
-  cancellationsRequest.onload = getCancellationsListener;
-  
-  var from = new Date()
-  from.setDate(from.getDate() - reviewPeriodDays)  // A multiple of 24 hours back from now - so if <=3 days, same time in day
-  console.log(from)
-  console.log(from.toUTCString())
-  if(reviewPeriodDays>3){
-      from.setMinutes(0)
-      from.setSeconds(0)
-      from.setMilliseconds(0)
-      from.setHours(0)
-  }
-  // console.log('from')
-  // console.log(from)
-  // cancellationsRequest.params.from = from
-  cancellationsRequest.open('get', '/cancellations?from=' + from.toUTCString());
-  cancellationsRequest.send();  
-}
-
-refreshCancellations()
+refreshLatestStats()
 
 
 
@@ -168,213 +80,132 @@ var chart
 
 function updateGraph(){
 
-  let labels = []
-  let dataValues = []
+//   let labels = []
+//   let dataValues = []
   
-  var now = new Date()
-  let hoursOffset = now.getHours() 
+//   var now = new Date()
+//   let hoursOffset = now.getHours() 
 
-  var hour = hoursOffset
+//   var hour = hoursOffset
   
-  var reviewPeriodHours = reviewPeriodDays * 24
+//   var reviewPeriodHours = reviewPeriodDays * 24
   
-  var bins = reviewPeriodHours
-  var binDateDiffMiliseconds = 60 * 60 * 1000
+//   var bins = reviewPeriodHours
+//   var binDateDiffMiliseconds = 60 * 60 * 1000
 
-  var displayingDays = false;
-  if(reviewPeriodDays>3){
-    displayingDays = true;
-  }
+//   var displayingDays = false;
+//   if(reviewPeriodDays>3){
+//     displayingDays = true;
+//   }
 
-  if(displayingDays == true){
-    bins = reviewPeriodDays
-    binDateDiffMiliseconds = 24 * 60 * 60 * 1000
-  }
+//   if(displayingDays == true){
+//     bins = reviewPeriodDays
+//     binDateDiffMiliseconds = 24 * 60 * 60 * 1000
+//   }
   
-  console.log(bins)
-  var mostRecentBinDate = new Date()
-  console.log('mostRecentBinDate')
-  console.log(mostRecentBinDate)
-  // binDate.setHours(-5)
+//   console.log(bins)
+//   var mostRecentBinDate = new Date()
+//   console.log('mostRecentBinDate')
+//   console.log(mostRecentBinDate)
+//   // binDate.setHours(-5)
 
-  mostRecentBinDate.setMinutes(0)
-  mostRecentBinDate.setSeconds(0)
-  mostRecentBinDate.setMilliseconds(0)
+//   mostRecentBinDate.setMinutes(0)
+//   mostRecentBinDate.setSeconds(0)
+//   mostRecentBinDate.setMilliseconds(0)
 
-  console.log(mostRecentBinDate)
-  if(displayingDays){
-    mostRecentBinDate.setHours(0)
-  }
+//   console.log(mostRecentBinDate)
+//   if(displayingDays){
+//     mostRecentBinDate.setHours(0)
+//   }
 
-  var binDate = new Date(mostRecentBinDate.getTime() - bins * binDateDiffMiliseconds)
+//   var binDate = new Date(mostRecentBinDate.getTime() - bins * binDateDiffMiliseconds)
 
 
-  // Set up bins
-  // var lastBinHours = 0;
-  for(var binIndex = 0; binIndex < bins; ++binIndex){
-    binDate = new Date(binDate.getTime() + binDateDiffMiliseconds)
-    // console.log('binIndex: ' + binIndex)
-    // console.log(binDate)
+//   // Set up bins
+//   // var lastBinHours = 0;
+//   for(var binIndex = 0; binIndex < bins; ++binIndex){
+//     binDate = new Date(binDate.getTime() + binDateDiffMiliseconds)
+//     // console.log('binIndex: ' + binIndex)
+//     // console.log(binDate)
 
     
-      if(displayingDays){
-        labels[binIndex] = binDate.getDate()
-      } else {
-        // if(binDate.getHours() == 0){
-        //   labels[binIndex] = "> " + binDate.getHours()
-        // } else {
-          labels[binIndex] = binDate.getHours() + ":00"
-        // }
-      }
-    dataValues[binIndex] = 0
-  }
+//       if(displayingDays){
+//         labels[binIndex] = binDate.getDate()
+//       } else {
+//         // if(binDate.getHours() == 0){
+//         //   labels[binIndex] = "> " + binDate.getHours()
+//         // } else {
+//           labels[binIndex] = binDate.getHours() + ":00"
+//         // }
+//       }
+//     dataValues[binIndex] = 0
+//   }
 
-  // Populate data in each bin
-  cancellations.forEach(cancellation => {
+//   // Populate data in each bin
+//   cancellations.forEach(cancellation => {
 
-    var targetBinDate = new Date(cancellation.timestamp)
-    targetBinDate.setMinutes(0)
-    targetBinDate.setSeconds(0)
-    targetBinDate.setMilliseconds(0)
-    // console.log(targetBinDate)
+//     var targetBinDate = new Date(cancellation.timestamp)
+//     targetBinDate.setMinutes(0)
+//     targetBinDate.setSeconds(0)
+//     targetBinDate.setMilliseconds(0)
+//     // console.log(targetBinDate)
 
-    if(displayingDays){
-      targetBinDate.setHours(0)
-    }
-    // console.log(targetBinDate)
+//     if(displayingDays){
+//       targetBinDate.setHours(0)
+//     }
+//     // console.log(targetBinDate)
 
-    var targetBinIndex = bins -1 - (mostRecentBinDate.getTime() - targetBinDate.getTime())/ binDateDiffMiliseconds
+//     var targetBinIndex = bins -1 - (mostRecentBinDate.getTime() - targetBinDate.getTime())/ binDateDiffMiliseconds
     
-    // console.log((mostRecentBinDate.getTime() - targetBinDate.getTime())/ binDateDiffMiliseconds)
-    console.log(cancellation.timestamp)
-    console.log(targetBinIndex)
-    dataValues[targetBinIndex]++
+//     // console.log((mostRecentBinDate.getTime() - targetBinDate.getTime())/ binDateDiffMiliseconds)
+//     console.log(cancellation.timestamp)
+//     console.log(targetBinIndex)
+//     dataValues[targetBinIndex]++
 
-  })
+//   })
 
   
-  const data = {
-    labels: labels,
-    datasets: [{
-      label: displayingDays?'Cancellations/day':'Cancellations/hr',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: dataValues,
-    }]
-  };
+//   const data = {
+//     labels: labels,
+//     datasets: [{
+//       label: displayingDays?'Cancellations/day':'Cancellations/hr',
+//       backgroundColor: 'rgb(255, 99, 132)',
+//       borderColor: 'rgb(255, 99, 132)',
+//       data: dataValues,
+//     }]
+//   };
 
-  const config = {
-    type: 'bar',
-    data,
-    options: {
+//   const config = {
+//     type: 'bar',
+//     data,
+//     options: {
       
       
-//       scales: {
-//       x: {
-//         offset: true
+// //       scales: {
+// //       x: {
+// //         offset: true
+// //         }
+// //       },
+      
+//         animation: {
+//           duration:0  // prevent pesky animation, espcially on update
 //         }
-//       },
-      
-        animation: {
-          duration:0  // prevent pesky animation, espcially on update
-        }
-    }
-  };
+//     }
+//   };
 
 
-  if(chart==null){
-    chart = new Chart(
-      document.getElementById('chart'),
-      config
-    )
-  } else {
-    chart.config.data = data;
-    chart.update(/*{mode: 'none'}*/);
-  } 
+//   if(chart==null){
+//     chart = new Chart(
+//       document.getElementById('chart'),
+//       config
+//     )
+//   } else {
+//     chart.config.data = data;
+//     chart.update(/*{mode: 'none'}*/);
+//   } 
   
-  updateSummary()
 }
 
-
-function updateSummary(){
-
-  console.log("updateSummary")
-  let services = []
-  
-  cancellations.forEach(cancellation => {
-
-      let service = services[cancellation.routeId]
-      if(service==null){
-        service = {
-          route_short_name : cancellation.route_short_name,
-          cancellations : 1
-        }
-      } else{
-        ++service.cancellations;
-      }
-    
-      services[cancellation.routeId] = service
-      
-  })
-  
-  console.log(services)
-  services.sort((a, b) => {return b.cancellations - a.cancellations})
-  console.log(services)
-
-  var servicesSummarised = 0;
-  var summary = ""
-  services.forEach(service => {
-    if(servicesSummarised++ < 5){
-      summary += service.route_short_name + " (" + service.cancellations + "), "
-      console.log(service.route_short_name + ": " + service.cancellations)
-    }
-  })
-  
-  if(summary.length>2){
-    summary = summary.substring(0, summary.length-2)
-  }
-  
-  document.querySelector('#cancellationsSummary').textContent = summary
-}
-
-
-
-function isCancellationOrDelay(cancellation){
-  if(   
-//     cancellation.cause == "STRIKE"
-//      || cancellation.cause == "TECHNICAL_PROBLEM"
-//      // || cancellation.cause == "OTHER_CAUSE"
-//      // || cancellation.cause == "ACCIDENT"    // Kind of not really avoidable
-     cancellation.effect == "NO_SERVICE"
-     || cancellation.effect == "REDUCED_SERVICE"
-     || cancellation.effect == "SIGNIFICANT_DELAYS"
-    ) {
-    // console.log(cancellation.description)
-    return true
-  } else {
-    // console.log("NOT ******* " + cancellation.description)
-    // console.log(cancellation.cause)
-    // console.log(cancellation.effect)
-
-
-    return false
-  }
-}
-
-
-function isFiltered(cancellation){
-  
-  if( serviceFilter == ''){
-    return true;
-  }
-  
-  if( cancellation.route_short_name == serviceFilter){
-    // console.log(cancellation.description)
-    return true
-  } else {
-    return false
-  }
-}
 
 
 
@@ -393,7 +224,7 @@ socket.on('ping', function (pingNo) {
       console.warn("Last pingNo:" + lastPingNo)
       console.warn("This pingNo:" + pingNo)
       console.warn("Refreshing cancellations...")
-      refreshCancellations()
+      refreshLatestStats()
 
     }
     lastPingNo = pingNo

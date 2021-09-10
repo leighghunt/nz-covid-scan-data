@@ -203,7 +203,7 @@ function updateStats(){
   })  
 }
 
-app.get('/stats/', async function(request, response) {
+app.get('/latestStats/', async function(request, response) {
 
     Stats.findOne({order: [['timestamp']]})
       .then(stats => {
