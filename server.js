@@ -247,6 +247,8 @@ app.get('/stats/', async function(request, response) {
         order: [['generated']]
       })
       .then(stats => {
+      
+        // Set zero value
         stats.push({
           generated: from,
           qr_code_scans_today: 0

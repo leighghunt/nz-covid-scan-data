@@ -14,31 +14,12 @@ function displayStats(stats){
   console.log(stats)
 
   document.getElementById('qr_code_scans_today').innerText = stats.qr_code_scans_today.toLocaleString()
-
   document.getElementById('manual_entries_today').innerText = stats.manual_entries_today.toLocaleString()
-
   document.getElementById('people_with_bluetooth_tracing_active_today').innerText = stats.people_with_bluetooth_tracing_active_today.toLocaleString()
 
-
   document.getElementById('all_time_app_registrations').innerText = stats.all_time_app_registrations.toLocaleString()
-
   document.getElementById('all_time_posters_created').innerText = stats.all_time_posters_created.toLocaleString()
 
-  /*
-  
-12:20 PM
-  manual_entries_today: '36,542',
-12:20 PM
-  people_with_bluetooth_tracing_active_today: '2,079,018',
-12:20 PM
-  all_time_app_registrations: '3,193,338',
-12:20 PM
-  all_time_app_registrations_daily_change: '1,323 new today',
-12:20 PM
-  all_time_posters_created: '707,199',
-12:20 PM
-  all_time_posters_created_daily_change: '0 new today',
-  */
   
   updateGraph();  
 }
@@ -114,7 +95,7 @@ var chart
 
 function updateGraph(){
 
-  let todaysData = todaysStats.map(data => {return {x: data.generated, y: data.qr_code_scans_today}});
+  let todaysData = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
   console.log(todaysData);
   
   const data = {
@@ -131,17 +112,32 @@ function updateGraph(){
     type: 'line',
     data,
     options: {
+
+//       plugins: {
+//         title: {
+//           text: 'Chart.js Time Scale',
+//           display: true
+//         }
+//       },      
       
+//       scales: {
+//           x: {
+//             // type: 'time',
+// //             time: {
+// //               // Luxon format string
+// //               tooltipFormat: 'DD T'
+// //             },
+// //             title: {
+// //               display: true,
+// //               text: 'Date'
+// //             }
+
+//           }
+//       },
       
-        // scales: {
-        //     x: {
-        //         type: 'timeseries',
-        //     }
-        // },
-      
-        animation: {
-          duration:0  // prevent pesky animation, espcially on update
-        }
+      animation: {
+        duration:0  // prevent pesky animation, espcially on update
+      }
     }
   };
 
