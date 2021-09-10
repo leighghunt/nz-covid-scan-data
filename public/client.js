@@ -84,8 +84,6 @@ function getTodaysStats(){
 }
 
 getTodaysStats()
-updateHistoricGraph()
-
 
 
 
@@ -109,10 +107,14 @@ function getHistoricStats(){
   // console.log(startOfTodayNZ.toUTCString())
 
   const historicStatsRequest = new XMLHttpRequest();
-  historicStatsRequest.onload = todaysStatsListener;
-  historicStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
+  historicStatsRequest.onload = historicStatsListener;
+  historicStatsRequest.open('get', '/historicData.json')
   historicStatsRequest.send();  
 }
+
+getHistoricStats()
+
+
 
 /*
 Chart stuff
@@ -215,12 +217,21 @@ function updateGraph(){
 
 function updateHistoricGraph(){
 
-  historicStats = todaysStats
-  
 
   // let labels = todaysStats.map(data => new Date(data.generated));
-  let historicQRCodeScans = historicStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
+  // let historicQRCodeScans = historicStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
 
+  let historicQRCodeScans = historicStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data['Date/Time To'].Substring()
+      ), 
+      y: parseInt(data.Scans.replace(/,/g, ''))
+    }
+  });
+  
+  // parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value.replace(/,/g, '')),
 
   const data = {
     // labels: labels,
