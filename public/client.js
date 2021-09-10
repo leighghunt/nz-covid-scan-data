@@ -3,8 +3,8 @@
 var io = window.io;
 var socket = io.connect(window.location.hostname);
 
-// var latestStats = {}
-var stats = []
+var latestStats = {}
+// var stats = []
 var todaysStats = []
 var historicStats = []
 
@@ -14,12 +14,12 @@ function displayStats(stats){
 
   console.log(stats)
 
-  document.getElementById('qr_code_scans_today').innerText = stats.qr_code_scans_today.toLocaleString()
-  document.getElementById('manual_entries_today').innerText = stats.manual_entries_today.toLocaleString()
-  document.getElementById('people_with_bluetooth_tracing_active_today').innerText = stats.people_with_bluetooth_tracing_active_today.toLocaleString()
+  document.getElementById('qr_code_scans_today').innerText = latestStats.qr_code_scans_today.toLocaleString()
+  document.getElementById('manual_entries_today').innerText = latestStats.manual_entries_today.toLocaleString()
+  document.getElementById('people_with_bluetooth_tracing_active_today').innerText = latestStats.people_with_bluetooth_tracing_active_today.toLocaleString()
 
-  document.getElementById('all_time_app_registrations').innerText = stats.all_time_app_registrations.toLocaleString()
-  document.getElementById('all_time_posters_created').innerText = stats.all_time_posters_created.toLocaleString()
+  document.getElementById('all_time_app_registrations').innerText = latestStats.all_time_app_registrations.toLocaleString()
+  document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
 
   
   updateGraph();  
@@ -30,14 +30,14 @@ function displayStats(stats){
 
 
 const getLatestStatsListener = function() {
-  var latestStats = JSON.parse(this.responseText)
-  stats.push(latestStats)
+  latestStats = JSON.parse(this.responseText)
+  todaysStats.push(latestStats)
   displayStats(latestStats);
 }
 
 
-socket.on('latestStats', function (latestStats) {
-
+socket.on('latestStats', function (stats) {
+  latestStats = stats
   stats.push(latestStats)
 
 
@@ -233,7 +233,7 @@ function updateHistoricGraph(){
     }
   });
   
-  historicQRCodeScans.push({x: new Date(), y: stats.qr_code_scans_today})
+  historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
   
   console.log(historicQRCodeScans)
   
