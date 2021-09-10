@@ -38,7 +38,7 @@ const getLatestStatsListener = function() {
 
 socket.on('latestStats', function (stats) {
   latestStats = stats
-  stats.push(latestStats)
+  todaysStats.push(latestStats)
 
 
   console.log(stats)
@@ -112,8 +112,7 @@ function getHistoricStats(){
   historicStatsRequest.send();  
 }
 
-getHistoricStats()
-
+setTimeout(function(){ getHistoricStats() }, 1000);
 
 
 /*
