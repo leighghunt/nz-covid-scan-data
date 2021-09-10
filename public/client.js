@@ -102,7 +102,7 @@ function updateGraph(){
     // labels: ['A', 'b', 'c'],
     datasets: [{
       label: 'Scans Today',
-      backgroundColor: 'rgb(255, 99, 132)',
+      // backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
       data: todaysData,
     }]
@@ -121,19 +121,26 @@ function updateGraph(){
       },      
       
       scales: {
-          x: {
-            type: 'time',
-            time: {
-              tooltipFormat: 'HH',
-              unit:'hour'
-
-            },
-            title: {
-              display: true,
-              text: 'Date'
-            }
-
+        xAxes: [{
+          type: 'time',
+          time: { 
+            unit: 'hour'
           }
+        }]
+
+//           x: {
+//             type: 'time',
+//             time: {
+//               tooltipFormat: 'HH',
+//               unit:'hour'
+
+//             },
+//             title: {
+//               display: true,
+//               text: 'Date'
+//             }
+
+//           }
       },
       
       animation: {
