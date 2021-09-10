@@ -95,7 +95,10 @@ var chart
 
 function updateGraph(){
 
-  let todaysData = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
+  let labels = todaysStats.map(data => new Date(data.generated));
+
+  let todaysQRCodeScansData = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
+
   console.log(todaysData);
   
   const data_ = {
@@ -110,27 +113,14 @@ function updateGraph(){
   
   
 const data = {
-  labels: [ // Date Objects
-    new Date('2021-09-09T01:43:14.297Z'),
-    new Date('2021-09-09T02:45:14.297Z'),
-    new Date('2021-09-09T03:48:14.297Z'),
-    new Date('2021-09-09T04:43:14.297Z'),
-    new Date('2021-09-09T05:45:14.297Z'),
-    new Date('2021-09-09T06:48:14.297Z'),
-    new Date('2021-09-09T07:43:14.297Z'),
-  ],
+  labels: labels,
   datasets: [{
-    label: 'My First dataset',
-    backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-    borderColor: Utils.CHART_COLORS.red,
+    label: 'QR Scans today',
+    // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+    borderColor: 'rgb(255, 99, 132)',
     fill: false,
-    data: Utils.numbers(NUMBER_CFG),
-  }, {
-    label: 'My Second dataset',
-    backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-    borderColor: Utils.CHART_COLORS.blue,
-    fill: false,
-    data: Utils.numbers(NUMBER_CFG)
+    // lineTension: 0,       
+    data: todaysData
   }]
 };
 
@@ -139,6 +129,7 @@ const data = {
     data,
     options: {
 
+      elements: { point: { radius: 0 } },
       plugins: {
         title: {
           text: 'Chart.js Time Scale',
@@ -152,7 +143,15 @@ const data = {
           time: { 
             unit: 'hour'
           }
-        }]
+        }],
+        
+       yAxes: [{
+         ticks: {
+           callback: function(value, index, values) {
+             return value.toLocaleString("en-NZ",{});
+           }
+         }
+       }]
 
 //           x: {
 //             type: 'time',
