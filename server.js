@@ -187,13 +187,13 @@ function updateStats(){
       
     console.log(latestStat);
 
-    Stats.create(latestStat)
+    latestStat = await Stats.create(latestStat)
 
     console.log('emitting...')
 
     console.log(latestStat)
 
-    io.emit('latestStat', latestStat)
+    io.emit('latestStats', latestStat)
 
     // })
   })
@@ -205,7 +205,7 @@ function updateStats(){
 
 app.get('/latestStats/', async function(request, response) {
 
-    Stats.findOne({order: [['timestamp']]})
+    Stats.findOne({order: [['timestamp', 'DESC']]})
       .then(stats => {
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(stats));

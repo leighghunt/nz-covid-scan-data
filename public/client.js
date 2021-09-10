@@ -56,6 +56,10 @@ const getLatestStatsListener = function() {
 socket.on('latestStats', function (latestStats) {
 
   stats.push(latestStats)
+
+
+  console.log(stats)
+
   displayStats(latestStats);
 
 });
