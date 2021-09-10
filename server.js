@@ -215,7 +215,7 @@ app.get('/latestStats/', async function(request, response) {
 
 app.get('/last24HoursStats/', async function(request, response) {
 
-    var 24
+    var startOfTodayNz = new Date()
     Stats.findAll(
       {
         order: [['timestamp', 'DESC']],

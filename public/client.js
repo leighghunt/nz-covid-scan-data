@@ -74,7 +74,32 @@ function refreshLatestStats(){
 
 refreshLatestStats()
 
+getTodaysStats()
 
+function getTodaysStats(){
+  let startOfTodayNZ = new Date()
+  startOfTodayNZ.setHours(0)
+  startOfTodayNZ.setMinutes(0)
+  startOfTodayNZ.setSeconds(0)
+  startOfTodayNZ.setMilliseconds(0)
+  
+  console.log(startOfTodayNZ)
+
+  console.log(startOfTodayNZ.toUTCString())
+
+  const todaysStatsRequest = new XMLHttpRequest();
+  todaysStatsRequest.onload = todaysStatsListener;
+  todaysStatsRequest.open('get', '/todaysStats?from=' + startOfTodayNZ.toUTCString());
+  todaysStatsRequest.send();  
+}
+
+
+
+
+const todaysStatsListener = function() {
+  var todaysStats = JSON.parse(this.responseText)
+  console.log(todaysStats)
+}
 
 /*
 Chart stuff
