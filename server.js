@@ -264,6 +264,60 @@ app.get('/stats/', async function(request, response) {
 
 
 
+// app.get('/historicStats/', async function(request, response) {
+
+  
+//     var from = new Date()
+//     from.setDate(from.getDate() - 1)
+  
+//     if(request.query.from!=null){
+//       from = new Date(request.query.from)
+//     }
+
+    
+//     var to = new Date()
+  
+//     if(request.query.to!=null){
+//       to = new Date(request.query.to)
+//     }
+
+//     console.log('statsHistoric')
+//     console.log(from)
+//     console.log(to)
+  
+    
+
+// //     Stats.findAll(
+// //       {
+// //         where: { 
+// //           generated: {
+// //             [Op.and]:[
+// //               {[Op.gte]: from},
+// //               {[Op.lte]: to}
+// //             ]
+// //           }
+// //         },
+// //         order: [['generated']]
+// //       })
+// //       .then(stats => {
+      
+// //         // Set zero value
+// //         // stats.unshift({
+// //         //   generated: from,
+// //         //   qr_code_scans_today: 0
+// //         // })
+// //         // console.log(stats)
+
+// //         // console.log(stats.length)
+
+//         response.setHeader('Content-Type', 'application/json')
+//         response.send(JSON.stringify(stats));
+//     // });
+// });
+
+
+
+
 
 
 cron.schedule('*/1 * * * *', () => {

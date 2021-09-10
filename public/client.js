@@ -6,6 +6,7 @@ var socket = io.connect(window.location.hostname);
 // var latestStats = {}
 var stats = []
 var todaysStats = []
+var historicStats = []
 
 function displayStats(stats){
   
@@ -83,15 +84,43 @@ function getTodaysStats(){
 }
 
 getTodaysStats()
+updateHistoricGraph()
 
 
 
+
+
+const historicStatsListener = function() {
+  historicStats = JSON.parse(this.responseText)
+  console.log(historicStats)
+  updateHistoricGraph()
+}
+
+
+function getHistoricStats(){
+  // let startOfTodayNZ = new Date()
+  // startOfTodayNZ.setHours(0)
+  // startOfTodayNZ.setMinutes(0)
+  // startOfTodayNZ.setSeconds(0)
+  // startOfTodayNZ.setMilliseconds(0)
+  
+  // console.log(startOfTodayNZ)
+
+  // console.log(startOfTodayNZ.toUTCString())
+
+  const historicStatsRequest = new XMLHttpRequest();
+  historicStatsRequest.onload = todaysStatsListener;
+  historicStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
+  historicStatsRequest.send();  
+}
 
 /*
 Chart stuff
 */
 
 var chart
+var chartHistoric
+
 
 function updateGraph(){
 
@@ -186,23 +215,13 @@ function updateGraph(){
 
 function updateHistoricGraph(){
 
-  // let labels = todaysStats.map(data => new Date(data.generated));
-
-  let todaysQRCodeScans = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
-
-  let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
-
-  let startOfTodayNZ = new Date()
-  startOfTodayNZ.setHours(0)
-  startOfTodayNZ.setMinutes(0)
-  startOfTodayNZ.setSeconds(0)
-  startOfTodayNZ.setMilliseconds(0)
-
-  let endOfTodayNZ = new Date(startOfTodayNZ)
-  endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
-
-  console.log(todaysQRCodeScans);
+  historicStats = todaysStats
   
+
+  // let labels = todaysStats.map(data => new Date(data.generated));
+  let historicQRCodeScans = historicStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
+
+
   const data = {
     // labels: labels,
     datasets: [
@@ -212,14 +231,7 @@ function updateHistoricGraph(){
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
         // lineTension: 0,       
-        data: todaysQRCodeScans
-      },    {
-        label: 'Manual entries',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(50, 99, 255)',
-        fill: false,
-        // lineTension: 0,       
-        data: todaysManualEntries
+        data: historicQRCodeScans
       }
     ]
   };
@@ -230,20 +242,12 @@ function updateHistoricGraph(){
     options: {
 
       elements: { point: { radius: 0 } },
-      plugins: {
-        title: {
-          text: 'Chart.js Time Scale',
-          display: true
-        }
-      },      
       
       scales: {
         xAxes: [{
           type: 'time',
           time: { 
-            unit: 'hour',
-            min: startOfTodayNZ,
-            max: endOfTodayNZ
+            unit: 'month'
           },
         }],
         
@@ -263,14 +267,14 @@ function updateHistoricGraph(){
   };
 
 
-  if(chart==null){
-    chart = new Chart(
-      document.getElementById('chart'),
+  if(chartHistoric==null){
+    chartHistoric = new Chart(
+      document.getElementById('chartHistoric'),
       config
     )
   } else {
-    chart.config.data = data;
-    chart.update(/*{mode: 'none'}*/);
+    chartHistoric.config.data = data;
+    chartHistoric.update(/*{mode: 'none'}*/);
   } 
   
 }
