@@ -171,14 +171,14 @@ function updateStats(){
       timestamp: new Date(),
       generated: apiResponse.data.generated,
 
-      qr_code_scans_today: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value,
-      manual_entries_today: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Manual entries today').value,
-      people_with_bluetooth_tracing_active_today: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='People with Bluetooth tracing active today').value,
+      qr_code_scans_today: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value.replace(/,/g, '')),
+      manual_entries_today: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Manual entries today').value.replace(/,/g, '')),
+      people_with_bluetooth_tracing_active_today: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='People with Bluetooth tracing active today').value.replace(/,/g, '')),
       
-      all_time_app_registrations: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').value,
+      all_time_app_registrations: parseInt(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').value.replace(/,/g, '')),
       all_time_app_registrations_daily_change: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').dailyChange,
 
-      all_time_posters_created: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').value,
+      all_time_posters_created: parseInt(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').value.replace(/,/g, '')),
       all_time_posters_created_daily_change: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').dailyChange,
       JSON: JSON.stringify(apiResponse.data)
     }    

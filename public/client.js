@@ -114,97 +114,16 @@ var chart
 
 function updateGraph(){
 
-//   let labels = []
-//   let dataValues = []
-  
-  var now = new Date()
-  
-//   let hoursOffset = now.getHours() 
-
-//   var hour = hoursOffset
-  
-//   var reviewPeriodHours = reviewPeriodDays * 24
-  
-//   var bins = reviewPeriodHours
-//   var binDateDiffMiliseconds = 60 * 60 * 1000
-
-//   var displayingDays = false;
-//   if(reviewPeriodDays>3){
-//     displayingDays = true;
-//   }
-
-//   if(displayingDays == true){
-//     bins = reviewPeriodDays
-//     binDateDiffMiliseconds = 24 * 60 * 60 * 1000
-//   }
-  
-//   console.log(bins)
-//   var mostRecentBinDate = new Date()
-//   console.log('mostRecentBinDate')
-//   console.log(mostRecentBinDate)
-//   // binDate.setHours(-5)
-
-//   mostRecentBinDate.setMinutes(0)
-//   mostRecentBinDate.setSeconds(0)
-//   mostRecentBinDate.setMilliseconds(0)
-
-//   console.log(mostRecentBinDate)
-//   if(displayingDays){
-//     mostRecentBinDate.setHours(0)
-//   }
-
-//   var binDate = new Date(mostRecentBinDate.getTime() - bins * binDateDiffMiliseconds)
-
-
-//   // Set up bins
-//   // var lastBinHours = 0;
-//   for(var binIndex = 0; binIndex < bins; ++binIndex){
-//     binDate = new Date(binDate.getTime() + binDateDiffMiliseconds)
-//     // console.log('binIndex: ' + binIndex)
-//     // console.log(binDate)
-
-    
-//       if(displayingDays){
-//         labels[binIndex] = binDate.getDate()
-//       } else {
-//         // if(binDate.getHours() == 0){
-//         //   labels[binIndex] = "> " + binDate.getHours()
-//         // } else {
-//           labels[binIndex] = binDate.getHours() + ":00"
-//         // }
-//       }
-//     dataValues[binIndex] = 0
-//   }
-
-//   // Populate data in each bin
-//   cancellations.forEach(cancellation => {
-
-//     var targetBinDate = new Date(cancellation.timestamp)
-//     targetBinDate.setMinutes(0)
-//     targetBinDate.setSeconds(0)
-//     targetBinDate.setMilliseconds(0)
-//     // console.log(targetBinDate)
-
-//     if(displayingDays){
-//       targetBinDate.setHours(0)
-//     }
-//     // console.log(targetBinDate)
-
-//     var targetBinIndex = bins -1 - (mostRecentBinDate.getTime() - targetBinDate.getTime())/ binDateDiffMiliseconds
-    
-//     // console.log((mostRecentBinDate.getTime() - targetBinDate.getTime())/ binDateDiffMiliseconds)
-//     console.log(cancellation.timestamp)
-//     console.log(targetBinIndex)
-//     dataValues[targetBinIndex]++
-
+  let todaysData = todaysStats.map(data => {return {x: data.generated, y: data.qr_code_scans_today}});
+  console.log(todaysData);
   
   const data = {
-    labels: ['A', 'b', 'c'],
+    // labels: ['A', 'b', 'c'],
     datasets: [{
       label: 'Scans Today',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: [1, 2, 3],
+      data: todaysData,
     }]
   };
 
