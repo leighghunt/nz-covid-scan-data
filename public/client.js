@@ -225,11 +225,17 @@ function updateHistoricGraph(){
     return {
       // x: new Date(data['Date/Time To']), 
       x: new Date(
-        data['Date/Time To'].Substring()
+        data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        data['Date/Time To'].toString().substr(0, 2) 
       ), 
       y: parseInt(data.Scans.replace(/,/g, ''))
     }
   });
+  
+  historicQRCodeScans.push({x: new Date(), y: stats.qr_code_scans_today})
+  
+  console.log(historicQRCodeScans)
   
   // parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value.replace(/,/g, '')),
 
