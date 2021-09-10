@@ -113,27 +113,29 @@ function updateGraph(){
     data,
     options: {
 
-//       plugins: {
-//         title: {
-//           text: 'Chart.js Time Scale',
-//           display: true
-//         }
-//       },      
+      plugins: {
+        title: {
+          text: 'Chart.js Time Scale',
+          display: true
+        }
+      },      
       
-//       scales: {
-//           x: {
-//             // type: 'time',
-// //             time: {
-// //               // Luxon format string
-// //               tooltipFormat: 'DD T'
-// //             },
-// //             title: {
-// //               display: true,
-// //               text: 'Date'
-// //             }
+      scales: {
+          x: {
+            type: 'time',
+            time: {
+              tooltipFormat: 'HH'
+              // parser: timeFormat,
+              round: 'hour',
 
-//           }
-//       },
+            },
+            title: {
+              display: true,
+              text: 'Date'
+            }
+
+          }
+      },
       
       animation: {
         duration:0  // prevent pesky animation, espcially on update
