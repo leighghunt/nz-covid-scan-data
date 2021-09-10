@@ -89,17 +89,6 @@ function updateGraph(){
   
   var now = new Date()
   
-  var chart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: {
-        scales: {
-            x: {
-                type: 'timeseries',
-            }
-        }
-    }
-});
 //   let hoursOffset = now.getHours() 
 
 //   var hour = hoursOffset
@@ -178,47 +167,45 @@ function updateGraph(){
 //     console.log(targetBinIndex)
 //     dataValues[targetBinIndex]++
 
-//   })
-
   
-//   const data = {
-//     labels: labels,
-//     datasets: [{
-//       label: displayingDays?'Cancellations/day':'Cancellations/hr',
-//       backgroundColor: 'rgb(255, 99, 132)',
-//       borderColor: 'rgb(255, 99, 132)',
-//       data: dataValues,
-//     }]
-//   };
+  const data = {
+    labels: ['A', 'b', 'c'],
+    datasets: [{
+      label: 'Scans Today',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [1, 2, 3],
+    }]
+  };
 
-//   const config = {
-//     type: 'bar',
-//     data,
-//     options: {
+  const config = {
+    type: 'line',
+    data,
+    options: {
       
       
-// //       scales: {
-// //       x: {
-// //         offset: true
-// //         }
-// //       },
+        // scales: {
+        //     x: {
+        //         type: 'timeseries',
+        //     }
+        // },
       
-//         animation: {
-//           duration:0  // prevent pesky animation, espcially on update
-//         }
-//     }
-//   };
+        animation: {
+          duration:0  // prevent pesky animation, espcially on update
+        }
+    }
+  };
 
 
-//   if(chart==null){
-//     chart = new Chart(
-//       document.getElementById('chart'),
-//       config
-//     )
-//   } else {
-//     chart.config.data = data;
-//     chart.update(/*{mode: 'none'}*/);
-//   } 
+  if(chart==null){
+    chart = new Chart(
+      document.getElementById('chart'),
+      config
+    )
+  } else {
+    chart.config.data = data;
+    chart.update(/*{mode: 'none'}*/);
+  } 
   
 }
 

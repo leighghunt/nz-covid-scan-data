@@ -213,6 +213,26 @@ app.get('/latestStats/', async function(request, response) {
 });
 
 
+app.get('/last24HoursStats/', async function(request, response) {
+
+    var 24
+    Stats.findAll(
+      {
+        order: [['timestamp', 'DESC']],
+        where: {
+        generated: null
+        }
+
+
+      })
+      .then(stats => {
+        response.setHeader('Content-Type', 'application/json')
+        response.send(JSON.stringify(stats));
+    });
+});
+
+
+
 
 
 cron.schedule('*/1 * * * *', () => {
