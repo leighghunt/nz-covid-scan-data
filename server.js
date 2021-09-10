@@ -60,20 +60,20 @@ sequelize.authenticate()
 
 
       qr_code_scans_today: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       },
 
 
       manual_entires_today: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       },
 
       people_with_bluetooth_tracing_active_today: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       },
 
       all_time_app_registrations: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       },
 
 
@@ -82,7 +82,7 @@ sequelize.authenticate()
       },
 
       all_time_posters_created: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       },
 
 
@@ -167,7 +167,6 @@ function updateStats(){
 
 
 
-return
     var latestStat = {
       timestamp: new Date(),
       generated: apiResponse.data.generated,
@@ -186,15 +185,15 @@ return
     
 //     apiResponse.data.entity.forEach(async (entity) => {
       
-        
-        
-      Stats.upsert(latestStat)
+    console.log(latestStat);
 
-      console.log('emitting...')
+    Stats.create(latestStat)
 
-      console.log(latestStat)
+    console.log('emitting...')
 
-      io.emit('latestStat', latestStat)
+    console.log(latestStat)
+
+    io.emit('latestStat', latestStat)
 
     // })
   })

@@ -62,57 +62,29 @@
 
       <p id="demo"></p>
 
-      <div class="jumbotron" style="color:black">
-        <h1 class="display-4">Covid 19 Level 2</h1>
-<!--         <p class="lead">During NZ's Level 4 lockdown, the data displayed here is likely to be inaccurate as timetables are changed to accommodate the lockdown.</p>
-        <hr class="my-4"> -->
-        <p>A big Ka Pai! to all the drivers and staff helping keep public transport running during this time.</p>
-      </div>
-
       <main role="main" class="inner cover">
-        <h1 class="cover-heading"><span id="howmany">??</span> <span id="filterDescription">Metlink</span> services have been cancelled in last 
-            <input id="period" TYPE="NUMBER" MIN="1" MAX="30" VALUE="3"> days</h1>        
         <div>
           <canvas id="chart"></canvas>
         </div>
 
-        Filter services:
-        <input id="filterServices"/><button id="btnFilterServices" type="button" class="btn btn-primary">FILTER</button>
-
         <div class="lead" id="servicesSummary">
           <h2>
-            5 most cancelled services:
+            QR code scans today:
           </h2>
-          <h3 id="cancellationsSummary">
+          <h3 id="qr_code_scans_today">
              ...
           </h3>
 
         </div>
 
-        <p class="lead" >
-          <ul class="list-group" id="listOtherEvents" style="display:block">
-          </ul>
-        
-          <ul class="list-group" id="listResults" style="display:block">
-            <li class="list-group-item list-group-item-action">Checking...</li>
-            <li class="list-group-item list-group-item-action">...</li>
-            <li class="list-group-item list-group-item-action">...</li>
-            <li class="list-group-item list-group-item-action">...</li>
-            <li class="list-group-item list-group-item-action">...</li>
-          </ul>
-
-        </p>
       </main>
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
-          <p>Interface to <a href="https://www.metlink.org.nz">Metlink</a>'s service alerts <a href="https://opendata.metlink.org.nz">API</a>, by <a href="https://twitter.com/leighghunt">@leighghunt</a>, <a href="http://venari.co.nz">Venari Ltd</a>, hosted on <a href="https://glitch.com/~how-many-metlink-cancellations-today">Glitch</a>.</p>
-          <p>Not affiliated Metlink in any way. Not even guaranteed to be accurate - hey it's under development.</p>
+          <p>Interface to <a href="https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data">Ministry of Health</a>'s Covid Tracer Stats <a href="https://enf.tracing.covid19.govt.nz/api/pages/stats">API</a>, by <a href="https://twitter.com/leighghunt">@leighghunt</a>, <a href="http://venari.co.nz">Venari Ltd</a>, hosted on <a href="https://glitch.com/~how-many-metlink-cancellations-today">Glitch</a>.</p>
+          <p>Not affiliated Ministry of Health in any way. Not even guaranteed to be accurate - hey it's under development.</p>
           <p>
             If you want a guaranteed up to date feed of alerts, pleaase check Metlink's own <a href="https://www.metlink.org.nz/alerts">Alert Page</a>.
-          </p>
-          <p>
-            Something not quite right? Please let me know <a href="https://github.com/leighghunt/metlink-cancellations-dashboard/issues/new" target="blank">here</a>.
           </p>
 
           <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>

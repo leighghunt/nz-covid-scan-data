@@ -2,48 +2,11 @@
 
 var io = window.io;
 var socket = io.connect(window.location.hostname);
-var cancellationsDuringPeriod = 0;
-var cancellations = []
-var otherEvents = []
 
-var reviewPeriodDays = document.querySelector('#period').value;
-var serviceFilter = ''
+var stats = {}
 
-
-$('#period').on('change', function(event) {
-  reviewPeriodDays = document.querySelector('#period').value;
-  console.log(reviewPeriodDays)
-  refreshCancellations()
-});
-
-
-$('#btnFilterServices').on('click', function(event) {
-  serviceFilter = document.getElementById('filterServices').value
-
-  if(serviceFilter==''){
-    document.getElementById('filterDescription').innerText = 'Metlink'
-    document.getElementById('servicesSummary').style.display = 'block'
-  } else {
-    document.getElementById('filterDescription').innerText = serviceFilter
-    document.getElementById('servicesSummary').style.display = 'none'
-  }
-
-  console.log(event)
-  refreshCancellations()
-});
-
-
-// $('#filterServices').on('change', function(event) {
-//   console.log(event)
-//   refreshCancellations()
-// });
-
-
-
-
-
-function displayCancellations(){
-  let listResults = document.getElementById('listResults');
+function displayStats(){
+  let qr_code_scans_today = document.getElementById('qr_code_scans_today');
   listResults.style.display = 'block';
   while (listResults.firstChild) {
     listResults.removeChild(listResults.firstChild);
@@ -88,10 +51,10 @@ function displayCancellations(){
 
 
 
-const getCancellationsListener = function() {
+const getStatsListener = function() {
   var data = JSON.parse(this.responseText)
 
-  data = data.filter(cancellation => isFiltered(cancellation))
+  data
 
   cancellations = data.filter(cancellation => isCancellationOrDelay(cancellation))
   otherEvents = data.filter(cancellation => !isCancellationOrDelay(cancellation))
