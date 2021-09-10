@@ -95,33 +95,42 @@ var chart
 
 function updateGraph(){
 
-  let labels = todaysStats.map(data => new Date(data.generated));
+  // let labels = todaysStats.map(data => new Date(data.generated));
 
-  let todaysQRCodeScansData = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
+  let todaysQRCodeScans = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
 
-  console.log(todaysData);
-  
-  const data_ = {
-    // labels: ['A', 'b', 'c'],
-    datasets: [{
-      label: 'Scans Today',
-      // backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: todaysData,
-    }]
-  };
+  let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
+
+  let startOfTodayNZ = new Date()
+  startOfTodayNZ.setHours(0)
+  startOfTodayNZ.setMinutes(0)
+  startOfTodayNZ.setSeconds(0)
+  startOfTodayNZ.setMilliseconds(0)
+
+
+
+  console.log(todaysQRCodeScans);
   
   
 const data = {
-  labels: labels,
-  datasets: [{
-    label: 'QR Scans today',
-    // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-    borderColor: 'rgb(255, 99, 132)',
-    fill: false,
-    // lineTension: 0,       
-    data: todaysData
-  }]
+  // labels: labels,
+  datasets: [
+    {
+      label: 'QR Scans',
+      // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      borderColor: 'rgb(255, 99, 132)',
+      fill: false,
+      // lineTension: 0,       
+      data: todaysQRCodeScans
+    },    {
+      label: 'Manual entries',
+      // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      borderColor: 'rgb(50, 99, 255)',
+      fill: false,
+      // lineTension: 0,       
+      data: todaysManualEntries
+    }
+  ]
 };
 
   const config = {
@@ -129,7 +138,7 @@ const data = {
     data,
     options: {
 
-      elements: { point: { radius: 0 } },
+      // elements: { point: { radius: 0 } },
       plugins: {
         title: {
           text: 'Chart.js Time Scale',
@@ -141,18 +150,21 @@ const data = {
         xAxes: [{
           type: 'time',
           time: { 
-            unit: 'hour'
-          }
+            unit: 'hour',
+            min: startOfTodayNZ
+          },
         }],
         
        yAxes: [{
-         ticks: {
+
+          ticks: {
            callback: function(value, index, values) {
              return value.toLocaleString("en-NZ",{});
            }
          }
        }]
-
+        
+        
 //           x: {
 //             type: 'time',
 //             time: {
