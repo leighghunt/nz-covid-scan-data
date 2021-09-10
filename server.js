@@ -78,7 +78,7 @@ sequelize.authenticate()
 
 
       all_time_app_registrations_daily_change: {
-        type: Sequelize.INT
+        type: Sequelize.STRING
       },
 
       all_time_posters_created: {
@@ -87,7 +87,7 @@ sequelize.authenticate()
 
 
       all_time_posters_created_daily_change: {
-        type: Sequelize.INT
+        type: Sequelize.STRING
       },
 
       JSON: {
@@ -148,61 +148,53 @@ function updateStats(){
     console.log(JSON.stringify(apiResponse.data))
     console.log(apiResponse.data['dashboardItems'])
 
-    console.log(apiResponse.data['dashboardItems'])
+    // console.log(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today'))
 
-    // console.log(apiResponse.data['dashboardItems'].find(d => d.subtitle=='QR code scans today').value)
+    console.log(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value)
+    console.log(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Manual entries today').value)
+    console.log(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='People with Bluetooth tracing active today').value)
+
+
+    console.log(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').value)
+
+    console.log(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').dailyChange)
+
+    console.log(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').value)
+
+    console.log(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').dailyChange)
+
+
+
+
+
 return
-//     var latestStat = {
-//       timestamp: new Date(),
-//       generated: apiResponse.data.generated,
+    var latestStat = {
+      timestamp: new Date(),
+      generated: apiResponse.data.generated,
 
-//       qr_code_scans_today: apiResponse.data.dashboardItems.find(d => d.subtitle=='QR code scans today').value,
+      qr_code_scans_today: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value,
+      manual_entries_today: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Manual entries today').value,
+      people_with_bluetooth_tracing_active_today: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='People with Bluetooth tracing active today').value,
+      
+      all_time_app_registrations: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').value,
+      all_time_app_registrations_daily_change: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time app registrations').dailyChange,
 
-
-
-//       manual_entires_today: {
-//         type: Sequelize.INT
-//       },
-
-//       people_with_bluetooth_tracing_active_today: {
-//         type: Sequelize.INT
-//       },
-
-//       all_time_app_registrations: {
-//         type: Sequelize.INT
-//       },
-
-
-//       all_time_app_registrations_daily_change: {
-//         type: Sequelize.INT
-//       },
-
-//       all_time_posters_created: {
-//         type: Sequelize.INT
-//       },
-
-
-//       all_time_posters_created_daily_change: {
-//         type: Sequelize.INT
-//       },
-
-//       JSON: {
-//         type: Sequelize.STRING
-//       }}
-    
-    
+      all_time_posters_created: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').value,
+      all_time_posters_created_daily_change: apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').dailyChange,
+      JSON: JSON.stringify(apiResponse.data)
+    }    
     
 //     apiResponse.data.entity.forEach(async (entity) => {
       
         
         
-//         Stats.upsert(stat)
-        
-//         console.log('emitting...')
+      Stats.upsert(latestStat)
 
-//         console.log(cancellation)
+      console.log('emitting...')
 
-//         io.emit('stat', stat)
+      console.log(latestStat)
+
+      io.emit('latestStat', latestStat)
 
     // })
   })
