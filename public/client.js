@@ -87,7 +87,19 @@ function updateGraph(){
 //   let labels = []
 //   let dataValues = []
   
-//   var now = new Date()
+  var now = new Date()
+  
+  var chart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+        scales: {
+            x: {
+                type: 'timeseries',
+            }
+        }
+    }
+});
 //   let hoursOffset = now.getHours() 
 
 //   var hour = hoursOffset
