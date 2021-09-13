@@ -47,6 +47,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
     <!-- import the webpage's client-side javascript file -->
     <script src="/client.js" defer></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE07453MG2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ZE07453MG2');
+    </script>
+
   </head>
   <body class="text-center">
     <div
@@ -55,19 +66,19 @@
     ></div>
     <script src="https://button.glitch.me/button.js"></script>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+<!--     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
           <!--           <h3 class="masthead-brand">Cover</h3> -->
           <nav class="nav nav-masthead justify-content-center">
             <!--             <a class="nav-link active" href="#">Home</a>
             <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Contact</a> -->
+            <a class="nav-link" href="#">Contact</a> 
           </nav>
         </div>
       </header>
     </div>
-
+ -->
     <div role="main" class="inner cover">
       <div class="container">
         <div class="row align-items-start">
@@ -78,10 +89,6 @@
           </div>
           <div class="col col-12">
             <canvas id="chartPerQuarterHour"></canvas>
-          </div>
-
-          <div class="col col-12">
-            <canvas id="chart"></canvas>
           </div>
 
 
@@ -106,6 +113,10 @@
             <div id="manual_entries_today" class="col col-3 text-right">
               ...
             </div>
+          </div>
+          
+          <div class="col col-12">
+            <canvas id="chart"></canvas>
           </div>
 
           <div class="row align-items-start">
