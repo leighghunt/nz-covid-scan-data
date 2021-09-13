@@ -409,7 +409,7 @@ function updateHistoricGraph(){
     type: 'line',
     data,
     options: {
-      elements: { point: { radius: 0 } },
+      // elements: { point: { radius: 0 } },
       
       scales: {
         xAxes: [{
