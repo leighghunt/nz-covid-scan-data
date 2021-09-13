@@ -10,9 +10,9 @@ var historicStats = []
 
 function displayStats(stats){
   
-  console.log('displayStats')
+  //console.log('displayStats')
 
-  console.log(stats)
+  //console.log(stats)
 
   document.getElementById('qr_code_scans_today').innerText = latestStats.qr_code_scans_today.toLocaleString()
   document.getElementById('manual_entries_today').innerText = latestStats.manual_entries_today.toLocaleString()
@@ -41,7 +41,7 @@ socket.on('latestStats', function (stats) {
   todaysStats.push(latestStats)
 
 
-  console.log(stats)
+  //console.log(stats)
 
   displayStats(latestStats);
 
@@ -90,7 +90,7 @@ getTodaysStats()
 
 const historicStatsListener = function() {
   historicStats = JSON.parse(this.responseText)
-  console.log(historicStats)
+  //console.log(historicStats)
   updateHistoricGraph()
 }
 
@@ -120,16 +120,89 @@ Chart stuff
 */
 
 var chart
+var chartPerQuarterHour
 var chartHistoric
+
+
+
+function groupByDuration(objectArray, duration = 15) {
+  return objectArray.reduce(function (acc, obj) {
+    
+  
+    var dateRoundedUpToNextPeriod = new Date(obj.generated)
+    const nextPeriod = (Math.ceil(dateRoundedUpToNextPeriod.getMinutes()/duration))*duration
+    dateRoundedUpToNextPeriod.setMinutes(nextPeriod)
+    dateRoundedUpToNextPeriod.setSeconds(0)
+    dateRoundedUpToNextPeriod.setMilliseconds(0)
+    // console.log(nearestQuarterHour)
+    // console.log(dateRoundedUpToNext15Mins)
+
+    let key = dateRoundedUpToNextPeriod.getMinutes()/duration + dateRoundedUpToNextPeriod.getHours() * (60/duration)
+    key = key - 1 // zero based
+    
+    if (!acc[key]) {
+//      acc=[]  // make sure we're an array and not an object
+      acc[key] = obj
+    }
+    
+    //acc[key].push(obj)
+    obj.qr_code_scans_today = Math.max(acc[key].qr_code_scans_today, obj.qr_code_scans_today)
+    acc[key] = obj
+    return acc
+  }, []) // make sure we're an array and not an object
+}
 
 
 function updateGraph(){
 
-  // let labels = todaysStats.map(data => new Date(data.generated));
+  // console.log('updateGraph: todaysStats')
+  // console.log(todaysStats)
+
+  let labels = todaysStats.map(data => new Date(data.generated));
 
   let todaysQRCodeScans = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
 
   let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
+  
+  let barChartPeriod = 15 // mins
+  let todaysQRScansGroupByPeriod = groupByDuration(todaysStats, barChartPeriod)
+
+  //console.log(todaysQRScansGroupBy15Mins)
+
+  //console.log("Increases.....")
+
+  let prevTotal = 0
+  let increasesByPeriod = todaysQRScansGroupByPeriod.map(function (element, index, array) {
+
+
+      let data = {
+        x: new Date(element.generated),
+        y: element.qr_code_scans_today - prevTotal      
+      }
+
+      //let data = element.qr_code_scans_today - prevTotal      
+    
+      prevTotal = element.qr_code_scans_today
+
+      return data
+    } 
+  )
+
+  //Array(4 * 24).fill('')
+  let labelsByPeriod = Array((60/barChartPeriod) * 24).fill(0)
+  labelsByPeriod = labelsByPeriod.map(function (element, index, array) {
+    if(index % (60/barChartPeriod) == 0)
+    {
+      //return '+'
+      return index / (60/barChartPeriod)
+    }
+    return ''
+  }
+  )
+  
+  // console.log('labelsByPeriod')
+  // console.log(labelsByPeriod)
+
 
   let startOfTodayNZ = new Date()
   startOfTodayNZ.setHours(0)
@@ -140,32 +213,51 @@ function updateGraph(){
   let endOfTodayNZ = new Date(startOfTodayNZ)
   endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
 
-  console.log(todaysQRCodeScans);
+  //console.log('todaysStats');
+  //console.log(todaysStats)
+
+
+  // console.log('todaysQRCodeScans');
+  // console.log(todaysQRCodeScans);
+
+  
+//   console.log('todaysQRScansGroupByPeriod')
+//   console.log(todaysQRScansGroupByPeriod)
+
+  //labels = todaysQRScansGroupBy15Mins.map(data => new Date(data.generated));
+
+  // console.log('increasesByPeriod')
+  // console.log(increasesByPeriod)
   
   const data = {
-    // labels: labels,
+    labels: labels,
     datasets: [
       {
         label: 'QR Scans',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(255, 99, 132)',
-        fill: false,
-        // lineTension: 0,       
-        data: todaysQRCodeScans
-      },    {
+          // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+          borderColor: 'rgb(255, 99, 132)',
+          fill: false,
+          // lineTension: 0,       
+          data: todaysQRCodeScans,
+          yAxisId: 'y1'
+        }, {
+        type: 'line',
         label: 'Manual entries',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(50, 99, 255)',
+
+        backgroundColor: 'rgb(50, 99, 255)',
+
         fill: false,
         // lineTension: 0,       
-        data: todaysManualEntries
+        data: todaysManualEntries,
+        yAxisId: 'y2'
       }
     ]
   };
 
   const config = {
     type: 'line',
-    data,
+    data: data,
     options: {
 
       elements: { point: { radius: 0 } },
@@ -186,14 +278,14 @@ function updateGraph(){
           },
         }],
         
-       yAxes: [{
-
+       yAxes: [
+         {
           ticks: {
            callback: function(value, index, values) {
              return value.toLocaleString("en-NZ",{});
            }
          }
-       }]
+      }]
       },      
       animation: {
         duration:0  // prevent pesky animation, espcially on update
@@ -212,14 +304,79 @@ function updateGraph(){
     chart.update(/*{mode: 'none'}*/);
   } 
   
+  
+  
+  const dataPerQuarterHour = {
+    labels: labelsByPeriod,
+    //labels: Array(4 * 24).fill(''),
+    datasets: [
+      {
+        label: 'Scans/quarter hour',
+        backgroundColor: 'rgb(5255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        lineTension: 0,       
+        data: increasesByPeriod,
+      }
+
+    ]
+  };
+  
+  
+  const configPerQuarterHour = {
+    type: 'bar',
+    data: dataPerQuarterHour,
+    options: {
+
+      elements: { point: { radius: 0 } },
+      plugins: {
+        title: {
+          text: 'Chart.js Time Scale',
+          display: true
+        }
+      },      
+      
+      scales: {
+        xAxes: [{
+          //type: 'time',
+          time: { 
+            unit: 'hour',
+            min: startOfTodayNZ,
+            max: endOfTodayNZ
+          },
+        }],
+        
+       yAxes: [
+         {
+          ticks: {
+           callback: function(value, index, values) {
+             return value.toLocaleString("en-NZ",{});
+           }
+         }
+      }]
+      },      
+      animation: {
+        duration:0  // prevent pesky animation, espcially on update
+      }
+    }
+  };
+
+
+  if(chartPerQuarterHour==null){
+    chartPerQuarterHour = new Chart(
+      document.getElementById('chartPerQuarterHour'),
+      configPerQuarterHour
+    )
+  } else {
+    chartPerQuarterHour.config.data = dataPerQuarterHour;
+    chartPerQuarterHour.update(/*{mode: 'none'}*/);
+  } 
+  
+  
+  //chartPer15Mins
 }
 
 function updateHistoricGraph(){
-
-
-  // let labels = todaysStats.map(data => new Date(data.generated));
-  // let historicQRCodeScans = historicStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
-
   let historicQRCodeScans = historicStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
@@ -232,12 +389,8 @@ function updateHistoricGraph(){
     }
   });
   
-  historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
+  // historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
   
-  console.log(historicQRCodeScans)
-  
-  // parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value.replace(/,/g, '')),
-
   const data = {
     // labels: labels,
     datasets: [
@@ -256,7 +409,6 @@ function updateHistoricGraph(){
     type: 'line',
     data,
     options: {
-
       elements: { point: { radius: 0 } },
       
       scales: {
@@ -340,4 +492,5 @@ setInterval(function(){
   }
 
 }, 60000)
+
 
