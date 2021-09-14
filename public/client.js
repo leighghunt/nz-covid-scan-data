@@ -8,6 +8,10 @@ var latestStats = {}
 var todaysStats = []
 var historicStats = []
 
+function optimising_graph(array, interval) {
+  
+}
+
 function displayStats(stats){
   
   console.log('displayStats')
