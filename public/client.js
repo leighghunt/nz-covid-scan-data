@@ -15,16 +15,18 @@ function minutes(n) {
 function optimise_graph(array, interval) {
   var result = [];
 
-  var lastTime = new Date(array[0].generated);
+  var lastTime = new Date(array[0].generated).getTime() + interval;
   result.push(array[0]);
   // !!! no checks for an empty array
   for (let i = 1; i < array.length; i++) {
     var item = array[i];
     var a = new Date(item.generated)
-    var b = new Date(lastTime + interval)
+    var b = new Date(lastTime)
     if (a > b) {
       result.push(item);
-      lastTime = a
+      console.log(lastTime)
+      lastTime += interval
+      console.log(lastTime)
     }
   }
   console.log('result:', result);
@@ -83,7 +85,7 @@ refreshLatestStats();
 const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText);
   console.log("todaysStats: ", todaysStats);
-  todaysStats = optimise_graph(todaysStats, minutes(100));
+  todaysStats = optimise_graph(todaysStats, minutes(15));
   updateGraph();
 };
 
