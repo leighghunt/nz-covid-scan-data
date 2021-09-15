@@ -65,7 +65,7 @@ refreshLatestStats()
 
 const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText)
-  console.log(todaysStats)
+  console.log('todaysStats: ', todaysStats)
   updateGraph()
 }
 
