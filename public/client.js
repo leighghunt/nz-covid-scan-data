@@ -8,8 +8,25 @@ var latestStats = {}
 var todaysStats = []
 var historicStats = []
 
+function minutes(n) {
+  return 60000 * n
+}
+
 function optimise_graph(array, interval) {
+  var result = []
   
+  var lastTime = new Date(array[0].generated)
+  result.push(array[0])
+  // !!! no checks for an empty array
+  for (let i = 1; i < array.length; i++) {
+    var item = array[i]
+    if (new Date(item.generated) > lastTime + minutes(5)) {
+      result.push(item)
+    } else {
+      console.log('Removed index ' + i)
+    }
+  }
+  return result
 }
 
 function displayStats(stats){
@@ -66,7 +83,7 @@ refreshLatestStats()
 const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText)
   console.log('todaysStats: ', todaysStats)
-  todaysStats = optimise_graph(todaysStats, 15)
+  todaysStats = optimise_graph(todaysStats, minutes(15))
   updateGraph()
 }
 
