@@ -27,8 +27,8 @@ function optimise_graph(array, interval) {
       lastTime += interval
     }
   }
-  console.log('removed ' + array.length - result.length + ' items')
   console.log('result:', result);
+  console.log('removed ' + (array.length - result.length) + ' items')
   return result;
 }
 
@@ -84,7 +84,7 @@ refreshLatestStats();
 const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText);
   console.log("todaysStats: ", todaysStats);
-  todaysStats = optimise_graph(todaysStats, minutes(30));
+  todaysStats = optimise_graph(todaysStats, minutes(15));
   updateGraph();
 };
 
