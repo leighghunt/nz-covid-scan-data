@@ -8,7 +8,7 @@ var latestStats = {}
 var todaysStats = []
 var historicStats = []
 
-function optimising_graph(array, interval) {
+function optimise_graph(array, interval) {
   
 }
 
@@ -66,6 +66,7 @@ refreshLatestStats()
 const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText)
   console.log('todaysStats: ', todaysStats)
+  todaysStats = optimise_graph(todaysStats, 15)
   updateGraph()
 }
 
