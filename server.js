@@ -266,23 +266,30 @@ app.get('/stats/', async function(request, response) {
         var previousTime
         var statsFiltered = []
         stats.forEach(function(element){
-          if(previousTime = null){
-            previousTime = element.generated;
-          }
-          
           if(previousTime){
-            var diffMs = (element.generated - previousTime)/
+          console.log(previousTime)
 
+          console.log(element.generated)
+          console.log(element.generated - previousTime)
+
+            var diffMins = (element.generated - previousTime)/(1000*60)
+            console.log(diffMins)
+            if(diffMins > granularityMins){
+              statsFiltered.push(element)
+              previousTime = element.generated
+            }
             
           } else {
-            
+              statsFiltered.push(element)            
+              previousTime = element.generated
           }
+          
 
 
         })
-
+      
         response.setHeader('Content-Type', 'application/json')
-        response.send(JSON.stringify(stats));
+        response.send(JSON.stringify(statsFiltered));
     });
 });
 
