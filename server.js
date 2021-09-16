@@ -141,6 +141,7 @@ function updateStats(){
     }})
   .then(async function (apiResponse) {
     
+    /*
     console.log("updateStats - response")
 
     console.log("apiResponse.data length:" + JSON.stringify(apiResponse.data).length)
@@ -163,8 +164,7 @@ function updateStats(){
 
     console.log(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').dailyChange)
 
-
-
+    */
 
 
     var latestStat = {
@@ -230,9 +230,17 @@ app.get('/stats/', async function(request, response) {
       to = new Date(request.query.to)
     }
 
+    var granularityMins = 1
+    if(request.query.granularityMins!=null){
+      granularityMins = request.query.granularityMins
+    }
+
+  
     console.log('stats')
     console.log(from)
     console.log(to)
+    console.log(granularityMins)
+
 
     Stats.findAll(
       {
@@ -256,9 +264,35 @@ app.get('/stats/', async function(request, response) {
         // console.log(stats)
 
         // console.log(stats.length)
+      
+        var previousTime
+        var statsFiltered = []
+        stats.forEach(function(element){
+          if(previousTime){
+          // console.log(previousTime)
+          // console.log(element.generated)
+          // console.log(element.generated - previousTime)
 
+            var diffMins = (element.generated - previousTime)/(1000*60)
+            // console.log(diffMins)
+            if(diffMins > granularityMins){
+              statsFiltered.push(element)
+              previousTime = element.generated
+            }
+            
+          } else {
+              statsFiltered.push(element)            
+              previousTime = element.generated
+          }
+          
+
+
+        })
+      
+        statsFiltered.push(stats[stats.length-1])
+      
         response.setHeader('Content-Type', 'application/json')
-        response.send(JSON.stringify(stats));
+        response.send(JSON.stringify(statsFiltered));
     });
 });
 
