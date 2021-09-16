@@ -93,16 +93,22 @@ function getPreviousDaysStats(){
   startOfTodayNZ.setSeconds(0)
   startOfTodayNZ.setMilliseconds(0)
   
-  let startOf7DaysAgo = startOfTodayNZ - 7
+  console.log('getPreviousDaysStats')
+  console.log(startOfTodayNZ)
+  let startOf7DaysAgo = new Date(startOfTodayNZ)
+  startOf7DaysAgo.SetDays(startOf7DaysAgo.GetDays() - 7)
+  
+  console.log(startOf7DaysAgo)
+
   
   // console.log(startOfTodayNZ)
 
   // console.log(startOfTodayNZ.toUTCString())
 
-  const todaysStatsRequest = new XMLHttpRequest();
-  todaysStatsRequest.onload = todaysStatsListener;
-  todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
-  todaysStatsRequest.send();  
+  // const todaysStatsRequest = new XMLHttpRequest();
+  // todaysStatsRequest.onload = todaysStatsListener;
+  // todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
+  // todaysStatsRequest.send();  
 }
 
 getPreviousDaysStats()
