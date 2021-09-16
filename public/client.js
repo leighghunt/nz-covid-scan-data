@@ -164,6 +164,7 @@ Chart stuff
 var chart
 var chartPerQuarterHour
 var chartHistoric
+var chartHistoricFortnight
 
 
 
@@ -250,7 +251,7 @@ function updateGraph(){
       .map(data => {
         let retVal = {x: new Date(data.generated), y: data.qr_code_scans_today}
         
-        // retVal.x.setDate(retVal.x.getDate() + previousDayIndex);
+        retVal.x.setDate(retVal.x.getDate() + previousDayIndex);
         
         return retVal
 
@@ -324,50 +325,55 @@ function updateGraph(){
   const data = {
     labels: labels,
     datasets: [
-      {
-        label: 'QR Scans',
-          // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-          borderColor: 'rgb(255, 99, 132)',
-          fill: false,
-          // lineTension: 0,       
-          data: todaysQRCodeScans,
-          yAxisId: 'y1'
-      }, {
-        type: 'line',
-        label: 'Manual entries',
-        borderColor: 'rgb(50, 99, 255)',
+//       {
+//         label: 'QR Scans',
+//           // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+//           borderColor: 'rgb(255, 99, 132)',
+//           fill: false,
+//           // lineTension: 0,       
+//           data: todaysQRCodeScans,
+//           yAxisId: 'y1'
+//       }, {
+//         type: 'line',
+//         label: 'Manual entries',
+//         borderColor: 'rgb(50, 99, 255)',
 
-        backgroundColor: 'rgb(50, 99, 255)',
+//         backgroundColor: 'rgb(50, 99, 255)',
 
-        fill: false,
-        // lineTension: 0,       
-        data: todaysManualEntries,
-        yAxisId: 'y2'
-      }
+//         fill: false,
+//         // lineTension: 0,       
+//         data: todaysManualEntries,
+//         yAxisId: 'y2'
+//       }
     ]
   };
   
   var previousDayColours = [
+    // 'rgb(255, 99, 132)',
     'red',
     'orange',
     'yellow',
     'green',
     'blue',
     'indigo',
-    'violet'
+    'violet',
+    'white'
   ]
 
   for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
 
     var previousDay = new Date(startOfTodayNZ)
-    previousDay.setDate(previousDay.getDate()-(previousDayIndex+1))
+    previousDay.setDate(previousDay.getDate()-(previousDayIndex))
     
     var dataset = {
       label: previousDay.toString().substr(0, 3),
       // borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - (previousDayIndex/2))/(previousDaysScansToShow)).toString() + ')',
       borderColor: previousDayColours[previousDayIndex],
 
-      borderWidth: 5,
+      // borderWidth: (7 - previousDayIndex)/2,
+
+      // borderWidth: (7 - previousDayIndex)/2,
+
       // borderDash: [1, 3],
 
       // borderDash: [1, previousDayIndex ],
@@ -378,7 +384,7 @@ function updateGraph(){
     
 
     if(previousDaysQRCodeScans[previousDayIndex] && previousDaysQRCodeScans[previousDayIndex].length>0){
-      dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
+      // dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
     }
 
     console.log(dataset.label)
@@ -389,6 +395,7 @@ function updateGraph(){
 
   }    
 
+  data.datasets[0].label = 'Today'
 
 
   const config = {
@@ -572,6 +579,38 @@ function updateHistoricGraph(){
       }
     }
   };
+  
+  var oneFortnightAgo = new Date()
+  oneFortnightAgo.setDate(oneFortnightAgo)
+  
+  const configLastFortnight = {
+    type: 'line',
+    data,
+    options: {
+      // elements: { point: { radius: 0 } },
+      
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: { 
+            unit: 'month'
+          },
+        }],
+        
+       yAxes: [{
+
+          ticks: {
+           callback: function(value, index, values) {
+             return value.toLocaleString("en-NZ",{});
+           }
+         }
+       }]
+      },      
+      animation: {
+        duration:0  // prevent pesky animation, espcially on update
+      }
+    }
+  };
 
 
   if(chartHistoric==null){
@@ -583,7 +622,19 @@ function updateHistoricGraph(){
     chartHistoric.config.data = data;
     chartHistoric.update(/*{mode: 'none'}*/);
   } 
+
   
+  if(chartHistoricFortnight==null){
+    chartHistoricFortnight = new Chart(
+      document.getElementById('chartHistoricFortnight'),
+      configLastFortnight
+    )
+  } else {
+    chartHistoricFortnight.config.data = data;
+    chartHistoricFortnight.update(/*{mode: 'none'}*/);
+  } 
+
+
 }
 
 
