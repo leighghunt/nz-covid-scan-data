@@ -207,6 +207,17 @@ function updateGraph(){
   let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
   
   let previousDaysQRCodeScans = []
+  
+//     console.log(previousDaysStats[0].generated)
+
+//     console.log(new Date(previousDaysStats[0].generated))
+
+//     console.log(new Date(previousDaysStats[0].generated) + 1)
+
+//     console.log(new Date(previousDaysStats[0].generated) + 24 * 60 * 60)
+
+
+  
   for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
     
     let startOfDayWindow = new Date()
@@ -221,21 +232,30 @@ function updateGraph(){
     endOfDayWindow.setSeconds(59)
     endOfDayWindow.setMilliseconds(9999)  
 
-    console.log('startOfDayWindow')
+//     console.log('startOfDayWindow')
 
-    console.log(startOfDayWindow)
+//     console.log(startOfDayWindow)
 
 
-    console.log('endOfDayWindow')
+//     console.log('endOfDayWindow')
 
-    console.log(endOfDayWindow)
+//     console.log(endOfDayWindow)
+
+
 
 
     
     previousDaysQRCodeScans[previousDayIndex] = previousDaysStats
       .filter(data => new Date(data.generated) <= endOfDayWindow && new Date(data.generated) >= startOfDayWindow)
       .map(data => {
-        return {x: new Date(data.generated + (previousDayIndex * 24 * 60 * 60 )), y: data.qr_code_scans_today}
+        let retVal = {x: new Date(data.generated), y: data.qr_code_scans_today}
+        
+        retVal.x.setDate(retVal.x.getDate() + previousDayIndex);
+        
+        return retVal
+
+        // return {x: new Date(data.generated + (previousDayIndex * 24 * 60 * 60 )), y: data.qr_code_scans_today}
+
       })
 
   }
@@ -341,7 +361,7 @@ function updateGraph(){
             {
               label: 'Day ' + previousDayIndex.toString(),
               // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-              borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/previousDaysScansToShow).toString() + ')',
+              borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/previousDaysScansToShow * 2).toString() + ')',
               fill: false,
               // lineTension: 0,       
               data: previousDaysQRCodeScans[previousDayIndex],
@@ -359,7 +379,7 @@ function updateGraph(){
     data: data,
     options: {
 
-      // elements: { point: { radius: 0 } },
+      elements: { point: { radius: 0 } },
       plugins: {
         title: {
           text: 'Chart.js Time Scale',
@@ -372,8 +392,8 @@ function updateGraph(){
           type: 'time',
           ticks: { 
             unit: 'hour',
-            // min: startOfTodayNZ,
-            // max: endOfTodayNZ
+            min: startOfTodayNZ,
+            max: endOfTodayNZ
           },
         }],
         
