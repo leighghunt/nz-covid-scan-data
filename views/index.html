@@ -98,52 +98,20 @@
       <div class="lead" id="servicesSummary">
         <div class="container">
           <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              QR Code scans today:
-            </div>
-            <div id="qr_code_scans_today" class="col col-3 text-right">
-              ...
-            </div>
-          </div>
+            <div class="col col-9 text-left">QR Code scans today:</div>
+            <div id="qr_code_scans_today" class="col col-3 text-right">...</div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              Manual entries today:
-            </div>
-            <div id="manual_entries_today" class="col col-3 text-right">
-              ...
-            </div>
+            <div class="col col-9 text-left">Manual entries today:</div>
+            <div id="manual_entries_today" class="col col-3 text-right">...</div>
 
-                    <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              People with Bluetooth Tracing Active today:
-            </div>
-            <div
-              id="people_with_bluetooth_tracing_active_today"
-              class="col col-3 text-right"
-            >
-              ...
-            </div>
-          </div>
+            <div class="col col-9 text-left">People with Bluetooth Tracing Active today:</div>
+            <div id="people_with_bluetooth_tracing_active_today" class="col col-3 text-right">...</div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              All time app registrations:
-            </div>
-            <div id="all_time_app_registrations" class="col col-3 text-right">
-              ...
-            </div>
-          </div>
+            <div class="col col-9 text-left">All time app registrations:</div>
+            <div id="all_time_app_registrations" class="col col-3 text-right">...</div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              All time posters created:
-            </div>
-            <div id="all_time_posters_created" class="col col-3 text-right">
-              ...
-            </div>
-          </div>
-
+            <div class="col col-9 text-left">All time posters created:</div>
+            <div id="all_time_posters_created" class="col col-3 text-right">...</div>
 
           </div>
 
@@ -155,6 +123,26 @@
 
             <canvas id="chart"></canvas>
           </div>
+          
+          <div class="col col-12">
+
+            <h4>
+              This Month
+            </h4>
+
+            <canvas id="chartHistoricMonth"></canvas>
+          </div>
+
+          <div class="col col-12">
+            <h4>
+              Historic
+            </h4>
+          </div>
+          <div class="col col-12">
+            <canvas id="chartHistoric"></canvas>
+          </div>
+
+
 
         </div>
 
@@ -162,24 +150,12 @@
           <div class="row align-items-start">
 
             <div class="col col-12">
-              <h4>
-                QR Code scans history (last Month)
-              </h4>
             </div>
             <div class="col col-12">
-              <canvas id="chartHistoricMonth"></canvas>
             </div>
 
 
             
-            <div class="col col-12">
-              <h4>
-                QR Code scans history
-              </h4>
-            </div>
-            <div class="col col-12">
-              <canvas id="chartHistoric"></canvas>
-            </div>
 
 
           </div>
