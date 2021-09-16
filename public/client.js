@@ -549,8 +549,17 @@ function updateHistoricGraph(){
     }
   });
   
+  console.log('historicQRCodeScansFromAPI.length')
+
   console.log(historicQRCodeScansFromAPI.length)
-  historicQRCodeScansFromAPI = historicQRCodeScansFromAPI.filter((element, index, array) => { true } )
+
+  historicQRCodeScansFromAPI = historicQRCodeScansFromAPI.filter((element, index, array) => {
+    if(index < array.length-1){
+      if(element.x.getDate() != array[index+1].x.getDate()){
+        return true
+      }
+    } 
+  } )
   console.log(historicQRCodeScansFromAPI.length)
 
 
@@ -564,7 +573,7 @@ function updateHistoricGraph(){
     // labels: labels,
     datasets: [
       {
-        label: 'Historic QR Scans',
+        label: 'from MoH spreadsheet (12pm - 12pm)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
@@ -572,9 +581,9 @@ function updateHistoricGraph(){
         data: historicQRCodeScans
       },
       {
-        label: 'Historic QR Scans from API',
+        label: 'from API (12am - 12am)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(255, 99, 132)',
+        borderColor: 'red',
         fill: false,
         // lineTension: 0,       
         data: historicQRCodeScansFromAPI
@@ -586,7 +595,7 @@ function updateHistoricGraph(){
 
   const config = {
     type: 'line',
-    data,
+    // data_: data.datasets[0],
     options: {
       // elements: { point: { radius: 0 } },
       
