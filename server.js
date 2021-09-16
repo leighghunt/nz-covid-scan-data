@@ -141,6 +141,7 @@ function updateStats(){
     }})
   .then(async function (apiResponse) {
     
+    /*
     console.log("updateStats - response")
 
     console.log("apiResponse.data length:" + JSON.stringify(apiResponse.data).length)
@@ -163,8 +164,7 @@ function updateStats(){
 
     console.log(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='All time posters created').dailyChange)
 
-
-
+    */
 
 
     var latestStat = {
@@ -230,6 +230,12 @@ app.get('/stats/', async function(request, response) {
       to = new Date(request.query.to)
     }
 
+    var granularityMins = 15
+    if(request.query.granularityMins!=null){
+      granularityMins = new Date(request.query.granularityMins)
+    }
+
+  
     console.log('stats')
     console.log(from)
     console.log(to)
@@ -256,6 +262,24 @@ app.get('/stats/', async function(request, response) {
         // console.log(stats)
 
         // console.log(stats.length)
+      
+        var previousTime
+        var statsFiltered = []
+        stats.forEach(function(element){
+          if(previousTime = null){
+            previousTime = element.generated;
+          }
+          
+          if(previousTime){
+            var diffMs = (element.generated - previousTime)/
+
+            
+          } else {
+            
+          }
+
+
+        })
 
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(stats));

@@ -260,7 +260,7 @@ function updateGraph(){
     data: data,
     options: {
 
-      elements: { point: { radius: 0 } },
+      // elements: { point: { radius: 0 } },
       plugins: {
         title: {
           text: 'Chart.js Time Scale',
