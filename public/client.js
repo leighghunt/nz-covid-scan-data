@@ -121,7 +121,7 @@ function getPreviousDaysStats(){
 
   const todaysStatsRequest = new XMLHttpRequest();
   todaysStatsRequest.onload = previousDaysStatsListener;
-  todaysStatsRequest.open('get', '/stats?from=' + startPreviousScans.toUTCString() + '&granularityMins=15');
+  todaysStatsRequest.open('get', '/stats?from=' + startPreviousScans.toUTCString() + '&granularityMins=60');
   todaysStatsRequest.send();  
 }
 
@@ -356,12 +356,13 @@ function updateGraph(){
   
     for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
   
-      console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')')
+      // console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')')
       data.datasets.push(
             {
               label: 'Day ' + previousDayIndex.toString(),
               // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-              borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')',
+              borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow)).toString() + ')',
+              borderWidth: 1,
               fill: false,
               // lineTension: 0,       
               data: previousDaysQRCodeScans[previousDayIndex],
