@@ -206,11 +206,17 @@ function updateGraph(){
 
   let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
   
-  // let previousDaysQRCodeScans = []
-  for(var previousDay = 1; getPreviousDaysStats <= previousDaysScansToShow)
+  let previousDaysQRCodeScans = []
+  for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+    
+    
+    
+    previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today/previousDayIndex}})
+
+    
+  }
   
   
-  let previousDaysQRCodeScans = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
   
   let barChartPeriod = 15 // mins
   let todaysQRScansGroupByPeriod = groupByDuration(todaysStats, barChartPeriod)
@@ -304,18 +310,24 @@ function updateGraph(){
   };
   
   
+    for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
   
-  data.datasets.push(
-        {
-          label: 'QR Scans',
-          // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-          borderColor: 'rgb(255, 99, 132)',
-          fill: false,
-          // lineTension: 0,       
-          data: previousDaysQRCodeScans,
-          yAxisId: 'y1'
-        }
-  )
+      data.datasets.push(
+            {
+              label: 'Day ' + previousDayIndex.toString(),
+              // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+              borderColor: 'rgba(255, 99, 132, ' + (previousDayIndex/previousDaysScansToShow).toString() + ')',
+              fill: false,
+              // lineTension: 0,       
+              data: previousDaysQRCodeScans[previousDayIndex],
+              // yAxisId: 'y1'
+            }
+      )
+
+    }    
+    previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
+
+
 
   const config = {
     type: 'line',
