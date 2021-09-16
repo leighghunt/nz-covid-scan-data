@@ -11,6 +11,9 @@ var previousDaysStats = []
 
 var historicStats = []
 
+const previousDaysScansToShow = 7
+  
+
 function displayStats(stats){
   
   //console.log('displayStats')
@@ -92,7 +95,7 @@ getTodaysStats()
 const previousDaysStatsListener = function() {
   previousDaysStats = JSON.parse(this.responseText)
   console.log(previousDaysStats)
-  // updateGraph()
+  updateGraph()
 }
 
 
@@ -106,10 +109,10 @@ function getPreviousDaysStats(){
   
   console.log('getPreviousDaysStats')
   console.log(startOfTodayNZ)
-  let startOf7DaysAgo = new Date(startOfTodayNZ)
-  startOf7DaysAgo.setDate(startOf7DaysAgo.getDate() - 7)
+  let startPreviousScans = new Date(startOfTodayNZ)
+  startPreviousScans.setDate(startPreviousScans.getDate() - previousDaysScansToShow)
   
-  console.log(startOf7DaysAgo)
+  console.log(startPreviousScans)
 
   
   // console.log(startOfTodayNZ)
@@ -118,11 +121,9 @@ function getPreviousDaysStats(){
 
   const todaysStatsRequest = new XMLHttpRequest();
   todaysStatsRequest.onload = previousDaysStatsListener;
-  todaysStatsRequest.open('get', '/stats?from=' + startOf7DaysAgo.toUTCString() + '&granularityMins=60');
+  todaysStatsRequest.open('get', '/stats?from=' + startPreviousScans.toUTCString() + '&granularityMins=60');
   todaysStatsRequest.send();  
 }
-
-getPreviousDaysStats()
 
 
 const historicStatsListener = function() {
@@ -150,6 +151,10 @@ function getHistoricStats(){
 }
 
 setTimeout(function(){ getHistoricStats() }, 1000);
+
+setTimeout(function(){ getPreviousDaysStats() }, 5000);
+
+
 
 
 /*
@@ -200,6 +205,12 @@ function updateGraph(){
   let todaysQRCodeScans = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
 
   let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
+  
+  // let previousDaysQRCodeScans = []
+  for(var previousDay = 1; getPreviousDaysStats <= previousDaysScansToShow)
+  
+  
+  let previousDaysQRCodeScans = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
   
   let barChartPeriod = 15 // mins
   let todaysQRScansGroupByPeriod = groupByDuration(todaysStats, barChartPeriod)
@@ -277,7 +288,7 @@ function updateGraph(){
           // lineTension: 0,       
           data: todaysQRCodeScans,
           yAxisId: 'y1'
-        }, {
+      }, {
         type: 'line',
         label: 'Manual entries',
         borderColor: 'rgb(50, 99, 255)',
@@ -291,6 +302,20 @@ function updateGraph(){
       }
     ]
   };
+  
+  
+  
+  data.datasets.push(
+        {
+          label: 'QR Scans',
+          // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+          borderColor: 'rgb(255, 99, 132)',
+          fill: false,
+          // lineTension: 0,       
+          data: previousDaysQRCodeScans,
+          yAxisId: 'y1'
+        }
+  )
 
   const config = {
     type: 'line',
@@ -308,10 +333,10 @@ function updateGraph(){
       scales: {
         xAxes: [{
           type: 'time',
-          time: { 
+          ticks: { 
             unit: 'hour',
-            min: startOfTodayNZ,
-            max: endOfTodayNZ
+            // min: startOfTodayNZ,
+            // max: endOfTodayNZ
           },
         }],
         
