@@ -348,10 +348,11 @@ function updateGraph(){
         
        yAxes: [
          {
-          ticks: {
-           callback: function(value, index, values) {
-             return value.toLocaleString("en-NZ",{});
-           }
+            ticks: {
+              min: 0,
+               callback: function(value, index, values) {
+                 return value.toLocaleString("en-NZ",{});
+               }
          }
       }]
       },      

@@ -230,7 +230,7 @@ app.get('/stats/', async function(request, response) {
       to = new Date(request.query.to)
     }
 
-    var granularityMins = 15
+    var granularityMins = 5
     if(request.query.granularityMins!=null){
       granularityMins = new Date(request.query.granularityMins)
     }
@@ -287,6 +287,8 @@ app.get('/stats/', async function(request, response) {
 
 
         })
+      
+        statsFiltered.push(stats[stats.length-1])
       
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(statsFiltered));
