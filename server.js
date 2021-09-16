@@ -232,13 +232,15 @@ app.get('/stats/', async function(request, response) {
 
     var granularityMins = 1
     if(request.query.granularityMins!=null){
-      granularityMins = new Date(request.query.granularityMins)
+      granularityMins = request.query.granularityMins
     }
 
   
     console.log('stats')
     console.log(from)
     console.log(to)
+    console.log(granularityMins)
+
 
     Stats.findAll(
       {
@@ -267,13 +269,12 @@ app.get('/stats/', async function(request, response) {
         var statsFiltered = []
         stats.forEach(function(element){
           if(previousTime){
-          console.log(previousTime)
-
-          console.log(element.generated)
-          console.log(element.generated - previousTime)
+          // console.log(previousTime)
+          // console.log(element.generated)
+          // console.log(element.generated - previousTime)
 
             var diffMins = (element.generated - previousTime)/(1000*60)
-            console.log(diffMins)
+            // console.log(diffMins)
             if(diffMins > granularityMins){
               statsFiltered.push(element)
               previousTime = element.generated

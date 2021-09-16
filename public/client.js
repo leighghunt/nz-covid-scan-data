@@ -6,6 +6,9 @@ var socket = io.connect(window.location.hostname);
 var latestStats = {}
 // var stats = []
 var todaysStats = []
+
+var previousDaysStats = []
+
 var historicStats = []
 
 function displayStats(stats){
@@ -86,6 +89,14 @@ function getTodaysStats(){
 getTodaysStats()
 
 
+const previousDaysStatsListener = function() {
+  previousDaysStats = JSON.parse(this.responseText)
+  console.log(previousDaysStats)
+  // updateGraph()
+}
+
+
+
 function getPreviousDaysStats(){
   let startOfTodayNZ = new Date()
   startOfTodayNZ.setHours(0)
@@ -96,7 +107,7 @@ function getPreviousDaysStats(){
   console.log('getPreviousDaysStats')
   console.log(startOfTodayNZ)
   let startOf7DaysAgo = new Date(startOfTodayNZ)
-  startOf7DaysAgo.SetDays(startOf7DaysAgo.GetDays() - 7)
+  startOf7DaysAgo.setDate(startOf7DaysAgo.getDate() - 7)
   
   console.log(startOf7DaysAgo)
 
@@ -105,10 +116,10 @@ function getPreviousDaysStats(){
 
   // console.log(startOfTodayNZ.toUTCString())
 
-  // const todaysStatsRequest = new XMLHttpRequest();
-  // todaysStatsRequest.onload = todaysStatsListener;
-  // todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
-  // todaysStatsRequest.send();  
+  const todaysStatsRequest = new XMLHttpRequest();
+  todaysStatsRequest.onload = previousDaysStatsListener;
+  todaysStatsRequest.open('get', '/stats?from=' + startOf7DaysAgo.toUTCString() + '&granularityMins=60');
+  todaysStatsRequest.send();  
 }
 
 getPreviousDaysStats()
