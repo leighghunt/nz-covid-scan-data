@@ -579,6 +579,21 @@ function updateHistoricGraph(){
         fill: false,
         // lineTension: 0,       
         data: historicQRCodeScans
+      }
+    ]
+  };
+
+
+  const dataPrevMonth = {
+    // labels: labels,
+    datasets: [
+      {
+        label: 'from MoH spreadsheet (12pm - 12pm)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicQRCodeScans
       },
       {
         label: 'from API (12am - 12am)',
@@ -592,6 +607,7 @@ function updateHistoricGraph(){
 
     ]
   };
+
 
   const config = {
     type: 'line',
@@ -627,7 +643,7 @@ function updateHistoricGraph(){
   
   const configHistoricMonth = {
     type: 'line',
-    data,
+    // data,
     options: {
       // elements: { point: { radius: 0 } },
       // lineTension: 0, 
@@ -674,7 +690,7 @@ function updateHistoricGraph(){
       configHistoricMonth
     )
   } else {
-    chartHistoricMonth.config.data = data;
+    chartHistoricMonth.config.data = dataPrevMonth;
     chartHistoricMonth.update(/*{mode: 'none'}*/);
   } 
 
