@@ -164,7 +164,7 @@ Chart stuff
 var chart
 var chartPerQuarterHour
 var chartHistoric
-var chartHistoricFortnight
+var chartHistoricMonth
 
 
 
@@ -534,6 +534,20 @@ function updateHistoricGraph(){
       y: parseInt(data.Scans.replace(/,/g, ''))
     }
   });
+
+  let historicQRCodeScansFromAPI = previousDaysStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: parseInt(data.Scans.replace(/,/g, ''))
+    }
+  });
+
+
   
   // historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
   
@@ -541,7 +555,7 @@ function updateHistoricGraph(){
     // labels: labels,
     datasets: [
       {
-        label: 'QR Scans',
+        label: 'Historic QR Scans',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
@@ -580,20 +594,22 @@ function updateHistoricGraph(){
     }
   };
   
-  var oneFortnightAgo = new Date()
-  oneFortnightAgo.setDate(oneFortnightAgo)
+  var oneMonthAgo = new Date()
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth()-1)
   
-  const configLastFortnight = {
+  const configHistoricMonth = {
     type: 'line',
     data,
     options: {
       // elements: { point: { radius: 0 } },
-      
+      // lineTension: 0, 
+
       scales: {
         xAxes: [{
           type: 'time',
           time: { 
-            unit: 'month'
+            unit: 'day',
+            min: oneMonthAgo
           },
         }],
         
@@ -624,14 +640,14 @@ function updateHistoricGraph(){
   } 
 
   
-  if(chartHistoricFortnight==null){
-    chartHistoricFortnight = new Chart(
-      document.getElementById('chartHistoricFortnight'),
-      configLastFortnight
+  if(chartHistoricMonth==null){
+    chartHistoricMonth = new Chart(
+      document.getElementById('chartHistoricMonth'),
+      configHistoricMonth
     )
   } else {
-    chartHistoricFortnight.config.data = data;
-    chartHistoricFortnight.update(/*{mode: 'none'}*/);
+    chartHistoricMonth.config.data = data;
+    chartHistoricMonth.update(/*{mode: 'none'}*/);
   } 
 
 
