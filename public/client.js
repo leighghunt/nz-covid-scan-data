@@ -96,6 +96,7 @@ const previousDaysStatsListener = function() {
   previousDaysStats = JSON.parse(this.responseText)
   console.log(previousDaysStats)
   updateGraph()
+  updateHistoricGraph()
 }
 
 
@@ -539,15 +540,23 @@ function updateHistoricGraph(){
     return {
       // x: new Date(data['Date/Time To']), 
       x: new Date(
-        data['Date/Time To'].toString().substr(6, 4) + '-' + 
-        data['Date/Time To'].toString().substr(3, 2) + '-' + 
-        data['Date/Time To'].toString().substr(0, 2) 
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
       ), 
-      y: parseInt(data.Scans.replace(/,/g, ''))
+      y: data.qr_code_scans_today
     }
   });
+  
+  console.log(historicQRCodeScansFromAPI.length)
+  historicQRCodeScansFromAPI = historicQRCodeScansFromAPI.filter((element, index, array) => { true } )
+  console.log(historicQRCodeScansFromAPI.length)
 
 
+
+  console.log('historicQRCodeScansFromAPI')
+  console.log(historicQRCodeScansFromAPI)
   
   // historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
   
@@ -561,7 +570,17 @@ function updateHistoricGraph(){
         fill: false,
         // lineTension: 0,       
         data: historicQRCodeScans
+      },
+      {
+        label: 'Historic QR Scans from API',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicQRCodeScansFromAPI
       }
+
+
     ]
   };
 
