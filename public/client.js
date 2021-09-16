@@ -364,27 +364,35 @@ function updateGraph(){
     ]
   };
   
-  
-    for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
-  
-      // console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')')
-      data.datasets.push(
-            {
-              label: 'Day ' + previousDayIndex.toString(),
-              // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-              borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow)).toString() + ')',
-              // borderWidth: 1,
-              borderDash: [1, 3],
-              // borderDashOffset: previousDayIndex,
-              fill: false,
-              // lineTension: 0,       
-              data: previousDaysQRCodeScans[previousDayIndex],
-              // yAxisId: 'y1'
-            }
-      )
+  // previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
 
-    }    
-    previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
+
+  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+
+    
+    console.log(previousDaysQRCodeScans[previousDayIndex])
+
+    console.log(previousDaysQRCodeScans[previousDayIndex][0])
+
+    console.log(previousDaysQRCodeScans[previousDayIndex][0].generated)
+    // console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')')
+    data.datasets.push(
+          {
+            label: 'Day ' + previousDayIndex.toString(),
+            // label: previousDaysQRCodeScans[previousDayIndex][0].generated,
+            // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+            borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow)).toString() + ')',
+            // borderWidth: 1,
+            borderDash: [1, 3],
+            // borderDashOffset: previousDayIndex,
+            fill: false,
+            // lineTension: 0,       
+            data: previousDaysQRCodeScans[previousDayIndex],
+            // yAxisId: 'y1'
+          }
+    )
+
+  }    
 
 
 
