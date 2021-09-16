@@ -233,9 +233,9 @@ function updateGraph(){
 
     
     previousDaysQRCodeScans[previousDayIndex] = previousDaysStats
-      .filter(data => new Date(data.generated) <= endOfDayWindow)
+      .filter(data => new Date(data.generated) <= endOfDayWindow && new Date(data.generated) >= startOfDayWindow)
       .map(data => {
-        return {x: new Date(data.generated), y: data.qr_code_scans_today/previousDayIndex}
+        return {x: new Date(data.generated + (previousDayIndex * 24 * 60 * 60 )), y: data.qr_code_scans_today}
       })
 
   }
