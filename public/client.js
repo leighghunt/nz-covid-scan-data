@@ -320,23 +320,6 @@ function updateGraph(){
   let endOfWorkingDayNZ = new Date(startOfTodayNZ)
   endOfWorkingDayNZ.setHours(20)
   endOfWorkingDayNZ.setMinutes(0)
-
-  
-  //console.log('todaysStats');
-  //console.log(todaysStats)
-
-
-  // console.log('todaysQRCodeScans');
-  // console.log(todaysQRCodeScans);
-
-  
-//   console.log('todaysQRScansGroupByPeriod')
-//   console.log(todaysQRScansGroupByPeriod)
-
-  //labels = todaysQRScansGroupBy15Mins.map(data => new Date(data.generated));
-
-  // console.log('increasesByPeriod')
-  // console.log(increasesByPeriod)
   
   const data = {
     labels: labels,
@@ -364,35 +347,39 @@ function updateGraph(){
     ]
   };
   
-  // previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
+  var previousDayColours = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'indigo',
+    'violet'
+  ]
 
-
-  for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
 
     var previousDay = new Date(startOfTodayNZ)
     previousDay.setDate(previousDay.getDate()-previousDayIndex)
-    console.log(previousDay.toString()[0])
-    // console.log(previousDaysQRCodeScans[previousDayIndex])
+    
+    var dataset = {
+      label: previousDay.toString().substr(0, 3),
+      // borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - (previousDayIndex/2))/(previousDaysScansToShow)).toString() + ')',
+      borderColor: previousDayColours[previousDayIndex],
 
-    // console.log(previousDaysQRCodeScans[previousDayIndex][0])
+      borderWidth: 5,
+      borderDash: [1, 3],
 
-    // console.log(previousDaysQRCodeScans[previousDayIndex][0].generated)
-    // console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')')
-    data.datasets.push(
-          {
-            // label: 'Day ' + previousDayIndex.toString(),
-            label: previousDay.toString().substr(0, 3),
-            // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-            borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)*2/(previousDaysScansToShow)).toString() + ')',
-            // borderWidth: 1,
-            borderDash: [1, 3],
-            // borderDashOffset: previousDayIndex,
-            fill: false,
-            // lineTension: 0,       
-            data: previousDaysQRCodeScans[previousDayIndex],
-            // yAxisId: 'y1'
-          }
-    )
+      // borderDash: [1, previousDayIndex ],
+
+      fill: false,
+      data: previousDaysQRCodeScans[previousDayIndex],
+    }
+    
+    // console.log(dataset.label)
+    // console.log(dataset.borderColor)
+
+    data.datasets.push(dataset)
 
   }    
 
