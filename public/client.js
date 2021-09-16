@@ -94,7 +94,7 @@ getTodaysStats()
 
 const previousDaysStatsListener = function() {
   previousDaysStats = JSON.parse(this.responseText)
-  console.log(previousDaysStats)
+  // console.log(previousDaysStats)
   updateGraph()
   updateHistoricGraph()
 }
@@ -108,12 +108,12 @@ function getPreviousDaysStats(){
   startOfTodayNZ.setSeconds(0)
   startOfTodayNZ.setMilliseconds(0)
   
-  console.log('getPreviousDaysStats')
-  console.log(startOfTodayNZ)
+  // console.log('getPreviousDaysStats')
+  // console.log(startOfTodayNZ)
   let startPreviousScans = new Date(startOfTodayNZ)
   startPreviousScans.setDate(startPreviousScans.getDate() - previousDaysScansToShow)
   
-  console.log(startPreviousScans)
+  // console.log(startPreviousScans)
 
   
   // console.log(startOfTodayNZ)
@@ -351,14 +351,14 @@ function updateGraph(){
   
   var previousDayColours = [
     // 'rgb(255, 99, 132)',
-    'red',
+    'white',
     'orange',
     'yellow',
     'green',
     'blue',
     'indigo',
     'violet',
-    'white'
+    'red'
   ]
 
   for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
@@ -388,9 +388,9 @@ function updateGraph(){
       // dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
     }
 
-    console.log(dataset.label)
-    console.log(dataset.borderColor)
-    console.log(previousDaysQRCodeScans[previousDayIndex])
+    // console.log(dataset.label)
+    // console.log(dataset.borderColor)
+    // console.log(previousDaysQRCodeScans[previousDayIndex])
 
     data.datasets.push(dataset)
 
@@ -460,6 +460,9 @@ function updateGraph(){
         label: 'Scans/quarter hour',
         backgroundColor: 'rgb(5255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
+        // backgroundColor: 'white',
+        // borderColor: 'white',
+
         fill: false,
         lineTension: 0,       
         data: increasesByPeriod,
@@ -549,9 +552,8 @@ function updateHistoricGraph(){
     }
   });
   
-  console.log('historicQRCodeScansFromAPI.length')
-
-  console.log(historicQRCodeScansFromAPI.length)
+  // console.log('historicQRCodeScansFromAPI.length')
+  // console.log(historicQRCodeScansFromAPI.length)
 
   historicQRCodeScansFromAPI = historicQRCodeScansFromAPI.filter((element, index, array) => {
     if(index < array.length-1){
@@ -560,12 +562,10 @@ function updateHistoricGraph(){
       }
     } 
   } )
-  console.log(historicQRCodeScansFromAPI.length)
-
-
-
-  console.log('historicQRCodeScansFromAPI')
-  console.log(historicQRCodeScansFromAPI)
+  // console.log(historicQRCodeScansFromAPI.length)
+  
+  // console.log('historicQRCodeScansFromAPI')
+  // console.log(historicQRCodeScansFromAPI)
   
   // historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
   
@@ -588,22 +588,21 @@ function updateHistoricGraph(){
     // labels: labels,
     datasets: [
       {
+        label: 'from API (12am - 12am)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'white',
+        fill: false,
+        // lineTension: 0,       
+        data: historicQRCodeScansFromAPI
+      },
+      {
         label: 'from MoH spreadsheet (12pm - 12pm)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
         // lineTension: 0,       
         data: historicQRCodeScans
-      },
-      {
-        label: 'from API (12am - 12am)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'red',
-        fill: false,
-        // lineTension: 0,       
-        data: historicQRCodeScansFromAPI
       }
-
 
     ]
   };
@@ -613,7 +612,7 @@ function updateHistoricGraph(){
     type: 'line',
     // data_: data.datasets[0],
     options: {
-      // elements: { point: { radius: 0 } },
+      elements: { point: { radius: 0 } },
       
       scales: {
         xAxes: [{
@@ -742,5 +741,6 @@ setInterval(function(){
   }
 
 }, 60000)
+
 
 
