@@ -311,6 +311,17 @@ function updateGraph(){
   let endOfTodayNZ = new Date(startOfTodayNZ)
   endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
 
+  let startOfWorkingDayNZ = new Date()
+  startOfWorkingDayNZ.setHours(6)
+  startOfWorkingDayNZ.setMinutes(0)
+  startOfWorkingDayNZ.setSeconds(0)
+  startOfWorkingDayNZ.setMilliseconds(0)
+
+  let endOfWorkingDayNZ = new Date(startOfTodayNZ)
+  endOfWorkingDayNZ.setHours(20)
+  endOfWorkingDayNZ.setMinutes(0)
+
+  
   //console.log('todaysStats');
   //console.log(todaysStats)
 
@@ -395,8 +406,8 @@ function updateGraph(){
           type: 'time',
           ticks: { 
             unit: 'hour',
-            min: startOfTodayNZ,
-            max: endOfTodayNZ
+            min: startOfWorkingDayNZ,
+            max: endOfWorkingDayNZ
           },
         }],
         
