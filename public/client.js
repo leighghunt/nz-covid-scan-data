@@ -152,7 +152,7 @@ function getHistoricStats(){
 
 setTimeout(function(){ getHistoricStats() }, 1000);
 
-setTimeout(function(){ getPreviousDaysStats() }, 3000);
+setTimeout(function(){ getPreviousDaysStats() }, 1000);
 
 
 
@@ -362,7 +362,9 @@ function updateGraph(){
               label: 'Day ' + previousDayIndex.toString(),
               // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
               borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow)).toString() + ')',
-              borderWidth: 1,
+              // borderWidth: 1,
+              borderDash: [1, 3],
+              // borderDashOffset: previousDayIndex,
               fill: false,
               // lineTension: 0,       
               data: previousDaysQRCodeScans[previousDayIndex],
