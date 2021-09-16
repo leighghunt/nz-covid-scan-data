@@ -367,21 +367,23 @@ function updateGraph(){
   // previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}})
 
 
-  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+  for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
 
-    
-    console.log(previousDaysQRCodeScans[previousDayIndex])
+    var previousDay = new Date(startOfTodayNZ)
+    previousDay.setDate(previousDay.getDate()-previousDayIndex)
+    console.log(previousDay.toString()[0])
+    // console.log(previousDaysQRCodeScans[previousDayIndex])
 
-    console.log(previousDaysQRCodeScans[previousDayIndex][0])
+    // console.log(previousDaysQRCodeScans[previousDayIndex][0])
 
-    console.log(previousDaysQRCodeScans[previousDayIndex][0].generated)
+    // console.log(previousDaysQRCodeScans[previousDayIndex][0].generated)
     // console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow * 2)).toString() + ')')
     data.datasets.push(
           {
-            label: 'Day ' + previousDayIndex.toString(),
-            // label: previousDaysQRCodeScans[previousDayIndex][0].generated,
+            // label: 'Day ' + previousDayIndex.toString(),
+            label: previousDay.toString().substr(0, 3),
             // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-            borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/(previousDaysScansToShow)).toString() + ')',
+            borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)*2/(previousDaysScansToShow)).toString() + ')',
             // borderWidth: 1,
             borderDash: [1, 3],
             // borderDashOffset: previousDayIndex,
@@ -422,8 +424,10 @@ function updateGraph(){
        yAxes: [
          {
           ticks: {
-           callback: function(value, index, values) {
-             return value.toLocaleString("en-NZ",{});
+            min: 0,
+            max: 3000000,
+             callback: function(value, index, values) {
+               return value.toLocaleString("en-NZ",{});
            }
          }
       }]
