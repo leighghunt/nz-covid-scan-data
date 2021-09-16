@@ -152,7 +152,7 @@ function getHistoricStats(){
 
 setTimeout(function(){ getHistoricStats() }, 1000);
 
-setTimeout(function(){ getPreviousDaysStats() }, 5000);
+setTimeout(function(){ getPreviousDaysStats() }, 3000);
 
 
 
@@ -209,11 +209,35 @@ function updateGraph(){
   let previousDaysQRCodeScans = []
   for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
     
-    
-    
-    previousDaysQRCodeScans[previousDayIndex] = previousDaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today/previousDayIndex}})
+    let startOfDayWindow = new Date()
+    startOfDayWindow.setHours(0)
+    startOfDayWindow.setMinutes(0)
+    startOfDayWindow.setSeconds(0)
+    startOfDayWindow.setMilliseconds(0)  
+    startOfDayWindow.setDate(startOfDayWindow.getDate() - (previousDayIndex))
+    let endOfDayWindow = new Date(startOfDayWindow)
+    endOfDayWindow.setHours(23)
+    endOfDayWindow.setMinutes(59)
+    endOfDayWindow.setSeconds(59)
+    endOfDayWindow.setMilliseconds(9999)  
+
+    console.log('startOfDayWindow')
+
+    console.log(startOfDayWindow)
+
+
+    console.log('endOfDayWindow')
+
+    console.log(endOfDayWindow)
+
 
     
+    previousDaysQRCodeScans[previousDayIndex] = previousDaysStats
+      .filter(data => new Date(data.generated) <= endOfDayWindow)
+      .map(data => {
+        return {x: new Date(data.generated), y: data.qr_code_scans_today/previousDayIndex}
+      })
+
   }
   
   
@@ -310,13 +334,14 @@ function updateGraph(){
   };
   
   
-    for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+    for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
   
+      console.log('rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/previousDaysScansToShow).toString() + ')')
       data.datasets.push(
             {
               label: 'Day ' + previousDayIndex.toString(),
               // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-              borderColor: 'rgba(255, 99, 132, ' + (previousDayIndex/previousDaysScansToShow).toString() + ')',
+              borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - previousDayIndex)/previousDaysScansToShow).toString() + ')',
               fill: false,
               // lineTension: 0,       
               data: previousDaysQRCodeScans[previousDayIndex],
