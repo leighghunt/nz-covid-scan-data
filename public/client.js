@@ -218,7 +218,7 @@ function updateGraph(){
 
 
   
-  for(var previousDayIndex = 1; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
     
     let startOfDayWindow = new Date()
     startOfDayWindow.setHours(0)
@@ -250,7 +250,7 @@ function updateGraph(){
       .map(data => {
         let retVal = {x: new Date(data.generated), y: data.qr_code_scans_today}
         
-        retVal.x.setDate(retVal.x.getDate() + previousDayIndex);
+        // retVal.x.setDate(retVal.x.getDate() + previousDayIndex);
         
         return retVal
 
@@ -360,7 +360,7 @@ function updateGraph(){
   for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
 
     var previousDay = new Date(startOfTodayNZ)
-    previousDay.setDate(previousDay.getDate()-previousDayIndex)
+    previousDay.setDate(previousDay.getDate()-(previousDayIndex+1))
     
     var dataset = {
       label: previousDay.toString().substr(0, 3),
@@ -368,7 +368,7 @@ function updateGraph(){
       borderColor: previousDayColours[previousDayIndex],
 
       borderWidth: 5,
-      borderDash: [1, 3],
+      // borderDash: [1, 3],
 
       // borderDash: [1, previousDayIndex ],
 
@@ -376,8 +376,14 @@ function updateGraph(){
       data: previousDaysQRCodeScans[previousDayIndex],
     }
     
-    // console.log(dataset.label)
-    // console.log(dataset.borderColor)
+
+    if(previousDaysQRCodeScans[previousDayIndex] && previousDaysQRCodeScans[previousDayIndex].length>0){
+      dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
+    }
+
+    console.log(dataset.label)
+    console.log(dataset.borderColor)
+    console.log(previousDaysQRCodeScans[previousDayIndex])
 
     data.datasets.push(dataset)
 
@@ -403,8 +409,8 @@ function updateGraph(){
           type: 'time',
           ticks: { 
             unit: 'hour',
-            min: startOfWorkingDayNZ,
-            max: endOfWorkingDayNZ
+            // min: startOfWorkingDayNZ,
+            // max: endOfWorkingDayNZ
           },
         }],
         
