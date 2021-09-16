@@ -47,6 +47,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
     <!-- import the webpage's client-side javascript file -->
     <script src="/client.js" defer></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE07453MG2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ZE07453MG2');
+    </script>
+
   </head>
   <body class="text-center">
     <div
@@ -55,19 +66,19 @@
     ></div>
     <script src="https://button.glitch.me/button.js"></script>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+<!--     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
           <!--           <h3 class="masthead-brand">Cover</h3> -->
           <nav class="nav nav-masthead justify-content-center">
             <!--             <a class="nav-link active" href="#">Home</a>
             <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Contact</a> -->
+            <a class="nav-link" href="#">Contact</a> 
           </nav>
         </div>
       </header>
     </div>
-
+ -->
     <div role="main" class="inner cover">
       <div class="container">
         <div class="row align-items-start">
@@ -77,72 +88,76 @@
             </h1>
           </div>
           <div class="col col-12">
-            <canvas id="chart"></canvas>
+            <canvas id="chartPerQuarterHour"></canvas>
           </div>
+
+
         </div>
       </div>
 
       <div class="lead" id="servicesSummary">
         <div class="container">
           <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              QR Code scans today:
-            </div>
-            <div id="qr_code_scans_today" class="col col-3 text-right">
-              ...
-            </div>
+            <div class="col col-9 text-left">QR Code scans today:</div>
+            <div id="qr_code_scans_today" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">Manual entries today:</div>
+            <div id="manual_entries_today" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">People with Bluetooth Tracing Active today:</div>
+            <div id="people_with_bluetooth_tracing_active_today" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">All time app registrations:</div>
+            <div id="all_time_app_registrations" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">All time posters created:</div>
+            <div id="all_time_posters_created" class="col col-3 text-right">...</div>
+
           </div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              Manual entries today:
-            </div>
-            <div id="manual_entries_today" class="col col-3 text-right">
-              ...
-            </div>
+
+          <div class="col col-12">
+            <h2>
+              This week
+            </h2>
+
+            <canvas id="chart"></canvas>
+          </div>
+          
+          <div class="col col-12">
+
+            <h4>
+              This Month
+            </h4>
+
+            <canvas id="chartHistoricMonth"></canvas>
           </div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              People with Bluetooth Tracing Active today:
-            </div>
-            <div
-              id="people_with_bluetooth_tracing_active_today"
-              class="col col-3 text-right"
-            >
-              ...
-            </div>
+          <div class="col col-12">
+            <h4>
+              Historic
+            </h4>
+          </div>
+          <div class="col col-12">
+            <canvas id="chartHistoric"></canvas>
           </div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              All time app registrations:
-            </div>
-            <div id="all_time_app_registrations" class="col col-3 text-right">
-              ...
-            </div>
-          </div>
 
-          <div class="row align-items-start">
-            <div class="col col-9 text-left">
-              All time posters created:
-            </div>
-            <div id="all_time_posters_created" class="col col-3 text-right">
-              ...
-            </div>
-          </div>
+
         </div>
 
         <div class="container">
           <div class="row align-items-start">
+
             <div class="col col-12">
-              <h4>
-                Historic QR Code scans history
-              </h4>
             </div>
             <div class="col col-12">
-              <canvas id="chartHistoric"></canvas>
             </div>
+
+
+            
+
+
           </div>
         </div>
       </div>
@@ -158,7 +173,7 @@
             <a href="https://enf.tracing.covid19.govt.nz/api/pages/stats">API</a
             >, by <a href="https://twitter.com/leighghunt">@leighghunt</a>,
             <a href="http://venari.co.nz">Venari Ltd</a>, hosted on
-            <a href="https://glitch.com/~how-many-metlink-cancellations-today"
+            <a href="https://glitch.com/~nz-covid-scan-data"
               >Glitch</a
             >.
           </p>
@@ -196,3 +211,4 @@
     ></script>
   </body>
 </html>
+

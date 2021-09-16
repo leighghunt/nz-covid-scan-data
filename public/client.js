@@ -6,13 +6,19 @@ var socket = io.connect(window.location.hostname);
 var latestStats = {}
 // var stats = []
 var todaysStats = []
+
+var previousDaysStats = []
+
 var historicStats = []
+
+const previousDaysScansToShow = 7
+  
 
 function displayStats(stats){
   
-  console.log('displayStats')
+  //console.log('displayStats')
 
-  console.log(stats)
+  //console.log(stats)
 
   document.getElementById('qr_code_scans_today').innerText = latestStats.qr_code_scans_today.toLocaleString()
   document.getElementById('manual_entries_today').innerText = latestStats.manual_entries_today.toLocaleString()
@@ -41,7 +47,7 @@ socket.on('latestStats', function (stats) {
   todaysStats.push(latestStats)
 
 
-  console.log(stats)
+  //console.log(stats)
 
   displayStats(latestStats);
 
@@ -86,11 +92,44 @@ function getTodaysStats(){
 getTodaysStats()
 
 
+const previousDaysStatsListener = function() {
+  previousDaysStats = JSON.parse(this.responseText)
+  // console.log(previousDaysStats)
+  updateGraph()
+  updateHistoricGraph()
+}
+
+
+
+function getPreviousDaysStats(){
+  let startOfTodayNZ = new Date()
+  startOfTodayNZ.setHours(0)
+  startOfTodayNZ.setMinutes(0)
+  startOfTodayNZ.setSeconds(0)
+  startOfTodayNZ.setMilliseconds(0)
+  
+  // console.log('getPreviousDaysStats')
+  // console.log(startOfTodayNZ)
+  let startPreviousScans = new Date(startOfTodayNZ)
+  startPreviousScans.setDate(startPreviousScans.getDate() - previousDaysScansToShow)
+  
+  // console.log(startPreviousScans)
+
+  
+  // console.log(startOfTodayNZ)
+
+  // console.log(startOfTodayNZ.toUTCString())
+
+  const todaysStatsRequest = new XMLHttpRequest();
+  todaysStatsRequest.onload = previousDaysStatsListener;
+  todaysStatsRequest.open('get', '/stats?from=' + startPreviousScans.toUTCString() + '&granularityMins=60');
+  todaysStatsRequest.send();  
+}
 
 
 const historicStatsListener = function() {
   historicStats = JSON.parse(this.responseText)
-  console.log(historicStats)
+  //console.log(historicStats)
   updateHistoricGraph()
 }
 
@@ -114,22 +153,156 @@ function getHistoricStats(){
 
 setTimeout(function(){ getHistoricStats() }, 1000);
 
+setTimeout(function(){ getPreviousDaysStats() }, 1000);
+
+
+
 
 /*
 Chart stuff
 */
 
 var chart
+var chartPerQuarterHour
 var chartHistoric
+var chartHistoricMonth
+
+
+
+function groupByDuration(objectArray, duration = 15) {
+  return objectArray.reduce(function (acc, obj) {
+    
+  
+    var dateRoundedUpToNextPeriod = new Date(obj.generated)
+    const nextPeriod = (Math.ceil(dateRoundedUpToNextPeriod.getMinutes()/duration))*duration
+    dateRoundedUpToNextPeriod.setMinutes(nextPeriod)
+    dateRoundedUpToNextPeriod.setSeconds(0)
+    dateRoundedUpToNextPeriod.setMilliseconds(0)
+    // console.log(nearestQuarterHour)
+    // console.log(dateRoundedUpToNext15Mins)
+
+    let key = dateRoundedUpToNextPeriod.getMinutes()/duration + dateRoundedUpToNextPeriod.getHours() * (60/duration)
+    key = key - 1 // zero based
+    
+    if (!acc[key]) {
+//      acc=[]  // make sure we're an array and not an object
+      acc[key] = obj
+    }
+    
+    //acc[key].push(obj)
+    obj.qr_code_scans_today = Math.max(acc[key].qr_code_scans_today, obj.qr_code_scans_today)
+    acc[key] = obj
+    return acc
+  }, []) // make sure we're an array and not an object
+}
 
 
 function updateGraph(){
 
-  // let labels = todaysStats.map(data => new Date(data.generated));
+  // console.log('updateGraph: todaysStats')
+  // console.log(todaysStats)
+
+  let labels = todaysStats.map(data => new Date(data.generated));
 
   let todaysQRCodeScans = todaysStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
 
   let todaysManualEntries = todaysStats.map(data => {return {x: new Date(data.generated), y: data.manual_entries_today}});
+  
+  let previousDaysQRCodeScans = []
+  
+//     console.log(previousDaysStats[0].generated)
+
+//     console.log(new Date(previousDaysStats[0].generated))
+
+//     console.log(new Date(previousDaysStats[0].generated) + 1)
+
+//     console.log(new Date(previousDaysStats[0].generated) + 24 * 60 * 60)
+
+
+  
+  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+    
+    let startOfDayWindow = new Date()
+    startOfDayWindow.setHours(0)
+    startOfDayWindow.setMinutes(0)
+    startOfDayWindow.setSeconds(0)
+    startOfDayWindow.setMilliseconds(0)  
+    startOfDayWindow.setDate(startOfDayWindow.getDate() - (previousDayIndex))
+    let endOfDayWindow = new Date(startOfDayWindow)
+    endOfDayWindow.setHours(23)
+    endOfDayWindow.setMinutes(59)
+    endOfDayWindow.setSeconds(59)
+    endOfDayWindow.setMilliseconds(9999)  
+
+//     console.log('startOfDayWindow')
+
+//     console.log(startOfDayWindow)
+
+
+//     console.log('endOfDayWindow')
+
+//     console.log(endOfDayWindow)
+
+
+
+
+    
+    previousDaysQRCodeScans[previousDayIndex] = previousDaysStats
+      .filter(data => new Date(data.generated) <= endOfDayWindow && new Date(data.generated) >= startOfDayWindow)
+      .map(data => {
+        let retVal = {x: new Date(data.generated), y: data.qr_code_scans_today}
+        
+        retVal.x.setDate(retVal.x.getDate() + previousDayIndex);
+        
+        return retVal
+
+        // return {x: new Date(data.generated + (previousDayIndex * 24 * 60 * 60 )), y: data.qr_code_scans_today}
+
+      })
+
+  }
+  
+  
+  
+  let barChartPeriod = 15 // mins
+  let todaysQRScansGroupByPeriod = groupByDuration(todaysStats, barChartPeriod)
+
+  //console.log(todaysQRScansGroupBy15Mins)
+
+  //console.log("Increases.....")
+
+  let prevTotal = 0
+  let increasesByPeriod = todaysQRScansGroupByPeriod.map(function (element, index, array) {
+
+
+      let data = {
+        x: new Date(element.generated),
+        y: element.qr_code_scans_today - prevTotal      
+      }
+
+      //let data = element.qr_code_scans_today - prevTotal      
+    
+      prevTotal = element.qr_code_scans_today
+
+      return data
+    } 
+  )
+
+  //Array(4 * 24).fill('')
+  let labelsByPeriod = Array((60/barChartPeriod) * 24).fill(0)
+  labelsByPeriod = labelsByPeriod.map(function (element, index, array) {
+    if(index % (60/barChartPeriod) == 0)
+    {
+      //return '+'
+      return index / (60/barChartPeriod)
+    }
+    return ''
+  }
+  )
+  
+  // console.log('labelsByPeriod')
+  // console.log(labelsByPeriod)
+
 
   let startOfTodayNZ = new Date()
   startOfTodayNZ.setHours(0)
@@ -140,32 +313,95 @@ function updateGraph(){
   let endOfTodayNZ = new Date(startOfTodayNZ)
   endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1);
 
-  console.log(todaysQRCodeScans);
+  let startOfWorkingDayNZ = new Date()
+  startOfWorkingDayNZ.setHours(6)
+  startOfWorkingDayNZ.setMinutes(0)
+  startOfWorkingDayNZ.setSeconds(0)
+  startOfWorkingDayNZ.setMilliseconds(0)
+
+  let endOfWorkingDayNZ = new Date(startOfTodayNZ)
+  endOfWorkingDayNZ.setHours(20)
+  endOfWorkingDayNZ.setMinutes(0)
   
   const data = {
-    // labels: labels,
+    labels: labels,
     datasets: [
-      {
-        label: 'QR Scans',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(255, 99, 132)',
-        fill: false,
-        // lineTension: 0,       
-        data: todaysQRCodeScans
-      },    {
-        label: 'Manual entries',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(50, 99, 255)',
-        fill: false,
-        // lineTension: 0,       
-        data: todaysManualEntries
-      }
+//       {
+//         label: 'QR Scans',
+//           // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+//           borderColor: 'rgb(255, 99, 132)',
+//           fill: false,
+//           // lineTension: 0,       
+//           data: todaysQRCodeScans,
+//           yAxisId: 'y1'
+//       }, {
+//         type: 'line',
+//         label: 'Manual entries',
+//         borderColor: 'rgb(50, 99, 255)',
+
+//         backgroundColor: 'rgb(50, 99, 255)',
+
+//         fill: false,
+//         // lineTension: 0,       
+//         data: todaysManualEntries,
+//         yAxisId: 'y2'
+//       }
     ]
   };
+  
+  var previousDayColours = [
+    // 'rgb(255, 99, 132)',
+    'white',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'indigo',
+    'violet',
+    'red'
+  ]
+
+  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+
+    var previousDay = new Date(startOfTodayNZ)
+    previousDay.setDate(previousDay.getDate()-(previousDayIndex))
+    
+    var dataset = {
+      label: previousDay.toString().substr(0, 3),
+      // borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - (previousDayIndex/2))/(previousDaysScansToShow)).toString() + ')',
+      borderColor: previousDayColours[previousDayIndex],
+
+      // borderWidth: (7 - previousDayIndex)/2,
+
+      // borderWidth: (7 - previousDayIndex)/2,
+
+      // borderDash: [1, 3],
+
+      // borderDash: [1, previousDayIndex ],
+
+      fill: false,
+      data: previousDaysQRCodeScans[previousDayIndex],
+    }
+    
+
+    if(previousDaysQRCodeScans[previousDayIndex] && previousDaysQRCodeScans[previousDayIndex].length>0){
+      // dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
+    }
+
+    // console.log(dataset.label)
+    // console.log(dataset.borderColor)
+    // console.log(previousDaysQRCodeScans[previousDayIndex])
+
+    data.datasets.push(dataset)
+
+  }    
+
+  data.datasets[0].label = 'Today'
+
 
   const config = {
     type: 'line',
-    data,
+    data: data,
     options: {
 
       elements: { point: { radius: 0 } },
@@ -179,21 +415,23 @@ function updateGraph(){
       scales: {
         xAxes: [{
           type: 'time',
-          time: { 
+          ticks: { 
             unit: 'hour',
-            min: startOfTodayNZ,
-            max: endOfTodayNZ
+            // min: startOfWorkingDayNZ,
+            // max: endOfWorkingDayNZ
           },
         }],
         
-       yAxes: [{
-
+       yAxes: [
+         {
           ticks: {
-           callback: function(value, index, values) {
-             return value.toLocaleString("en-NZ",{});
+            min: 0,
+            max: 3000000,
+             callback: function(value, index, values) {
+               return value.toLocaleString("en-NZ",{});
            }
          }
-       }]
+      }]
       },      
       animation: {
         duration:0  // prevent pesky animation, espcially on update
@@ -212,14 +450,83 @@ function updateGraph(){
     chart.update(/*{mode: 'none'}*/);
   } 
   
+  
+  
+  const dataPerQuarterHour = {
+    labels: labelsByPeriod,
+    //labels: Array(4 * 24).fill(''),
+    datasets: [
+      {
+        label: 'Scans/quarter hour',
+        backgroundColor: 'rgb(5255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        // backgroundColor: 'white',
+        // borderColor: 'white',
+
+        fill: false,
+        lineTension: 0,       
+        data: increasesByPeriod,
+      }
+
+    ]
+  };
+  
+  
+  const configPerQuarterHour = {
+    type: 'bar',
+    data: dataPerQuarterHour,
+    options: {
+
+      elements: { point: { radius: 0 } },
+      plugins: {
+        title: {
+          text: 'Chart.js Time Scale',
+          display: true
+        }
+      },      
+      
+      scales: {
+        xAxes: [{
+          //type: 'time',
+          time: { 
+            unit: 'hour',
+            min: startOfTodayNZ,
+            max: endOfTodayNZ
+          },
+        }],
+        
+       yAxes: [
+         {
+            ticks: {
+              min: 0,
+               callback: function(value, index, values) {
+                 return value.toLocaleString("en-NZ",{});
+               }
+         }
+      }]
+      },      
+      animation: {
+        duration:0  // prevent pesky animation, espcially on update
+      }
+    }
+  };
+
+
+  if(chartPerQuarterHour==null){
+    chartPerQuarterHour = new Chart(
+      document.getElementById('chartPerQuarterHour'),
+      configPerQuarterHour
+    )
+  } else {
+    chartPerQuarterHour.config.data = dataPerQuarterHour;
+    chartPerQuarterHour.update(/*{mode: 'none'}*/);
+  } 
+  
+  
+  //chartPer15Mins
 }
 
 function updateHistoricGraph(){
-
-
-  // let labels = todaysStats.map(data => new Date(data.generated));
-  // let historicQRCodeScans = historicStats.map(data => {return {x: new Date(data.generated), y: data.qr_code_scans_today}});
-
   let historicQRCodeScans = historicStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
@@ -231,18 +538,42 @@ function updateHistoricGraph(){
       y: parseInt(data.Scans.replace(/,/g, ''))
     }
   });
-  
-  historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
-  
-  console.log(historicQRCodeScans)
-  
-  // parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='QR code scans today').value.replace(/,/g, '')),
 
+  let historicQRCodeScansFromAPI = previousDaysStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: data.qr_code_scans_today
+    }
+  });
+  
+  // console.log('historicQRCodeScansFromAPI.length')
+  // console.log(historicQRCodeScansFromAPI.length)
+
+  historicQRCodeScansFromAPI = historicQRCodeScansFromAPI.filter((element, index, array) => {
+    if(index < array.length-1){
+      if(element.x.getDate() != array[index+1].x.getDate()){
+        return true
+      }
+    } 
+  } )
+  // console.log(historicQRCodeScansFromAPI.length)
+  
+  // console.log('historicQRCodeScansFromAPI')
+  // console.log(historicQRCodeScansFromAPI)
+  
+  // historicQRCodeScans.push({x: new Date(), y: latestStats.qr_code_scans_today})
+  
   const data = {
     // labels: labels,
     datasets: [
       {
-        label: 'QR Scans',
+        label: 'from MoH spreadsheet (12pm - 12pm)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
@@ -252,11 +583,35 @@ function updateHistoricGraph(){
     ]
   };
 
+
+  const dataPrevMonth = {
+    // labels: labels,
+    datasets: [
+      {
+        label: 'from API (12am - 12am)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'white',
+        fill: false,
+        // lineTension: 0,       
+        data: historicQRCodeScansFromAPI
+      },
+      {
+        label: 'from MoH spreadsheet (12pm - 12pm)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicQRCodeScans
+      }
+
+    ]
+  };
+
+
   const config = {
     type: 'line',
-    data,
+    // data_: data.datasets[0],
     options: {
-
       elements: { point: { radius: 0 } },
       
       scales: {
@@ -264,6 +619,40 @@ function updateHistoricGraph(){
           type: 'time',
           time: { 
             unit: 'month'
+          },
+        }],
+        
+       yAxes: [{
+
+          ticks: {
+           callback: function(value, index, values) {
+             return value.toLocaleString("en-NZ",{});
+           }
+         }
+       }]
+      },      
+      animation: {
+        duration:0  // prevent pesky animation, espcially on update
+      }
+    }
+  };
+  
+  var oneMonthAgo = new Date()
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth()-1)
+  
+  const configHistoricMonth = {
+    type: 'line',
+    // data,
+    options: {
+      // elements: { point: { radius: 0 } },
+      // lineTension: 0, 
+
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: { 
+            unit: 'day',
+            min: oneMonthAgo
           },
         }],
         
@@ -292,7 +681,19 @@ function updateHistoricGraph(){
     chartHistoric.config.data = data;
     chartHistoric.update(/*{mode: 'none'}*/);
   } 
+
   
+  if(chartHistoricMonth==null){
+    chartHistoricMonth = new Chart(
+      document.getElementById('chartHistoricMonth'),
+      configHistoricMonth
+    )
+  } else {
+    chartHistoricMonth.config.data = dataPrevMonth;
+    chartHistoricMonth.update(/*{mode: 'none'}*/);
+  } 
+
+
 }
 
 
@@ -340,4 +741,6 @@ setInterval(function(){
   }
 
 }, 60000)
+
+
 
