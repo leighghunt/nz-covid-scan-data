@@ -86,6 +86,26 @@ function getTodaysStats(){
 getTodaysStats()
 
 
+function getPreviousDaysStats(){
+  let startOfTodayNZ = new Date()
+  startOfTodayNZ.setHours(0)
+  startOfTodayNZ.setMinutes(0)
+  startOfTodayNZ.setSeconds(0)
+  startOfTodayNZ.setMilliseconds(0)
+  
+  let startOf7DaysAgo = startOfTodayNZ - 7
+  
+  // console.log(startOfTodayNZ)
+
+  // console.log(startOfTodayNZ.toUTCString())
+
+  const todaysStatsRequest = new XMLHttpRequest();
+  todaysStatsRequest.onload = todaysStatsListener;
+  todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
+  todaysStatsRequest.send();  
+}
+
+getPreviousDaysStats()
 
 
 const historicStatsListener = function() {

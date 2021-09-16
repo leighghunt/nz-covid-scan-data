@@ -230,7 +230,7 @@ app.get('/stats/', async function(request, response) {
       to = new Date(request.query.to)
     }
 
-    var granularityMins = 5
+    var granularityMins = 1
     if(request.query.granularityMins!=null){
       granularityMins = new Date(request.query.granularityMins)
     }
