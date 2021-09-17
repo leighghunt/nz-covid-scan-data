@@ -596,7 +596,7 @@ function updateHistoricGraph(){
         data: historicQRCodeScansFromAPI
       },
       {
-        label: 'from MoH spreadsheet (12pm - 12pm)',
+        label: 'from MoH spreadsheet (1pm - 1pm)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
