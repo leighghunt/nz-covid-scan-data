@@ -30,8 +30,11 @@ function displayStats(stats){
 
   let thisTimeLastWeek = new Date()
   thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
-  let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => s.generatedDate >= thisTimeLastWeek )
-  document.getElementById('qr_code_scans_compared_to_this_time_last_week').innerText = qr_code_scans_compared_to_this_time_last_week.toLocaleString()
+//   let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => s.generatedDate >= thisTimeLastWeek )
+//   if(qr_code_scans_compared_to_this_time_last_week){
+//     document.getElementById('qr_code_scans_compared_to_this_time_last_week').innerText = qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today.toLocaleString()
+    
+//   }
   
   
   updateGraph();  
@@ -124,7 +127,7 @@ function getThisDayLastWeeksStats(){
   // console.log(startOfTodayNZ.toUTCString())
 
   const thisDayLastWeeksStatsRequest = new XMLHttpRequest();
-  thisDayLastWeeksStatsRequest.onload = thisDayLastWeeksStatsRequest;
+  thisDayLastWeeksStatsRequest.onload = thisDayLastWeeksListener;
   thisDayLastWeeksStatsRequest.open('get', '/stats?from=' + startOfThisDayLastWeek.toUTCString() + 'to=' + endOfThisDayLastWeek.toUTCString());
   thisDayLastWeeksStatsRequest.send();  
 }
