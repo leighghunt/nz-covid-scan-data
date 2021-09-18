@@ -30,6 +30,7 @@ function displayStats(stats){
 
   let thisTimeLastWeek = new Date()
   thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
+  console.log(thisTimeLastWeek)
 //   let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => s.generatedDate >= thisTimeLastWeek )
 //   if(qr_code_scans_compared_to_this_time_last_week){
 //     document.getElementById('qr_code_scans_compared_to_this_time_last_week').innerText = qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today.toLocaleString()
@@ -82,6 +83,8 @@ const todaysStatsListener = function() {
 
 const thisDayLastWeeksListener = function() {
   thisDayLastWeeksStats = JSON.parse(this.responseText)
+  console.log(thisDayLastWeeksListener.length)
+
 }
 
 
@@ -115,20 +118,23 @@ function getThisDayLastWeeksStats(){
   
   startOfThisDayLastWeek.setDate(startOfThisDayLastWeek.getDate() - 7)
   
-  let endOfThisDayLastWeek = startOfThisDayLastWeek
+  let endOfThisDayLastWeek = new Date(startOfThisDayLastWeek)
   endOfThisDayLastWeek.setHours(23)
   endOfThisDayLastWeek.setMinutes(59)
   endOfThisDayLastWeek.setSeconds(59)
   endOfThisDayLastWeek.setMilliseconds(999)
   
   
-  // console.log(startOfTodayNZ)
+  console.log(startOfThisDayLastWeek)
+  console.log(startOfThisDayLastWeek.toUTCString())
 
-  // console.log(startOfTodayNZ.toUTCString())
+  console.log(endOfThisDayLastWeek)
+  console.log(endOfThisDayLastWeek.toUTCString())
+
 
   const thisDayLastWeeksStatsRequest = new XMLHttpRequest();
   thisDayLastWeeksStatsRequest.onload = thisDayLastWeeksListener;
-  thisDayLastWeeksStatsRequest.open('get', '/stats?from=' + startOfThisDayLastWeek.toUTCString() + 'to=' + endOfThisDayLastWeek.toUTCString());
+  thisDayLastWeeksStatsRequest.open('get', '/stats?from=' + startOfThisDayLastWeek.toUTCString() + '&to=' + endOfThisDayLastWeek.toUTCString());
   thisDayLastWeeksStatsRequest.send();  
 }
 
