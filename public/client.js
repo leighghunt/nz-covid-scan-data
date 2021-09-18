@@ -33,24 +33,27 @@ function displayStats(stats){
     thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
     console.log(thisTimeLastWeek)
 
-    let qr_code_scans_compared_to_this_time_last_week = null
-
     if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
-      qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => {
+      const index = thisDayLastWeeksStats.findIndex(s => {
         if(new Date(s.generated) >= thisTimeLastWeek) {
           return true
-        } else {
-          return false
         }
       })
 
-      if(qr_code_scans_compared_to_this_time_last_week != null){
+      if(index>=0){
+        let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
+
         let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today - 100
         console.log(percentageOfLastWeek)
-        let qr_code_scans_compared_to_this_time_last_week = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
-        qr_code_scans_compared_to_this_time_last_week.innerText = percentageOfLastWeek.toFixed(1) + '%'
+        let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+        
         if(percentageOfLastWeek<0){
-           qr_code_scans_compared_to_this_time_last_week.style.color = 'red'
+           el.style.color = 'red'
+           el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+         } else {
+           el.style.color = 'green'
+           el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+
          }
       }
 
