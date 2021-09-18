@@ -31,11 +31,14 @@ function displayStats(stats){
   let thisTimeLastWeek = new Date()
   thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
   console.log(thisTimeLastWeek)
-//   let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => s.generatedDate >= thisTimeLastWeek )
-//   if(qr_code_scans_compared_to_this_time_last_week){
-//     document.getElementById('qr_code_scans_compared_to_this_time_last_week').innerText = qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today.toLocaleString()
-    
-//   }
+  let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => {
+    if(new Date(s.generatedDate) >= thisTimeLastWeek) {
+      return true
+    }
+  })
+  if(qr_code_scans_compared_to_this_time_last_week){
+    document.getElementById('qr_code_scans_compared_to_this_time_last_week').innerText = qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today.toLocaleString()
+  }
   
   
   updateGraph();  
@@ -83,7 +86,13 @@ const todaysStatsListener = function() {
 
 const thisDayLastWeeksListener = function() {
   thisDayLastWeeksStats = JSON.parse(this.responseText)
-  console.log(thisDayLastWeeksListener.length)
+  console.log('thisDayLastWeeksListener')
+
+  console.log(thisDayLastWeeksStats)
+
+
+  console.log(thisDayLastWeeksStats.length)
+
 
 }
 
