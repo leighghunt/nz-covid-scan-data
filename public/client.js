@@ -28,6 +28,11 @@ function displayStats(stats){
   document.getElementById('all_time_app_registrations').innerText = latestStats.all_time_app_registrations.toLocaleString()
   document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
 
+  let thisTimeLastWeek = new Date()
+  thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
+  let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => s.generatedDate >= thisTimeLastWeek )
+  document.getElementById('qr_code_scans_compared_to_this_time_last_week').innerText = qr_code_scans_compared_to_this_time_last_week.toLocaleString()
+  
   
   updateGraph();  
 }
@@ -74,7 +79,6 @@ const todaysStatsListener = function() {
 
 const thisDayLastWeeksListener = function() {
   thisDayLastWeeksStats = JSON.parse(this.responseText)
-  
 }
 
 
@@ -96,6 +100,37 @@ function getTodaysStats(){
 }
 
 getTodaysStats()
+
+
+
+function getThisDayLastWeeksStats(){
+  let startOfThisDayLastWeek = new Date()
+  startOfThisDayLastWeek.setHours(0)
+  startOfThisDayLastWeek.setMinutes(0)
+  startOfThisDayLastWeek.setSeconds(0)
+  startOfThisDayLastWeek.setMilliseconds(0)
+  
+  startOfThisDayLastWeek.setDate(startOfThisDayLastWeek.getDate() - 7)
+  
+  let endOfThisDayLastWeek = startOfThisDayLastWeek
+  endOfThisDayLastWeek.setHours(23)
+  endOfThisDayLastWeek.setMinutes(59)
+  endOfThisDayLastWeek.setSeconds(59)
+  endOfThisDayLastWeek.setMilliseconds(999)
+  
+  
+  // console.log(startOfTodayNZ)
+
+  // console.log(startOfTodayNZ.toUTCString())
+
+  const thisDayLastWeeksStatsRequest = new XMLHttpRequest();
+  thisDayLastWeeksStatsRequest.onload = thisDayLastWeeksStatsRequest;
+  thisDayLastWeeksStatsRequest.open('get', '/stats?from=' + startOfThisDayLastWeek.toUTCString() + 'to=' + endOfThisDayLastWeek.toUTCString());
+  thisDayLastWeeksStatsRequest.send();  
+}
+
+getTodaysStats()
+getThisDayLastWeeksStats()
 
 
 const previousDaysStatsListener = function() {
