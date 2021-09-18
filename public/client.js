@@ -6,6 +6,7 @@ var socket = io.connect(window.location.hostname);
 var latestStats = {}
 // var stats = []
 var todaysStats = []
+var thisDayLastWeeksStats = []
 
 var previousDaysStats = []
 
@@ -69,6 +70,11 @@ const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText)
   console.log(todaysStats)
   updateGraph()
+}
+
+const thisDayLastWeeksListener = function() {
+  thisDayLastWeeksStats = JSON.parse(this.responseText)
+  
 }
 
 
