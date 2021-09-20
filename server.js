@@ -125,6 +125,11 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/arrow', function(request, response) {
+  response.sendFile(__dirname + '/views/arrow.html');
+});
+
+
 server.listen(process.env.PORT);
 
 // var distanceBetweenLocations = require('./distanceBetweenLocations');

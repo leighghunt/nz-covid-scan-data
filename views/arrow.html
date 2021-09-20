@@ -1,0 +1,221 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Welcome to Glitch!</title>
+    <meta name="description" content="A cool thing made with Glitch" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/client.js" defer></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE07453MG2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ZE07453MG2');
+    </script>
+
+  </head>
+  <body class="text-center">
+    <div
+      class="glitchButton"
+      style="position:fixed;top:20px;right:20px;z-index:1000"
+    ></div>
+    <script src="https://button.glitch.me/button.js"></script>
+
+<!--     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <!--           <h3 class="masthead-brand">Cover</h3> -->
+          <nav class="nav nav-masthead justify-content-center">
+            <!--             <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a> 
+          </nav>
+        </div>
+      </header>
+    </div>
+ -->
+    <div role="main" class="inner cover">
+      <div class="container">
+        <div class="row align-items-start">
+          <div class="col col-12">
+            <h1>
+              NZ QR Code scans today
+            </h1>
+          </div>
+          <div class="col col-12">
+            <canvas id="chartPerQuarterHour"></canvas>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="lead" id="servicesSummary">
+        <div class="container">
+          <div class="row align-items-start">
+            <div class="col col-9 text-left">QR Code scans today:</div>
+            <div id="qr_code_scans_today" class="col col-3 text-right">...</div>
+            
+            <div class="col col-9 text-left">Compared to this time last week:</div>
+            <div id="qr_code_scans_compared_to_this_time_last_week" class="col col-3 text-right">+/-...%</div>
+
+
+
+
+
+            <div class="col col-9 text-left">Manual entries today:</div>
+            <div id="manual_entries_today" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">People with Bluetooth Tracing Active today:</div>
+            <div id="people_with_bluetooth_tracing_active_today" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">All time app registrations:</div>
+            <div id="all_time_app_registrations" class="col col-3 text-right">...</div>
+
+            <div class="col col-9 text-left">All time posters created:</div>
+            <div id="all_time_posters_created" class="col col-3 text-right">...</div>
+
+          </div>
+
+
+          <div class="col col-12">
+            <h2>
+              This week
+            </h2>
+
+            <canvas id="chart"></canvas>
+          </div>
+          
+          <div class="col col-12">
+
+            <h4>
+              This Month
+            </h4>
+
+            <canvas id="chartHistoricMonth"></canvas>
+          </div>
+
+          <div class="col col-12">
+            <h4>
+              Historic
+            </h4>
+          </div>
+          <div class="col col-12">
+            <canvas id="chartHistoric"></canvas>
+          </div>
+
+
+
+        </div>
+
+        <div class="container">
+          <div class="row align-items-start">
+
+            <div class="col col-12">
+            </div>
+            <div class="col col-12">
+            </div>
+
+
+            
+
+
+          </div>
+        </div>
+      </div>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>
+            Interface to
+            <a
+              href="https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data"
+              >Ministry of Health</a
+            >'s Covid Tracer Stats
+            <a href="https://enf.tracing.covid19.govt.nz/api/pages/stats">API</a
+            >, by <a href="https://twitter.com/leighghunt">@leighghunt</a>,
+            <a href="http://venari.co.nz">Venari Ltd</a>, hosted on
+            <a href="https://glitch.com/~nz-covid-scan-data"
+              >Glitch</a
+            >.
+          </p>
+          <p>
+            Not affiliated Ministry of Health in any way. Not even guaranteed to
+            be accurate - hey it's under development.
+          </p>
+
+          <p>
+            Cover template for
+            <a href="https://getbootstrap.com/">Bootstrap</a>, by
+            <a href="https://twitter.com/mdo">@mdo</a>.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
