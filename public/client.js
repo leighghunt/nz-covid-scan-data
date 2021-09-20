@@ -340,7 +340,7 @@ function updateGraph(){
   
   
   
-  let barChartPeriod =5 // mins
+  let barChartPeriod =15 // mins
   let todaysQRScansGroupByPeriod = groupByDuration(todaysStats, barChartPeriod)
 
   //console.log(todaysQRScansGroupBy15Mins)
