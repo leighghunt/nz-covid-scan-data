@@ -125,8 +125,8 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/arrow', function(request, response) {
-  response.sendFile(__dirname + '/views/arrow.html');
+app.get('/scans', function(request, response) {
+  response.sendFile(__dirname + '/views/scans.html');
 });
 
 
