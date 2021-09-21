@@ -437,6 +437,24 @@ function updateGraph(){
     'red'
   ]
 
+  var previousDayWidths = [
+    4, 1, 1, 1, 1, 1, 1, 5
+  ]
+
+  var previousDayDashes = [
+    [],
+    [1, 3],
+    [1, 3],
+    [1, 3],
+    [1, 3],
+    [1, 3],
+    [1, 3],
+    []
+  ]
+
+
+
+
   for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
 
     var previousDay = new Date(startOfTodayNZ)
@@ -446,6 +464,8 @@ function updateGraph(){
       label: previousDay.toString().substr(0, 3),
       // borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - (previousDayIndex/2))/(previousDaysScansToShow)).toString() + ')',
       borderColor: previousDayColours[previousDayIndex],
+      borderWidth: previousDayWidths[previousDayIndex],
+      borderDash: previousDayDashes[previousDayIndex],
 
       // borderWidth: (7 - previousDayIndex)/2,
 
