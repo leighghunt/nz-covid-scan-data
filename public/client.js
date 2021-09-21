@@ -3,7 +3,7 @@
 var io = window.io;
 var socket = io.connect(window.location.hostname);
 
-var latestStats = {}
+var latestStats = null
 // var stats = []
 var todaysStats = []
 var thisDayLastWeeksStats = []
