@@ -85,8 +85,22 @@ function displayStats(stats){
         console.log(todaysStats[todaysStats.length-1])
 
 
+//         console.log('reduce')
+//         qr_code_scans_compared_to_this_time_last_week.reduce((previousValue, currentValue) => {
+//           console.log(previousValue)
+//           console.log(currentValue)
 
-        const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.average()
+//           console.log(currentValue.qr_code_scans_today)
+
+//           // (runningTotal + currentValue.qr_code_scans_today)
+//         }
+//         )
+//         console.log(qr_code_scans_compared_to_this_time_last_week.length)
+
+        const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_compared_to_this_time_last_week.length
+        console.log('avg_qr_code_scans_compared_to_this_time_last_week')
+
+        console.log(avg_qr_code_scans_compared_to_this_time_last_week)
 
 
 
