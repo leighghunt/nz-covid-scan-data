@@ -34,11 +34,11 @@ function displayStats(stats){
     // console.log(thisTimeLastWeek)
     
     let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeek)
-    thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-5)
+    thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-15)
     
     let timeNow = new Date()
     let timeNowMinus5Mins = new Date()
-    timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-5)
+    timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-15)
     
 //     console.log('thisTimeLastWeek')
 
