@@ -496,7 +496,16 @@ function updateGraph(){
   let barChartPeriod =15 // mins
   let todaysQRScansGroupByPeriod = groupByDuration(todaysStats, barChartPeriod)
 
-  //console.log(todaysQRScansGroupBy15Mins)
+  let thisDayLastWeeksQRScansGroupByPeriod = groupByDuration(thisDayLastWeeksStats, barChartPeriod)
+
+
+  
+  console.log('todaysQRScansGroupByPeriod')
+  console.log(todaysQRScansGroupByPeriod)
+  console.log('thisDayLastWeeksQRScansGroupByPeriod')
+  console.log(thisDayLastWeeksQRScansGroupByPeriod)
+
+
 
   //console.log("Increases.....")
 
@@ -516,6 +525,26 @@ function updateGraph(){
       return data
     } 
   )
+  
+  prevTotal = 0
+  let increasesByPeriod7DaysAgo = thisDayLastWeeksQRScansGroupByPeriod.map(function (element, index, array) {
+
+
+      let data = {
+        x: new Date(element.generated),
+        y: element.qr_code_scans_today - prevTotal      
+      }
+      
+      // data.x.setDate(data.x.getDate()+7)
+
+      //let data = element.qr_code_scans_today - prevTotal      
+    
+      prevTotal = element.qr_code_scans_today
+
+      return data
+    } 
+  )
+
 
   //Array(4 * 24).fill('')
   let labelsByPeriod = Array((60/barChartPeriod) * 24).fill(0)
@@ -715,11 +744,25 @@ function updateGraph(){
         fill: false,
         lineTension: 0,       
         data: increasesByPeriod,
+      },      
+      {
+        label: 'Scans/quarter hour this time last week',
+        backgroundColor: 'rgb(5255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        // backgroundColor: 'white',
+        // borderColor: 'white',
+
+        fill: false,
+        lineTension: 0,       
+        data: increasesByPeriod7DaysAgo,
       }
+
+
 
     ]
   };
-  
+    
+
   
   const configPerQuarterHour = {
     type: 'bar',
@@ -739,8 +782,8 @@ function updateGraph(){
           //type: 'time',
           time: { 
             unit: 'hour',
-            min: startOfTodayNZ,
-            max: endOfTodayNZ
+            // min: startOfTodayNZ,
+            // max: endOfTodayNZ
           },
         }],
         
