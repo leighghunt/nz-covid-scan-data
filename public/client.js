@@ -29,36 +29,189 @@ function displayStats(stats){
     document.getElementById('all_time_app_registrations').innerText = latestStats.all_time_app_registrations.toLocaleString()
     document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
 
-    let thisTimeLastWeek = new Date()
-    thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
-    console.log(thisTimeLastWeek)
+    let percentageOfLastWeek = 0
+    
+    // Average approach 1
+    {
+//       let thisTimeLastWeek = new Date()
+//       thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
+//       // console.log(thisTimeLastWeek)
 
-    if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
-      const index = thisDayLastWeeksStats.findIndex(s => {
-        if(new Date(s.generated) >= thisTimeLastWeek) {
-          return true
-        }
-      })
+//       let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeek)
+//       thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-15)
 
-      if(index>=0){
-        let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
+//       let timeNow = new Date()
+//       let timeNowMinus5Mins = new Date()
+//       timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-15)
 
-        let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today - 100
-        console.log(percentageOfLastWeek)
-        let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
-        
-        if(percentageOfLastWeek<0){
-           el.style.color = 'red'
-           el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
-         } else {
-           el.style.color = 'green'
-           el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+//   //     console.log('thisTimeLastWeek')
+//   //     console.log(thisTimeLastWeek)
+//   //     console.log('thisTimeLastWeekMinus5Mins')
+//   //     console.log(thisTimeLastWeekMinus5Mins)
+//   //     console.log('timeNow')
+//   //     console.log(timeNow)
+//   //     console.log('timeNowMinus5Mins')
+//   //     console.log(timeNowMinus5Mins)
 
-         }
-      }
 
+
+//       if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
+//         const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.filter(s => {
+//           const generated = new Date(s.generated)
+//           if( generated >= thisTimeLastWeekMinus5Mins && generated <= thisTimeLastWeek) {
+//             return true
+//           }
+//         })
+
+//         const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
+//           const generated = new Date(s.generated)
+//           if( generated >= timeNowMinus5Mins && generated <= timeNow) {
+//             return true
+//           }
+//         })
+
+
+//         if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
+//           // let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
+
+//           // console.log('qr_code_scans_compared_to_this_time_last_week')
+//           // console.log(qr_code_scans_compared_to_this_time_last_week)
+
+//   //         console.log('qr_code_scans_in_last_5_mins')
+//   //         console.log(qr_code_scans_in_last_5_mins)
+
+//   //         console.log('latestStats.qr_code_scans_today')
+//   //         console.log(latestStats.qr_code_scans_today)
+
+//   //         console.log('latestStats')
+//   //         console.log(latestStats)
+
+//   //         console.log('todaysStats[todaysStats.length-1]')
+//   //         console.log(todaysStats[todaysStats.length-1])
+
+//           const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_compared_to_this_time_last_week.length
+//           // console.log('avg_qr_code_scans_compared_to_this_time_last_week')        
+//           // console.log(avg_qr_code_scans_compared_to_this_time_last_week)
+
+//           const avg_qr_code_scans_in_last_5_mins = qr_code_scans_in_last_5_mins.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_in_last_5_mins.length
+//           // console.log('avg_qr_code_scans_in_last_5_mins')
+//           // console.log(avg_qr_code_scans_in_last_5_mins)
+
+
+//           // let average5MinsTotalThisTimeLastWeek = 
+//           let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week[qr_code_scans_compared_to_this_time_last_week.length-1].qr_code_scans_today - 100
+//           console.log('Average approach 1')
+//           console.log('percentageOfLastWeek')
+//           console.log(percentageOfLastWeek)
+
+
+//           percentageOfLastWeek = avg_qr_code_scans_in_last_5_mins * 100 / avg_qr_code_scans_compared_to_this_time_last_week - 100
+
+//         }
+
+//       }
     }
 
+    // Average approach 2
+    {
+
+      console.log('Average approach 2')
+
+
+      let thisTimeLastWeek = new Date()
+      thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
+      // console.log(thisTimeLastWeek)
+
+      let timeNow = new Date()
+
+      if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
+        const lastWeekIndex = thisDayLastWeeksStats.findIndex(s => {
+          const generated = new Date(s.generated)
+          if( generated >= thisTimeLastWeek) {
+            return true
+          }
+        })
+        
+        if(lastWeekIndex>0){
+          const qrScans2 = thisDayLastWeeksStats[lastWeekIndex]
+          const qrScans1 = thisDayLastWeeksStats[lastWeekIndex-1]
+
+          
+          let dateThisScan = new Date(latestStats.generated)
+
+          let timeThisScanBut7DaysAgo = new Date(dateThisScan)
+          timeThisScanBut7DaysAgo.setDate(dateThisScan.getDate()-7)
+
+          let dateScan1 = new Date(qrScans1.generated)
+          let dateScan2 = new Date(qrScans2.generated)
+          
+
+          let projectedOldFigure = 0
+          
+          // // At end of time window?
+          // if(dateScan2 - timeThisScanBut7DaysAgo == 0){
+          //   projectedOldFigure = qrScans2.qr_code_scans_today
+          // } else {
+          //   // At start of time window?
+          //   if(timeThisScanBut7DaysAgo - dateScan1 == 0){
+          //     projectedOldFigure = qrScans1.qr_code_scans_today
+          //   } else {
+          //     // Inside the time window
+              projectedOldFigure =  (
+                                      ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
+                                      * (qrScans2.qr_code_scans_today - qrScans1.qr_code_scans_today)
+                                    )
+                                    + qrScans1.qr_code_scans_today
+            // }
+          // }
+          
+          
+          if(timeThisScanBut7DaysAgo < dateScan1
+             || timeThisScanBut7DaysAgo > dateScan2){
+            console.warn("Date not in between two scans as expected")
+            console.log('dateThisScan')
+            console.log(dateThisScan)
+
+            console.log('qrScans1')
+            console.log(qrScans1)
+            console.log('qrScans2')
+            console.log(qrScans2)
+            console.log('latestStats')
+            console.log(latestStats)
+
+
+            console.log('dateScan2 - dateScan1')
+            console.log(dateScan2 - dateScan1)
+            console.log('dateScan2 - timeThisScanBut7DaysAgo')
+            console.log(dateScan2 - timeThisScanBut7DaysAgo)
+            console.log('timeThisScanBut7DaysAgo - dateScan1')
+            console.log(timeThisScanBut7DaysAgo - dateScan1)
+  
+            console.log('projectedOldFigure')
+            console.log(projectedOldFigure)
+
+          }
+          
+
+          percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / projectedOldFigure - 100
+        }
+      }
+    }
+
+    console.log(percentageOfLastWeek)
+    let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+
+    if(percentageOfLastWeek<0){
+       el.style.color = 'red'
+       el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+     } else {
+       el.style.color = 'green'
+       el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+
+     }
+
+
+    
     updateGraph();  
     
   }
@@ -100,7 +253,7 @@ refreshLatestStats()
 
 const todaysStatsListener = function() {
   todaysStats = JSON.parse(this.responseText)
-  console.log(todaysStats)
+  // console.log(todaysStats)
   updateGraph()
 }
 
@@ -151,11 +304,11 @@ function getThisDayLastWeeksStats(){
   endOfThisDayLastWeek.setMilliseconds(999)
   
   
-  console.log(startOfThisDayLastWeek)
-  console.log(startOfThisDayLastWeek.toUTCString())
+//   console.log(startOfThisDayLastWeek)
+//   console.log(startOfThisDayLastWeek.toUTCString())
 
-  console.log(endOfThisDayLastWeek)
-  console.log(endOfThisDayLastWeek.toUTCString())
+//   console.log(endOfThisDayLastWeek)
+//   console.log(endOfThisDayLastWeek.toUTCString())
 
 
   const thisDayLastWeeksStatsRequest = new XMLHttpRequest();
