@@ -181,16 +181,21 @@ function displayStats(stats){
               projectedOldFigure = qrScans1.qr_code_scans_today
             } else {
               // Inside the time window
-              
+              projectedOldFigure =  (
+                                      ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
+                                      * (qrScans2.qr_code_scans_today - qrScans1.qr_code_scans_today)
+                                    )
+                                    + qrScans1.qr_code_scans_today
               
             }
 
 
           }
+          
+          console.log('projectedOldFigure')
+          console.log(projectedOldFigure)
 
-
-
-
+          percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / projectedOldFigure - 100
         }
 
 
