@@ -32,17 +32,51 @@ function displayStats(stats){
     let thisTimeLastWeek = new Date()
     thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
     console.log(thisTimeLastWeek)
+    
+    let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeekMinus5Mins)
+    thisTimeLastWeekMinus5Mins.setMins(thisTimeLastWeekMinus5Mins.getMins-5)
+    
+    let timeNow = new Date()
+    let timeNowMinus5Mins = new Date()
+    timeNowMinus5Mins.setMins(timeNowMinus5Mins.getMins-5)
+    
+    console.log(thisTimeLastWeek)
+
+    console.log(thisTimeLastWeek)
+
 
     if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
-      const index = thisDayLastWeeksStats.findIndex(s => {
+      const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => {
         if(new Date(s.generated) >= thisTimeLastWeek) {
           return true
         }
       })
 
-      if(index>=0){
-        let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
+      if(qr_code_scans_compared_to_this_time_last_week){
+        // let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
+        
+        console.log('qr_code_scans_compared_to_this_time_last_week')
+        console.log(qr_code_scans_compared_to_this_time_last_week)
+        
+        console.log('latestStats.qr_code_scans_today')
+        console.log(latestStats.qr_code_scans_today)
 
+        console.log('latestStats')
+
+        console.log(latestStats)
+
+
+        console.log('todaysStats[todaysStats.length-1]')
+
+        console.log(todaysStats[todaysStats.length-1])
+
+
+
+
+
+
+
+        // let average5MinsTotalThisTimeLastWeek = 
         let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week.qr_code_scans_today - 100
         console.log(percentageOfLastWeek)
         let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
