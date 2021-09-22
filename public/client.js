@@ -145,28 +145,6 @@ function displayStats(stats){
           let dateScan1 = new Date(qrScans1.generated)
           let dateScan2 = new Date(qrScans2.generated)
           
-          if(timeThisScanBut7DaysAgo < dateScan1
-             || timeThisScanBut7DaysAgo > dateScan2){
-            console.warn("Date not in between two scans as expected")
-            console.log('dateThisScan')
-            console.log(dateThisScan)
-
-            console.log('qrScans1')
-            console.log(qrScans1)
-            console.log('qrScans2')
-            console.log(qrScans2)
-            console.log('latestStats')
-            console.log(latestStats)
-
-
-            console.log('dateScan2 - dateScan1')
-            console.log(dateScan2 - dateScan1)
-            console.log('dateScan2 - timeThisScanBut7DaysAgo')
-            console.log(dateScan2 - timeThisScanBut7DaysAgo)
-            console.log('timeThisScanBut7DaysAgo - dateScan1')
-            console.log(timeThisScanBut7DaysAgo - dateScan1)
-          }
-          
 
           let projectedOldFigure = 0
           
@@ -187,8 +165,33 @@ function displayStats(stats){
             // }
           // }
           
-          // console.log('projectedOldFigure')
-          // console.log(projectedOldFigure)
+          
+          if(timeThisScanBut7DaysAgo < dateScan1
+             || timeThisScanBut7DaysAgo > dateScan2){
+            console.warn("Date not in between two scans as expected")
+            console.log('dateThisScan')
+            console.log(dateThisScan)
+
+            console.log('qrScans1')
+            console.log(qrScans1)
+            console.log('qrScans2')
+            console.log(qrScans2)
+            console.log('latestStats')
+            console.log(latestStats)
+
+
+            console.log('dateScan2 - dateScan1')
+            console.log(dateScan2 - dateScan1)
+            console.log('dateScan2 - timeThisScanBut7DaysAgo')
+            console.log(dateScan2 - timeThisScanBut7DaysAgo)
+            console.log('timeThisScanBut7DaysAgo - dateScan1')
+            console.log(timeThisScanBut7DaysAgo - dateScan1)
+  
+            console.log('projectedOldFigure')
+            console.log(projectedOldFigure)
+
+          }
+          
 
           percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / projectedOldFigure - 100
         }
