@@ -33,83 +33,83 @@ function displayStats(stats){
     
     // Average approach 1
     {
-      let thisTimeLastWeek = new Date()
-      thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
-      // console.log(thisTimeLastWeek)
+//       let thisTimeLastWeek = new Date()
+//       thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
+//       // console.log(thisTimeLastWeek)
 
-      let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeek)
-      thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-15)
+//       let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeek)
+//       thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-15)
 
-      let timeNow = new Date()
-      let timeNowMinus5Mins = new Date()
-      timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-15)
+//       let timeNow = new Date()
+//       let timeNowMinus5Mins = new Date()
+//       timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-15)
 
-  //     console.log('thisTimeLastWeek')
-  //     console.log(thisTimeLastWeek)
-  //     console.log('thisTimeLastWeekMinus5Mins')
-  //     console.log(thisTimeLastWeekMinus5Mins)
-  //     console.log('timeNow')
-  //     console.log(timeNow)
-  //     console.log('timeNowMinus5Mins')
-  //     console.log(timeNowMinus5Mins)
-
-
-
-      if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
-        const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.filter(s => {
-          const generated = new Date(s.generated)
-          if( generated >= thisTimeLastWeekMinus5Mins && generated <= thisTimeLastWeek) {
-            return true
-          }
-        })
-
-        const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
-          const generated = new Date(s.generated)
-          if( generated >= timeNowMinus5Mins && generated <= timeNow) {
-            return true
-          }
-        })
+//   //     console.log('thisTimeLastWeek')
+//   //     console.log(thisTimeLastWeek)
+//   //     console.log('thisTimeLastWeekMinus5Mins')
+//   //     console.log(thisTimeLastWeekMinus5Mins)
+//   //     console.log('timeNow')
+//   //     console.log(timeNow)
+//   //     console.log('timeNowMinus5Mins')
+//   //     console.log(timeNowMinus5Mins)
 
 
-        if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
-          // let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
 
-          // console.log('qr_code_scans_compared_to_this_time_last_week')
-          // console.log(qr_code_scans_compared_to_this_time_last_week)
+//       if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
+//         const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.filter(s => {
+//           const generated = new Date(s.generated)
+//           if( generated >= thisTimeLastWeekMinus5Mins && generated <= thisTimeLastWeek) {
+//             return true
+//           }
+//         })
 
-  //         console.log('qr_code_scans_in_last_5_mins')
-  //         console.log(qr_code_scans_in_last_5_mins)
-
-  //         console.log('latestStats.qr_code_scans_today')
-  //         console.log(latestStats.qr_code_scans_today)
-
-  //         console.log('latestStats')
-  //         console.log(latestStats)
-
-  //         console.log('todaysStats[todaysStats.length-1]')
-  //         console.log(todaysStats[todaysStats.length-1])
-
-          const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_compared_to_this_time_last_week.length
-          // console.log('avg_qr_code_scans_compared_to_this_time_last_week')        
-          // console.log(avg_qr_code_scans_compared_to_this_time_last_week)
-
-          const avg_qr_code_scans_in_last_5_mins = qr_code_scans_in_last_5_mins.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_in_last_5_mins.length
-          // console.log('avg_qr_code_scans_in_last_5_mins')
-          // console.log(avg_qr_code_scans_in_last_5_mins)
+//         const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
+//           const generated = new Date(s.generated)
+//           if( generated >= timeNowMinus5Mins && generated <= timeNow) {
+//             return true
+//           }
+//         })
 
 
-          // let average5MinsTotalThisTimeLastWeek = 
-          let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week[qr_code_scans_compared_to_this_time_last_week.length-1].qr_code_scans_today - 100
-          console.log('Average approach 1')
-          console.log('percentageOfLastWeek')
-          console.log(percentageOfLastWeek)
+//         if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
+//           // let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
+
+//           // console.log('qr_code_scans_compared_to_this_time_last_week')
+//           // console.log(qr_code_scans_compared_to_this_time_last_week)
+
+//   //         console.log('qr_code_scans_in_last_5_mins')
+//   //         console.log(qr_code_scans_in_last_5_mins)
+
+//   //         console.log('latestStats.qr_code_scans_today')
+//   //         console.log(latestStats.qr_code_scans_today)
+
+//   //         console.log('latestStats')
+//   //         console.log(latestStats)
+
+//   //         console.log('todaysStats[todaysStats.length-1]')
+//   //         console.log(todaysStats[todaysStats.length-1])
+
+//           const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_compared_to_this_time_last_week.length
+//           // console.log('avg_qr_code_scans_compared_to_this_time_last_week')        
+//           // console.log(avg_qr_code_scans_compared_to_this_time_last_week)
+
+//           const avg_qr_code_scans_in_last_5_mins = qr_code_scans_in_last_5_mins.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_in_last_5_mins.length
+//           // console.log('avg_qr_code_scans_in_last_5_mins')
+//           // console.log(avg_qr_code_scans_in_last_5_mins)
 
 
-          percentageOfLastWeek = avg_qr_code_scans_in_last_5_mins * 100 / avg_qr_code_scans_compared_to_this_time_last_week - 100
+//           // let average5MinsTotalThisTimeLastWeek = 
+//           let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week[qr_code_scans_compared_to_this_time_last_week.length-1].qr_code_scans_today - 100
+//           console.log('Average approach 1')
+//           console.log('percentageOfLastWeek')
+//           console.log(percentageOfLastWeek)
 
-        }
 
-      }
+//           percentageOfLastWeek = avg_qr_code_scans_in_last_5_mins * 100 / avg_qr_code_scans_compared_to_this_time_last_week - 100
+
+//         }
+
+//       }
     }
 
     // Average approach 2
@@ -136,14 +136,6 @@ function displayStats(stats){
           const qrScans2 = thisDayLastWeeksStats[lastWeekIndex]
           const qrScans1 = thisDayLastWeeksStats[lastWeekIndex-1]
 
-          console.log('qrScans1')
-          console.log(qrScans1)
-          console.log('qrScans2')
-          console.log(qrScans2)
-
-
-          console.log('latestStats')
-          console.log(latestStats)
           
           let dateThisScan = new Date(latestStats.generated)
 
@@ -155,62 +147,51 @@ function displayStats(stats){
           
           if(timeThisScanBut7DaysAgo < dateScan1
              || timeThisScanBut7DaysAgo > dateScan2){
-            console.error("Date not in between two scans as expected")
+            console.warn("Date not in between two scans as expected")
+            console.log('dateThisScan')
+            console.log(dateThisScan)
+
+            console.log('qrScans1')
+            console.log(qrScans1)
+            console.log('qrScans2')
+            console.log(qrScans2)
+            console.log('latestStats')
+            console.log(latestStats)
+
+
+            console.log('dateScan2 - dateScan1')
+            console.log(dateScan2 - dateScan1)
+            console.log('dateScan2 - timeThisScanBut7DaysAgo')
+            console.log(dateScan2 - timeThisScanBut7DaysAgo)
+            console.log('timeThisScanBut7DaysAgo - dateScan1')
+            console.log(timeThisScanBut7DaysAgo - dateScan1)
           }
           
-          console.log('dateThisScan')
-
-          console.log(dateThisScan)
-
-
-          console.log('dateScan2 - dateScan1')
-          console.log(dateScan2 - dateScan1)
-          console.log('dateScan2 - timeThisScanBut7DaysAgo')
-          console.log(dateScan2 - timeThisScanBut7DaysAgo)
-          console.log('timeThisScanBut7DaysAgo - dateScan1')
-          console.log(timeThisScanBut7DaysAgo - dateScan1)
 
           let projectedOldFigure = 0
           
-          // At end of time window?
-          if(dateScan2 - timeThisScanBut7DaysAgo == 0){
-            projectedOldFigure = qrScans2.qr_code_scans_today
-          } else {
-            // At start of time window?
-            if(timeThisScanBut7DaysAgo - dateScan1 == 0){
-              projectedOldFigure = qrScans1.qr_code_scans_today
-            } else {
-              // Inside the time window
+          // // At end of time window?
+          // if(dateScan2 - timeThisScanBut7DaysAgo == 0){
+          //   projectedOldFigure = qrScans2.qr_code_scans_today
+          // } else {
+          //   // At start of time window?
+          //   if(timeThisScanBut7DaysAgo - dateScan1 == 0){
+          //     projectedOldFigure = qrScans1.qr_code_scans_today
+          //   } else {
+          //     // Inside the time window
               projectedOldFigure =  (
                                       ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
                                       * (qrScans2.qr_code_scans_today - qrScans1.qr_code_scans_today)
                                     )
                                     + qrScans1.qr_code_scans_today
-              
-            }
-
-
-          }
+            // }
+          // }
           
-          console.log('projectedOldFigure')
-          console.log(projectedOldFigure)
+          // console.log('projectedOldFigure')
+          // console.log(projectedOldFigure)
 
           percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / projectedOldFigure - 100
         }
-
-
-
-
-//         const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
-//           const generated = new Date(s.generated)
-//           // if( generated >= timeNowMinus5Mins && generated <= timeNow) {
-//           //   return true
-//           // }
-//         })
-
-
-        // if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
-        // }
       }
     }
 
