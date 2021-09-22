@@ -104,22 +104,60 @@ function displayStats(stats){
 
           percentageOfLastWeek = avg_qr_code_scans_in_last_5_mins * 100 / avg_qr_code_scans_compared_to_this_time_last_week - 100
 
-          console.log(percentageOfLastWeek)
-          let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
-
-          if(percentageOfLastWeek<0){
-             el.style.color = 'red'
-             el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
-           } else {
-             el.style.color = 'green'
-             el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
-
-           }
         }
 
       }
     }
 
+    // Average approach 2
+    {
+
+      let thisTimeLastWeek = new Date()
+      thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
+      // console.log(thisTimeLastWeek)
+
+      let timeNow = new Date()
+
+      if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
+        const lastWeekIndex = thisDayLastWeeksStats.findIndex(s => {
+          const generated = new Date(s.generated)
+          if( generated >= thisTimeLastWeek) {
+            return true
+          }
+        })
+        
+        if(lastWeekIndex<thisDayLastWeeksStats.length-1){
+          const qrScans1 = thisDayLastWeeksStats[lastWeekIndex]
+          const qrScans2 = thisDayLastWeeksStats[lastWeekIndex+1]
+        }
+
+        const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
+          const generated = new Date(s.generated)
+          if( generated >= timeNowMinus5Mins && generated <= timeNow) {
+            return true
+          }
+        })
+
+
+        if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
+        }
+      }
+    }
+
+    console.log(percentageOfLastWeek)
+    let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+
+    if(percentageOfLastWeek<0){
+       el.style.color = 'red'
+       el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+     } else {
+       el.style.color = 'green'
+       el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+
+     }
+
+
+    
     updateGraph();  
     
   }
