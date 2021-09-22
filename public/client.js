@@ -29,6 +29,12 @@ function displayStats(stats){
     document.getElementById('all_time_app_registrations').innerText = latestStats.all_time_app_registrations.toLocaleString()
     document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
 
+    let percentageOfLastWeek = 0
+    
+    // Average approach 1
+    {
+      
+    }
     let thisTimeLastWeek = new Date()
     thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
     // console.log(thisTimeLastWeek)
@@ -41,19 +47,12 @@ function displayStats(stats){
     timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-15)
     
 //     console.log('thisTimeLastWeek')
-
 //     console.log(thisTimeLastWeek)
-
 //     console.log('thisTimeLastWeekMinus5Mins')
-
 //     console.log(thisTimeLastWeekMinus5Mins)
-
 //     console.log('timeNow')
-
 //     console.log(timeNow)
-
 //     console.log('timeNowMinus5Mins')
-
 //     console.log(timeNowMinus5Mins)
 
 
@@ -82,14 +81,12 @@ function displayStats(stats){
         
 //         console.log('qr_code_scans_in_last_5_mins')
 //         console.log(qr_code_scans_in_last_5_mins)
-
         
 //         console.log('latestStats.qr_code_scans_today')
 //         console.log(latestStats.qr_code_scans_today)
 
 //         console.log('latestStats')
 //         console.log(latestStats)
-
 
 //         console.log('todaysStats[todaysStats.length-1]')
 //         console.log(todaysStats[todaysStats.length-1])
