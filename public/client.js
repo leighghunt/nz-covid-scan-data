@@ -743,7 +743,9 @@ function updateGraph(){
         // borderColor: 'white',
         
         backgroundColor: 'rgba(255, 99, 132, 0.0)',
-        borderColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 0.1)',
+        // borderColor: 'rgba(255, 0, 0, 0.1)',
+
         borderWidth: 2,
         fill: false,
         lineTension: 0,       
