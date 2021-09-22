@@ -535,7 +535,7 @@ function updateGraph(){
         y: element.qr_code_scans_today - prevTotal      
       }
       
-      // data.x.setDate(data.x.getDate()+7)
+      data.x.setDate(data.x.getDate()+7)
 
       //let data = element.qr_code_scans_today - prevTotal      
     
@@ -735,8 +735,19 @@ function updateGraph(){
     //labels: Array(4 * 24).fill(''),
     datasets: [
       {
+        label: 'Scans/quarter hour this time last week',
+        backgroundColor: 'rgba(200, 45, 72, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 0.5)',
+        // backgroundColor: 'white',
+        // borderColor: 'white',
+
+        fill: false,
+        lineTension: 0,       
+        data: increasesByPeriod7DaysAgo,
+      },
+      {
         label: 'Scans/quarter hour',
-        backgroundColor: 'rgb(5255, 99, 132)',
+        backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
         // backgroundColor: 'white',
         // borderColor: 'white',
@@ -744,18 +755,7 @@ function updateGraph(){
         fill: false,
         lineTension: 0,       
         data: increasesByPeriod,
-      },      
-      {
-        label: 'Scans/quarter hour this time last week',
-        backgroundColor: 'rgb(5255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        // backgroundColor: 'white',
-        // borderColor: 'white',
-
-        fill: false,
-        lineTension: 0,       
-        data: increasesByPeriod7DaysAgo,
-      }
+      } 
 
 
 
@@ -780,6 +780,7 @@ function updateGraph(){
       scales: {
         xAxes: [{
           //type: 'time',
+          stacked: true,
           time: { 
             unit: 'hour',
             // min: startOfTodayNZ,
@@ -789,6 +790,8 @@ function updateGraph(){
         
        yAxes: [
          {
+           stacked: false,
+
             ticks: {
               min: 0,
                callback: function(value, index, values) {
