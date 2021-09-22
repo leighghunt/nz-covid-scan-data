@@ -33,21 +33,35 @@ function displayStats(stats){
     thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
     console.log(thisTimeLastWeek)
     
-    let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeekMinus5Mins)
-    thisTimeLastWeekMinus5Mins.setMins(thisTimeLastWeekMinus5Mins.getMins-5)
+    let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeek)
+    thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-5)
     
     let timeNow = new Date()
     let timeNowMinus5Mins = new Date()
-    timeNowMinus5Mins.setMins(timeNowMinus5Mins.getMins-5)
+    timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-5)
     
-    console.log(thisTimeLastWeek)
+    console.log('thisTimeLastWeek')
 
     console.log(thisTimeLastWeek)
+
+    console.log('thisTimeLastWeekMinus5Mins')
+
+    console.log(thisTimeLastWeekMinus5Mins)
+
+    console.log('timeNow')
+
+    console.log(timeNow)
+
+    console.log('timeNowMinus5Mins')
+
+    console.log(timeNowMinus5Mins)
+
 
 
     if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
-      const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.find(s => {
-        if(new Date(s.generated) >= thisTimeLastWeek) {
+      const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.filter(s => {
+        const generated = new Date(s.generated)
+        if( generated >= thisTimeLastWeekMinus5Mins && generated <= thisTimeLastWeek) {
           return true
         }
       })
@@ -72,7 +86,7 @@ function displayStats(stats){
 
 
 
-
+        const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.average()
 
 
 
