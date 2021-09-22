@@ -1,7 +1,7 @@
 Calls Ministry of Health's API to get daily Covid scanning numbers
 
-Historic figures from https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data,
-and then convert CSV to JSON using https://csvjson.com/csv2json until automated.
+Historic figures from [Ministroy of Health](https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data),
+and then convert CSV to JSON using [CVSJ2JSON](https://csvjson.com/csv2json) until automated.
 
 ## Backup to another instance:
 
