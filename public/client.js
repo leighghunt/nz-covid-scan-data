@@ -742,9 +742,9 @@ function updateGraph(){
         // backgroundColor: 'rgba(255, 0, 0, 0.5)',
         // borderColor: 'white',
         
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: 'rgba(255, 99, 132, 0.0)',
         borderColor: 'rgba(255, 99, 132, 0.5)',
-        borderWidth: 2,
+        borderWidth: 1,
         fill: false,
         lineTension: 0,       
         data: increasesByPeriod7DaysAgo,
