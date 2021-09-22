@@ -735,7 +735,7 @@ function updateGraph(){
     //labels: Array(4 * 24).fill(''),
     datasets: [
       {
-        label: 'Scans/quarter hour this time last week',
+        label: 'Scans/quarter hour this day last week',
         // backgroundColor: 'rgba(200, 45, 72, 0.5)',
         // borderColor: 'rgba(255, 99, 132, 0.5)',
         
