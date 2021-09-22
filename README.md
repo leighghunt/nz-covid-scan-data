@@ -3,15 +3,22 @@ Calls Ministry of Health's API to get daily Covid scanning numbers
 Historic figures from https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data,
 and then convert CSV to JSON using https://csvjson.com/csv2json until automated.
 
-
 ## Backup to another instance:
 
-```sqlite3 .data/database.sqlite .dump > database.dump; git commit -am'Latest db backup'; git push```
+```
+backup.sh
 
+```
+
+or:
+
+```
+sqlite3 .data/database.sqlite .dump > database.dump; git commit -am'Latest db backup'; git push
+```
 
 ## Backup from another instance:
 
-```git pull; rm .data/database.sqlite; sqlite3 .data/database.sqlite  < database.dump; refresh```
+`git pull; rm .data/database.sqlite; sqlite3 .data/database.sqlite < database.dump; refresh`
 
 # Welcome to Glitch
 
