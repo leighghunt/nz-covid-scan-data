@@ -736,10 +736,14 @@ function updateGraph(){
     datasets: [
       {
         label: 'Scans/quarter hour this time last week',
-        backgroundColor: 'rgba(200, 45, 72, 0.5)',
-        borderColor: 'rgba(255, 99, 132, 0.5)',
-        // backgroundColor: 'white',
+        // backgroundColor: 'rgba(200, 45, 72, 0.5)',
+        // borderColor: 'rgba(255, 99, 132, 0.5)',
+        
+        // backgroundColor: 'rgba(255, 0, 0, 0.5)',
         // borderColor: 'white',
+        
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgb(0, 99, 132)',
 
         fill: false,
         lineTension: 0,       
@@ -747,10 +751,10 @@ function updateGraph(){
       },
       {
         label: 'Scans/quarter hour',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        // backgroundColor: 'white',
-        // borderColor: 'white',
+        // backgroundColor: 'rgb(255, 99, 132)',
+        // borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'white',
+        borderColor: 'white',
 
         fill: false,
         lineTension: 0,       
@@ -791,7 +795,6 @@ function updateGraph(){
        yAxes: [
          {
            stacked: false,
-
             ticks: {
               min: 0,
                callback: function(value, index, values) {
