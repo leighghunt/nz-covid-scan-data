@@ -100,7 +100,10 @@ function displayStats(stats){
 
           // let average5MinsTotalThisTimeLastWeek = 
           let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week[qr_code_scans_compared_to_this_time_last_week.length-1].qr_code_scans_today - 100
+          console.log('Average approach 1')
+          console.log('percentageOfLastWeek')
           console.log(percentageOfLastWeek)
+
 
           percentageOfLastWeek = avg_qr_code_scans_in_last_5_mins * 100 / avg_qr_code_scans_compared_to_this_time_last_week - 100
 
@@ -111,6 +114,9 @@ function displayStats(stats){
 
     // Average approach 2
     {
+
+      console.log('Average approach 2')
+
 
       let thisTimeLastWeek = new Date()
       thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
@@ -129,18 +135,31 @@ function displayStats(stats){
         if(lastWeekIndex<thisDayLastWeeksStats.length-1){
           const qrScans1 = thisDayLastWeeksStats[lastWeekIndex]
           const qrScans2 = thisDayLastWeeksStats[lastWeekIndex+1]
-        }
 
-        const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
-          const generated = new Date(s.generated)
-          if( generated >= timeNowMinus5Mins && generated <= timeNow) {
-            return true
-          }
-        })
+                  console.log('qrScans1')
+        console.log(qrScans1)
+        console.log('qrScans2')
+        console.log(qrScans2)
 
 
-        if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
-        }
+        console.log('latestStats')
+        console.log(latestStats)
+
+}
+        
+
+
+
+//         const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
+//           const generated = new Date(s.generated)
+//           // if( generated >= timeNowMinus5Mins && generated <= timeNow) {
+//           //   return true
+//           // }
+//         })
+
+
+        // if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
+        // }
       }
     }
 
