@@ -744,7 +744,7 @@ function updateGraph(){
         
         backgroundColor: 'rgba(255, 99, 132, 0.0)',
         borderColor: 'rgba(255, 99, 132, 0.5)',
-        borderWidth: 1,
+        borderWidth: 2,
         fill: false,
         lineTension: 0,       
         data: increasesByPeriod7DaysAgo,
@@ -755,6 +755,7 @@ function updateGraph(){
         // borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'white',
         borderColor: 'white',
+        borderWidth: 2,
 
         fill: false,
         lineTension: 0,       
