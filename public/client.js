@@ -132,21 +132,45 @@ function displayStats(stats){
           }
         })
         
-        if(lastWeekIndex<thisDayLastWeeksStats.length-1){
-          const qrScans1 = thisDayLastWeeksStats[lastWeekIndex]
-          const qrScans2 = thisDayLastWeeksStats[lastWeekIndex+1]
+        if(lastWeekIndex>0){
+          const qrScans2 = thisDayLastWeeksStats[lastWeekIndex]
+          const qrScans1 = thisDayLastWeeksStats[lastWeekIndex-1]
 
-                  console.log('qrScans1')
-        console.log(qrScans1)
-        console.log('qrScans2')
-        console.log(qrScans2)
+          console.log('qrScans1')
+          console.log(qrScans1)
+          console.log('qrScans2')
+          console.log(qrScans2)
 
 
-        console.log('latestStats')
-        console.log(latestStats)
+          console.log('latestStats')
+          console.log(latestStats)
+          
+          let dateThisScan = new Date(latestStats.generated)
 
-}
-        
+          let timeThisScanBut7DaysAgo = new Date(dateThisScan)
+          dateThisScan.setDays(dateThisScan.getDays()-7)
+
+          let dateScan1 = new Date(qrScans1.generated)
+          let dateScan2 = new Date(qrScans2.generated)
+          
+          if(dateThisScan < dateScan1
+             || dateThisScan > dateScan2){
+            console.error("Date not in between two scans as expected")
+          }
+          
+          console.log('dateThisScan')
+
+          console.log(dateThisScan)
+
+
+          console.log('dateScan2 - dateScan1')
+
+          console.log(dateScan2 - dateScan1)
+
+
+
+        }
+
 
 
 
