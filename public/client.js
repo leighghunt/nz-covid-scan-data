@@ -142,6 +142,15 @@ function displayStats(stats){
           let timeThisScanBut7DaysAgo = new Date(dateThisScan)
           timeThisScanBut7DaysAgo.setDate(dateThisScan.getDate()-7)
 
+            console.log('dateThisScan')
+            console.log(dateThisScan)
+
+            console.log('timeThisScanBut7DaysAgo')
+            console.log(timeThisScanBut7DaysAgo)
+
+
+
+          
           let dateScan1 = new Date(qrScans1.generated)
           let dateScan2 = new Date(qrScans2.generated)
           
