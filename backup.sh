@@ -6,7 +6,7 @@ sqlite3 .data/database.sqlite .dump > database.dump;
 backupFolder="backup"
 mkdir -p $backupFolder
 
-input_start=2021-09-01
+input_start=2021-09-10
 # input_end=
 
 # After this, startdate and enddate will be valid ISO 8601 dates,
