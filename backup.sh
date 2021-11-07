@@ -14,6 +14,7 @@ input_start=2021-09-10
 # such as input_end=abcd
 startdate=$(date -I -d "$input_start") || exit -1
 enddate=$(date -I)     || exit -1
+enddate=$(date -I -d "$enddate + 1 day")
 
 d="$startdate"
 while [ "$d" != "$enddate" ]; do 
