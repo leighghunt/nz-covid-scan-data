@@ -3,6 +3,11 @@ Calls Ministry of Health's API to get daily Covid scanning numbers
 Historic figures from [Ministroy of Health](https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data),
 and then convert CSV to JSON using [CVSJ2JSON](https://csvjson.com/csv2json) until automated.
 
+## Accessing scanning data:
+
+If you'd like to access the (non-authoritative) SQLite data containing scan data since 10 September, it can be found here:
+[here](https://github.com/leighghunt/nz-covid-scan-data/tree/main/backup)
+
 ## Backup to another instance:
 
 ```
