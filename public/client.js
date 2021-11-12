@@ -12,6 +12,12 @@ var previousDaysStats = []
 
 var historicStats = []
 
+var kebabs = false;
+
+if(window.location.href.endsWith('kebabs')){
+  kebabs = true;
+}
+
 const previousDaysScansToShow = 7
   
 
@@ -30,87 +36,7 @@ function displayStats(stats){
     document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
 
     let percentageOfLastWeek = 0
-    
-    // Average approach 1
-    {
-//       let thisTimeLastWeek = new Date()
-//       thisTimeLastWeek.setDate(thisTimeLastWeek.getDate()-7)
-//       // console.log(thisTimeLastWeek)
 
-//       let thisTimeLastWeekMinus5Mins = new Date(thisTimeLastWeek)
-//       thisTimeLastWeekMinus5Mins.setMinutes(thisTimeLastWeekMinus5Mins.getMinutes()-15)
-
-//       let timeNow = new Date()
-//       let timeNowMinus5Mins = new Date()
-//       timeNowMinus5Mins.setMinutes(timeNowMinus5Mins.getMinutes()-15)
-
-//   //     console.log('thisTimeLastWeek')
-//   //     console.log(thisTimeLastWeek)
-//   //     console.log('thisTimeLastWeekMinus5Mins')
-//   //     console.log(thisTimeLastWeekMinus5Mins)
-//   //     console.log('timeNow')
-//   //     console.log(timeNow)
-//   //     console.log('timeNowMinus5Mins')
-//   //     console.log(timeNowMinus5Mins)
-
-
-
-//       if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
-//         const qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats.filter(s => {
-//           const generated = new Date(s.generated)
-//           if( generated >= thisTimeLastWeekMinus5Mins && generated <= thisTimeLastWeek) {
-//             return true
-//           }
-//         })
-
-//         const qr_code_scans_in_last_5_mins = todaysStats.filter(s => {
-//           const generated = new Date(s.generated)
-//           if( generated >= timeNowMinus5Mins && generated <= timeNow) {
-//             return true
-//           }
-//         })
-
-
-//         if(qr_code_scans_compared_to_this_time_last_week && qr_code_scans_in_last_5_mins){
-//           // let qr_code_scans_compared_to_this_time_last_week = thisDayLastWeeksStats[index]
-
-//           // console.log('qr_code_scans_compared_to_this_time_last_week')
-//           // console.log(qr_code_scans_compared_to_this_time_last_week)
-
-//   //         console.log('qr_code_scans_in_last_5_mins')
-//   //         console.log(qr_code_scans_in_last_5_mins)
-
-//   //         console.log('latestStats.qr_code_scans_today')
-//   //         console.log(latestStats.qr_code_scans_today)
-
-//   //         console.log('latestStats')
-//   //         console.log(latestStats)
-
-//   //         console.log('todaysStats[todaysStats.length-1]')
-//   //         console.log(todaysStats[todaysStats.length-1])
-
-//           const avg_qr_code_scans_compared_to_this_time_last_week = qr_code_scans_compared_to_this_time_last_week.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_compared_to_this_time_last_week.length
-//           // console.log('avg_qr_code_scans_compared_to_this_time_last_week')        
-//           // console.log(avg_qr_code_scans_compared_to_this_time_last_week)
-
-//           const avg_qr_code_scans_in_last_5_mins = qr_code_scans_in_last_5_mins.map(x => x.qr_code_scans_today).reduce((runningTotal, currentValue) => (runningTotal + currentValue)) / qr_code_scans_in_last_5_mins.length
-//           // console.log('avg_qr_code_scans_in_last_5_mins')
-//           // console.log(avg_qr_code_scans_in_last_5_mins)
-
-
-//           // let average5MinsTotalThisTimeLastWeek = 
-//           let percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / qr_code_scans_compared_to_this_time_last_week[qr_code_scans_compared_to_this_time_last_week.length-1].qr_code_scans_today - 100
-//           console.log('Average approach 1')
-//           console.log('percentageOfLastWeek')
-//           console.log(percentageOfLastWeek)
-
-
-//           percentageOfLastWeek = avg_qr_code_scans_in_last_5_mins * 100 / avg_qr_code_scans_compared_to_this_time_last_week - 100
-
-//         }
-
-//       }
-    }
 
     // Average approach 2
     {
@@ -282,18 +208,63 @@ function getTodaysStats(){
   startOfTodayNZ.setMinutes(0)
   startOfTodayNZ.setSeconds(0)
   startOfTodayNZ.setMilliseconds(0)
+
+  let endOfTodayNZ = new Date(startOfTodayNZ)
+  endOfTodayNZ.setHours(23)
+  endOfTodayNZ.setMinutes(59)
+  endOfTodayNZ.setSeconds(59)
+  endOfTodayNZ.setMilliseconds(999)
   
   // console.log(startOfTodayNZ)
 
   // console.log(startOfTodayNZ.toUTCString())
 
+
+  // if(kebabs){
+  //   // Are we after 10pm? Assume tonight - if before 10pm - assume last night.
+  //   let now = new Date()
+  //   if(now.getHours() < 22){
+  //     startOfTodayNZ.setDate(startOfTodayNZ.getDate() - 1)
+  //     endOfTodayNZ.setDate(endOfTodayNZ.getDate() - 1)
+  //   }
+  //   // set to 11pm to 3am next day
+  //   startOfTodayNZ.setHours(23)
+  //   endOfTodayNZ.setDate(endOfTodayNZ.getDate() + 1)
+  //   endOfTodayNZ.setHours(3)
+  // }
+  
+
   const todaysStatsRequest = new XMLHttpRequest();
   todaysStatsRequest.onload = todaysStatsListener;
-  todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString());
+  todaysStatsRequest.open('get', '/stats?from=' + startOfTodayNZ.toUTCString() + '&to=' + endOfTodayNZ.toUTCString());
   todaysStatsRequest.send();  
 }
 
 getTodaysStats()
+
+  // if(kebabs){
+  //   var startOfKebabs = new Date(startOfTodayNZ)
+  //   startOfKebabs.setHours(23)
+  //   var endOfKebabs = new Date(startOfTodayNZ)
+  //   endOfKebabs.setDate(endOfKebabs.getDate()+1)
+  //   endOfKebabs.setHours(3);
+  //   var startOfKebabs7DaysAgo = new Date(startOfKebabs);
+  //   startOfKebabs7DaysAgo.setDate(startOfKebabs7DaysAgo.getDate()-7);
+  //   var endOfKebabs7DaysAgo = new Date(endOfKebabs);
+  //   endOfKebabs7DaysAgo.setDate(endOfKebabs7DaysAgo.getDate()-7);
+
+  //   // configPerQuarterHour.options.scales.yAxes[0].ticks.max = 1000;
+  //   // configPerQuarterHour.options.scales.xAxes[0].time.min = startOfKebabs;
+  //   // configPerQuarterHour.options.scales.xAxes[0].time.max = endOfKebabs;
+
+  //   // console.log(increasesByPeriod[0])
+  //   console.log(increasesByPeriod.length)
+  //   console.log(increasesByPeriod7DaysAgo.length)
+  //   increasesByPeriod = increasesByPeriod.filter(data => data.x <= endOfKebabs && data.x >= startOfKebabs)
+  //   increasesByPeriod7DaysAgo = increasesByPeriod7DaysAgo.filter(data => data.x <= endOfKebabs7DaysAgo && data.x >= startOfKebabs7DaysAgo)
+  //   console.log(increasesByPeriod.length)
+  //   console.log(increasesByPeriod7DaysAgo.length)
+  // }
 
 
 
@@ -305,13 +276,25 @@ function getThisDayLastWeeksStats(){
   startOfThisDayLastWeek.setMilliseconds(0)
   
   startOfThisDayLastWeek.setDate(startOfThisDayLastWeek.getDate() - 7)
-  
+
   let endOfThisDayLastWeek = new Date(startOfThisDayLastWeek)
   endOfThisDayLastWeek.setHours(23)
   endOfThisDayLastWeek.setMinutes(59)
   endOfThisDayLastWeek.setSeconds(59)
   endOfThisDayLastWeek.setMilliseconds(999)
   
+  // if(kebabs){
+  //   // Are we after 10pm? Assume tonight - if before 10pm - assume last night.
+  //   let now = new Date()
+  //   if(now.getHours() < 22){
+  //     startOfThisDayLastWeek.setDate(startOfThisDayLastWeek.getDate() - 1)
+  //     endOfThisDayLastWeek.setDate(endOfThisDayLastWeek.getDate() - 1)
+  //   }
+  //   // set to 11pm to 3am next day
+  //   startOfThisDayLastWeek.setHours(23)
+  //   endOfThisDayLastWeek.setDate(endOfThisDayLastWeek.getDate() + 1)
+  //   endOfThisDayLastWeek.setHours(3)
+  // }  
   
 //   console.log(startOfThisDayLastWeek)
 //   console.log(startOfThisDayLastWeek.toUTCString())
@@ -737,7 +720,31 @@ function updateGraph(){
     chart.update(/*{mode: 'none'}*/);
   } 
   
-  
+  // if(kebabs){
+  //   var startOfKebabs = new Date(startOfTodayNZ)
+  //   startOfKebabs.setHours(23)
+  //   var endOfKebabs = new Date(startOfTodayNZ)
+  //   endOfKebabs.setDate(endOfKebabs.getDate()+1)
+  //   endOfKebabs.setHours(3);
+  //   var startOfKebabs7DaysAgo = new Date(startOfKebabs);
+  //   startOfKebabs7DaysAgo.setDate(startOfKebabs7DaysAgo.getDate()-7);
+  //   var endOfKebabs7DaysAgo = new Date(endOfKebabs);
+  //   endOfKebabs7DaysAgo.setDate(endOfKebabs7DaysAgo.getDate()-7);
+
+    // configPerQuarterHour.options.scales.yAxes[0].ticks.max = 1000;
+  //   // configPerQuarterHour.options.scales.xAxes[0].time.min = startOfKebabs;
+  //   // configPerQuarterHour.options.scales.xAxes[0].time.max = endOfKebabs;
+
+  //   // console.log(increasesByPeriod[0])
+  //   console.log(increasesByPeriod.length)
+  //   console.log(increasesByPeriod7DaysAgo.length)
+  //   increasesByPeriod = increasesByPeriod.filter(data => data.x <= endOfKebabs && data.x >= startOfKebabs)
+  //   increasesByPeriod7DaysAgo = increasesByPeriod7DaysAgo.filter(data => data.x <= endOfKebabs7DaysAgo && data.x >= startOfKebabs7DaysAgo)
+  //   console.log(increasesByPeriod.length)
+  //   console.log(increasesByPeriod7DaysAgo.length)
+  // }
+
+
   
   const dataPerQuarterHour = {
     labels: labelsByPeriod,
@@ -778,7 +785,7 @@ function updateGraph(){
     ]
   };
     
-
+  
   
   const configPerQuarterHour = {
     type: 'bar',
@@ -820,6 +827,10 @@ function updateGraph(){
       }
     }
   };
+
+  if(kebabs){
+    configPerQuarterHour.options.scales.yAxes[0].ticks.max = 1000;
+  }
 
 
   if(chartPerQuarterHour==null){

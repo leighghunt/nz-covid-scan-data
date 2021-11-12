@@ -129,6 +129,9 @@ app.get('/scans', function(request, response) {
   response.sendFile(__dirname + '/views/scans.html');
 });
 
+app.get('/kebabs', function(request, response) {
+  response.sendFile(__dirname + '/views/index.html');
+});
 
 server.listen(process.env.PORT);
 
