@@ -6,7 +6,9 @@ sqlite3 .data/database.sqlite .dump > database.dump;
 backupFolder="backup"
 mkdir -p $backupFolder
 
-input_start=2021-09-10
+# input_start=2021-09-10
+input_start=2021-11-10
+
 # input_end=
 
 # After this, startdate and enddate will be valid ISO 8601 dates,
@@ -21,9 +23,11 @@ while [ "$d" != "$enddate" ]; do
   echo $d
   cat database.dump | grep $d > $backupFolder/$d.dump
   d=$(date -I -d "$d + 1 day")
+
+  git add backup/$d.dump
+
 done
 
 
-git add backup;
-git commit -m'Latest db backup'; git push
+# git commit -m'Latest db backup'; git push
 
