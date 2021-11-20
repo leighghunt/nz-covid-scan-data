@@ -696,7 +696,7 @@ function updateGraph(){
          {
           ticks: {
             min: 0,
-            max: 3000000,
+            // max: 3000000,
              callback: function(value, index, values) {
                return value.toLocaleString("en-NZ",{});
            }
