@@ -1,2 +1,4 @@
 .sqlite_history
 database.dump
+node_modules
+.data
