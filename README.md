@@ -1,3 +1,7 @@
+## Ooops - issues 19/20 December (ran out of disk space!), so my figures are wrong for these two days
+
+
+
 Calls Ministry of Health's API to get daily Covid scanning numbers
 
 Historic figures from [Ministroy of Health](https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data),
