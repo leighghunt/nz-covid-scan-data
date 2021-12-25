@@ -1,4 +1,4 @@
-## Ooops - issues 19/20 December (ran out of disk space!), so my figures are wrong for these two days
+## Ooops - issues 18/19/20 December (ran out of disk space!), so my figures are wrong for these two days
 
 
 
