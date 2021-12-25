@@ -52,9 +52,11 @@ function displayStats(stats){
 
       if(thisDayLastWeeksStats && thisDayLastWeeksStats.length>0){
         const lastWeekIndex = thisDayLastWeeksStats.findIndex(s => {
-          const generated = new Date(s.generated)
-          if( generated >= thisTimeLastWeek) {
-            return true
+          if(s!=null){  // Missing previous week data
+            const generated = new Date(s.generated)
+            if( generated >= thisTimeLastWeek) {
+              return true
+            }
           }
         })
         
@@ -393,6 +395,9 @@ var chartHistoricMonth
 function groupByDuration(objectArray, duration = 15) {
   return objectArray.reduce(function (acc, obj) {
     
+    if(obj==null || obj.generated == null){
+      return null
+    }
   
     var dateRoundedUpToNextPeriod = new Date(obj.generated)
     const nextPeriod = (Math.ceil(dateRoundedUpToNextPeriod.getMinutes()/duration))*duration
@@ -519,23 +524,27 @@ function updateGraph(){
   )
   
   prevTotal = 0
-  let increasesByPeriod7DaysAgo = thisDayLastWeeksQRScansGroupByPeriod.map(function (element, index, array) {
+  let increasesByPeriod7DaysAgo = []
+  if(thisDayLastWeeksQRScansGroupByPeriod!=null)
+  {
+    increasesByPeriod7DaysAgo = thisDayLastWeeksQRScansGroupByPeriod.map(function (element, index, array) {
 
 
-      let data = {
-        x: new Date(element.generated),
-        y: element.qr_code_scans_today - prevTotal      
-      }
-      
-      data.x.setDate(data.x.getDate()+7)
+        let data = {
+          x: new Date(element.generated),
+          y: element.qr_code_scans_today - prevTotal      
+        }
 
-      //let data = element.qr_code_scans_today - prevTotal      
-    
-      prevTotal = element.qr_code_scans_today
+        data.x.setDate(data.x.getDate()+7)
 
-      return data
-    } 
-  )
+        //let data = element.qr_code_scans_today - prevTotal      
+
+        prevTotal = element.qr_code_scans_today
+
+        return data
+      } 
+    )
+  }
 
 
   //Array(4 * 24).fill('')
