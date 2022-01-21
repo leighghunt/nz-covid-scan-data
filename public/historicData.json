@@ -390,7 +390,7 @@
     "App Registrations": "2,000",
     "QR Codes Generated": 790,
     "NZBN Registered Businesses": 212,
-    "Scans": "19,163",
+    "Scans": "19,164",
     "Manual Entries": 0,
     "Active Devices": "12,169",
     "Bluetooth Active (24hr)": ""
@@ -401,7 +401,7 @@
     "App Registrations": "1,000",
     "QR Codes Generated": 284,
     "NZBN Registered Businesses": 118,
-    "Scans": "17,780",
+    "Scans": "17,781",
     "Manual Entries": 0,
     "Active Devices": "13,146",
     "Bluetooth Active (24hr)": ""
@@ -412,7 +412,7 @@
     "App Registrations": "1,000",
     "QR Codes Generated": 316,
     "NZBN Registered Businesses": 97,
-    "Scans": "16,174",
+    "Scans": "16,175",
     "Manual Entries": 0,
     "Active Devices": "11,988",
     "Bluetooth Active (24hr)": ""
@@ -632,7 +632,7 @@
     "App Registrations": "11,000",
     "QR Codes Generated": 882,
     "NZBN Registered Businesses": 431,
-    "Scans": "25,718",
+    "Scans": "25,719",
     "Manual Entries": 0,
     "Active Devices": "9,937",
     "Bluetooth Active (24hr)": ""
@@ -654,7 +654,7 @@
     "App Registrations": "",
     "QR Codes Generated": "",
     "NZBN Registered Businesses": "",
-    "Scans": "27,266",
+    "Scans": "27,267",
     "Manual Entries": 0,
     "Active Devices": "9,746",
     "Bluetooth Active (24hr)": ""
@@ -676,7 +676,7 @@
     "App Registrations": "3,900",
     "QR Codes Generated": 411,
     "NZBN Registered Businesses": 225,
-    "Scans": "24,047",
+    "Scans": "24,048",
     "Manual Entries": 0,
     "Active Devices": "8,916",
     "Bluetooth Active (24hr)": ""
@@ -687,7 +687,7 @@
     "App Registrations": 900,
     "QR Codes Generated": 227,
     "NZBN Registered Businesses": 111,
-    "Scans": "25,078",
+    "Scans": "25,079",
     "Manual Entries": 0,
     "Active Devices": "9,135",
     "Bluetooth Active (24hr)": ""
@@ -929,7 +929,7 @@
     "App Registrations": "105,000",
     "QR Codes Generated": "13,932",
     "NZBN Registered Businesses": "7,486",
-    "Scans": "147,710",
+    "Scans": "147,711",
     "Manual Entries": "127,453",
     "Active Devices": "101,234",
     "Bluetooth Active (24hr)": ""
@@ -995,8 +995,8 @@
     "App Registrations": "56,700",
     "QR Codes Generated": "23,831",
     "NZBN Registered Businesses": "7,749",
-    "Scans": "1,130,834",
-    "Manual Entries": "96,371",
+    "Scans": "1,130,836",
+    "Manual Entries": "96,372",
     "Active Devices": "530,093",
     "Bluetooth Active (24hr)": ""
   },
@@ -1006,7 +1006,7 @@
     "App Registrations": "57,100",
     "QR Codes Generated": "32,040",
     "NZBN Registered Businesses": "5,890",
-    "Scans": "1,242,883",
+    "Scans": "1,242,884",
     "Manual Entries": "97,203",
     "Active Devices": "564,225",
     "Bluetooth Active (24hr)": ""
@@ -1061,7 +1061,7 @@
     "App Registrations": "31,300",
     "QR Codes Generated": "5,130",
     "NZBN Registered Businesses": "1,400",
-    "Scans": "1,418,606",
+    "Scans": "1,418,607",
     "Manual Entries": "63,703",
     "Active Devices": "664,918",
     "Bluetooth Active (24hr)": ""
@@ -1072,7 +1072,7 @@
     "App Registrations": "44,600",
     "QR Codes Generated": "4,991",
     "NZBN Registered Businesses": 977,
-    "Scans": "1,537,364",
+    "Scans": "1,537,365",
     "Manual Entries": "69,445",
     "Active Devices": "701,100",
     "Bluetooth Active (24hr)": ""
@@ -1083,7 +1083,7 @@
     "App Registrations": "28,700",
     "QR Codes Generated": "4,062",
     "NZBN Registered Businesses": 712,
-    "Scans": "1,647,284",
+    "Scans": "1,647,285",
     "Manual Entries": "65,433",
     "Active Devices": "740,358",
     "Bluetooth Active (24hr)": ""
@@ -1094,7 +1094,7 @@
     "App Registrations": "34,400",
     "QR Codes Generated": "3,681",
     "NZBN Registered Businesses": 731,
-    "Scans": "1,748,985",
+    "Scans": "1,748,986",
     "Manual Entries": "68,143",
     "Active Devices": "773,863",
     "Bluetooth Active (24hr)": ""
@@ -1105,7 +1105,7 @@
     "App Registrations": "25,400",
     "QR Codes Generated": "5,640",
     "NZBN Registered Businesses": 634,
-    "Scans": "1,801,843",
+    "Scans": "1,801,844",
     "Manual Entries": "62,210",
     "Active Devices": "786,779",
     "Bluetooth Active (24hr)": ""
@@ -1369,7 +1369,7 @@
     "App Registrations": "14,500",
     "QR Codes Generated": "1,723",
     "NZBN Registered Businesses": 172,
-    "Scans": "1,441,944",
+    "Scans": "1,441,946",
     "Manual Entries": "33,814",
     "Active Devices": "672,636",
     "Bluetooth Active (24hr)": ""
@@ -3228,7 +3228,7 @@
     "App Registrations": "2,755",
     "QR Codes Generated": "1,421",
     "NZBN Registered Businesses": 98,
-    "Scans": "1,499,512",
+    "Scans": "1,499,513",
     "Manual Entries": "35,552",
     "Active Devices": "752,534",
     "Bluetooth Active (24hr)": "1,278,845"
@@ -3239,7 +3239,7 @@
     "App Registrations": "2,010",
     "QR Codes Generated": "1,269",
     "NZBN Registered Businesses": 82,
-    "Scans": "1,475,486",
+    "Scans": "1,475,488",
     "Manual Entries": "34,148",
     "Active Devices": "742,377",
     "Bluetooth Active (24hr)": "1,270,239"
@@ -3250,7 +3250,7 @@
     "App Registrations": "1,820",
     "QR Codes Generated": "1,244",
     "NZBN Registered Businesses": 83,
-    "Scans": "1,418,347",
+    "Scans": "1,418,349",
     "Manual Entries": "33,105",
     "Active Devices": "736,489",
     "Bluetooth Active (24hr)": "1,264,676"
@@ -3261,7 +3261,7 @@
     "App Registrations": "1,703",
     "QR Codes Generated": "1,367",
     "NZBN Registered Businesses": 76,
-    "Scans": "1,470,260",
+    "Scans": "1,470,261",
     "Manual Entries": "33,404",
     "Active Devices": "724,380",
     "Bluetooth Active (24hr)": "1,261,266"
@@ -3393,7 +3393,7 @@
     "App Registrations": "1,334",
     "QR Codes Generated": "1,072",
     "NZBN Registered Businesses": 64,
-    "Scans": "978,075",
+    "Scans": "978,076",
     "Manual Entries": "26,936",
     "Active Devices": "517,609",
     "Bluetooth Active (24hr)": "1,290,529"
@@ -3404,7 +3404,7 @@
     "App Registrations": "1,195",
     "QR Codes Generated": 907,
     "NZBN Registered Businesses": 65,
-    "Scans": "985,891",
+    "Scans": "985,892",
     "Manual Entries": "25,595",
     "Active Devices": "522,022",
     "Bluetooth Active (24hr)": "1,171,854"
@@ -4119,7 +4119,7 @@
     "App Registrations": "1,054",
     "QR Codes Generated": 506,
     "NZBN Registered Businesses": 23,
-    "Scans": "585,869",
+    "Scans": "585,870",
     "Manual Entries": "26,866",
     "Active Devices": "309,943",
     "Bluetooth Active (24hr)": "1,304,612"
@@ -4394,7 +4394,7 @@
     "App Registrations": "1,237",
     "QR Codes Generated": 592,
     "NZBN Registered Businesses": 40,
-    "Scans": "572,864",
+    "Scans": "572,866",
     "Manual Entries": "67,641",
     "Active Devices": "318,622",
     "Bluetooth Active (24hr)": "1,446,423"
@@ -4526,7 +4526,7 @@
     "App Registrations": 835,
     "QR Codes Generated": 390,
     "NZBN Registered Businesses": 44,
-    "Scans": "660,714",
+    "Scans": "660,715",
     "Manual Entries": "31,315",
     "Active Devices": "357,404",
     "Bluetooth Active (24hr)": "1,491,245"
@@ -4537,7 +4537,7 @@
     "App Registrations": "1,066",
     "QR Codes Generated": 666,
     "NZBN Registered Businesses": 33,
-    "Scans": "695,833",
+    "Scans": "695,835",
     "Manual Entries": "31,712",
     "Active Devices": "371,356",
     "Bluetooth Active (24hr)": "1,493,789"
@@ -4757,7 +4757,7 @@
     "App Registrations": 448,
     "QR Codes Generated": 212,
     "NZBN Registered Businesses": 20,
-    "Scans": "512,568",
+    "Scans": "512,571",
     "Manual Entries": "27,196",
     "Active Devices": "287,874",
     "Bluetooth Active (24hr)": "1,493,397"
@@ -4768,7 +4768,7 @@
     "App Registrations": 619,
     "QR Codes Generated": 565,
     "NZBN Registered Businesses": 34,
-    "Scans": "551,295",
+    "Scans": "551,300",
     "Manual Entries": "27,592",
     "Active Devices": "302,950",
     "Bluetooth Active (24hr)": "1,494,941"
@@ -4790,7 +4790,7 @@
     "App Registrations": 546,
     "QR Codes Generated": 544,
     "NZBN Registered Businesses": 32,
-    "Scans": "602,638",
+    "Scans": "602,642",
     "Manual Entries": "26,973",
     "Active Devices": "324,684",
     "Bluetooth Active (24hr)": "1,495,060"
@@ -4801,7 +4801,7 @@
     "App Registrations": 511,
     "QR Codes Generated": 569,
     "NZBN Registered Businesses": 37,
-    "Scans": "618,325",
+    "Scans": "618,332",
     "Manual Entries": "27,893",
     "Active Devices": "327,969",
     "Bluetooth Active (24hr)": "1,494,077"
@@ -4812,7 +4812,7 @@
     "App Registrations": 520,
     "QR Codes Generated": 556,
     "NZBN Registered Businesses": 20,
-    "Scans": "586,697",
+    "Scans": "586,702",
     "Manual Entries": "24,576",
     "Active Devices": "308,199",
     "Bluetooth Active (24hr)": "1,492,106"
@@ -4823,7 +4823,7 @@
     "App Registrations": 477,
     "QR Codes Generated": 118,
     "NZBN Registered Businesses": 12,
-    "Scans": "503,807",
+    "Scans": "503,814",
     "Manual Entries": "23,243",
     "Active Devices": "270,476",
     "Bluetooth Active (24hr)": "1,484,584"
@@ -4834,7 +4834,7 @@
     "App Registrations": 444,
     "QR Codes Generated": 194,
     "NZBN Registered Businesses": 15,
-    "Scans": "499,638",
+    "Scans": "499,640",
     "Manual Entries": "24,490",
     "Active Devices": "280,499",
     "Bluetooth Active (24hr)": "1,491,811"
@@ -4845,7 +4845,7 @@
     "App Registrations": 457,
     "QR Codes Generated": 592,
     "NZBN Registered Businesses": 36,
-    "Scans": "531,152",
+    "Scans": "531,157",
     "Manual Entries": "24,865",
     "Active Devices": "291,182",
     "Bluetooth Active (24hr)": "1,494,080"
@@ -4856,7 +4856,7 @@
     "App Registrations": 425,
     "QR Codes Generated": 669,
     "NZBN Registered Businesses": 30,
-    "Scans": "541,071",
+    "Scans": "541,076",
     "Manual Entries": "24,438",
     "Active Devices": "295,337",
     "Bluetooth Active (24hr)": "1,494,971"
@@ -4878,7 +4878,7 @@
     "App Registrations": 463,
     "QR Codes Generated": 592,
     "NZBN Registered Businesses": 33,
-    "Scans": "575,775",
+    "Scans": "575,780",
     "Manual Entries": "25,459",
     "Active Devices": "304,886",
     "Bluetooth Active (24hr)": "1,500,805"
@@ -4889,7 +4889,7 @@
     "App Registrations": 395,
     "QR Codes Generated": 499,
     "NZBN Registered Businesses": 21,
-    "Scans": "572,808",
+    "Scans": "572,816",
     "Manual Entries": "23,650",
     "Active Devices": "297,187",
     "Bluetooth Active (24hr)": "1,502,392"
@@ -4900,7 +4900,7 @@
     "App Registrations": 302,
     "QR Codes Generated": 121,
     "NZBN Registered Businesses": 12,
-    "Scans": "476,162",
+    "Scans": "476,168",
     "Manual Entries": "20,587",
     "Active Devices": "255,614",
     "Bluetooth Active (24hr)": "1,497,827"
@@ -4911,7 +4911,7 @@
     "App Registrations": 361,
     "QR Codes Generated": 182,
     "NZBN Registered Businesses": 15,
-    "Scans": "439,338",
+    "Scans": "439,346",
     "Manual Entries": "23,595",
     "Active Devices": "249,782",
     "Bluetooth Active (24hr)": "1,506,839"
@@ -4944,7 +4944,7 @@
     "App Registrations": 605,
     "QR Codes Generated": 694,
     "NZBN Registered Businesses": 42,
-    "Scans": "615,578",
+    "Scans": "615,584",
     "Manual Entries": "28,979",
     "Active Devices": "327,015",
     "Bluetooth Active (24hr)": "1,516,064"
@@ -4966,7 +4966,7 @@
     "App Registrations": 571,
     "QR Codes Generated": 594,
     "NZBN Registered Businesses": 26,
-    "Scans": "625,289",
+    "Scans": "625,293",
     "Manual Entries": "27,150",
     "Active Devices": "322,433",
     "Bluetooth Active (24hr)": "1,519,903"
@@ -4977,7 +4977,7 @@
     "App Registrations": 446,
     "QR Codes Generated": 147,
     "NZBN Registered Businesses": 17,
-    "Scans": "529,866",
+    "Scans": "529,870",
     "Manual Entries": "22,907",
     "Active Devices": "280,163",
     "Bluetooth Active (24hr)": "1,514,023"
@@ -4988,7 +4988,7 @@
     "App Registrations": 465,
     "QR Codes Generated": 208,
     "NZBN Registered Businesses": 18,
-    "Scans": "527,886",
+    "Scans": "527,891",
     "Manual Entries": "25,779",
     "Active Devices": "291,638",
     "Bluetooth Active (24hr)": "1,521,423"
@@ -4999,7 +4999,7 @@
     "App Registrations": 489,
     "QR Codes Generated": 297,
     "NZBN Registered Businesses": 41,
-    "Scans": "557,435",
+    "Scans": "557,442",
     "Manual Entries": "25,326",
     "Active Devices": "303,032",
     "Bluetooth Active (24hr)": "1,525,306"
@@ -5054,7 +5054,7 @@
     "App Registrations": "10,081",
     "QR Codes Generated": "3,788",
     "NZBN Registered Businesses": 115,
-    "Scans": "479,136",
+    "Scans": "479,138",
     "Manual Entries": "142,760",
     "Active Devices": "392,055",
     "Bluetooth Active (24hr)": "1,748,434"
@@ -5098,7 +5098,7 @@
     "App Registrations": "11,948",
     "QR Codes Generated": "3,783",
     "NZBN Registered Businesses": 366,
-    "Scans": "753,966",
+    "Scans": "753,967",
     "Manual Entries": "123,498",
     "Active Devices": "551,133",
     "Bluetooth Active (24hr)": "1,898,203"
@@ -5175,7 +5175,7 @@
     "App Registrations": "9,285",
     "QR Codes Generated": "6,394",
     "NZBN Registered Businesses": 587,
-    "Scans": "1,191,164",
+    "Scans": "1,191,165",
     "Manual Entries": "107,969",
     "Active Devices": "758,220",
     "Bluetooth Active (24hr)": "1,988,868"
@@ -5186,7 +5186,7 @@
     "App Registrations": "6,240",
     "QR Codes Generated": "3,408",
     "NZBN Registered Businesses": 362,
-    "Scans": "1,177,380",
+    "Scans": "1,177,381",
     "Manual Entries": "94,952",
     "Active Devices": "752,324",
     "Bluetooth Active (24hr)": "1,999,219"
@@ -5252,7 +5252,7 @@
     "App Registrations": "13,916",
     "QR Codes Generated": "4,265",
     "NZBN Registered Businesses": 653,
-    "Scans": "2,554,286",
+    "Scans": "2,554,288",
     "Manual Entries": "115,351",
     "Active Devices": "1,157,290",
     "Bluetooth Active (24hr)": "2,062,795"
@@ -5274,7 +5274,7 @@
     "App Registrations": "6,850",
     "QR Codes Generated": "5,380",
     "NZBN Registered Businesses": 352,
-    "Scans": "2,607,209",
+    "Scans": "2,607,211",
     "Manual Entries": "94,584",
     "Active Devices": "1,147,647",
     "Bluetooth Active (24hr)": "2,085,939"
@@ -5340,7 +5340,7 @@
     "App Registrations": "3,358",
     "QR Codes Generated": "1,728",
     "NZBN Registered Businesses": 95,
-    "Scans": "2,531,409",
+    "Scans": "2,531,411",
     "Manual Entries": "72,040",
     "Active Devices": "1,144,091",
     "Bluetooth Active (24hr)": "2,123,889"
@@ -5670,7 +5670,7 @@
     "App Registrations": "2,100",
     "QR Codes Generated": 482,
     "NZBN Registered Businesses": 35,
-    "Scans": "2,046,614",
+    "Scans": "2,046,615",
     "Manual Entries": "61,681",
     "Active Devices": "1,023,566",
     "Bluetooth Active (24hr)": "2,203,644"
@@ -5714,7 +5714,7 @@
     "App Registrations": "1,916",
     "QR Codes Generated": "1,832",
     "NZBN Registered Businesses": 103,
-    "Scans": "2,491,926",
+    "Scans": "2,491,928",
     "Manual Entries": "58,964",
     "Active Devices": "1,189,331",
     "Bluetooth Active (24hr)": "2,223,676"
@@ -5912,7 +5912,7 @@
     "App Registrations": "1,572",
     "QR Codes Generated": 752,
     "NZBN Registered Businesses": 56,
-    "Scans": "2,107,262",
+    "Scans": "2,107,264",
     "Manual Entries": "56,007",
     "Active Devices": "1,052,868",
     "Bluetooth Active (24hr)": "2,257,795"
@@ -5956,7 +5956,7 @@
     "App Registrations": "2,432",
     "QR Codes Generated": "1,801",
     "NZBN Registered Businesses": 102,
-    "Scans": "2,841,357",
+    "Scans": "2,841,358",
     "Manual Entries": "55,476",
     "Active Devices": "1,244,241",
     "Bluetooth Active (24hr)": "2,268,929"
@@ -6077,7 +6077,7 @@
     "App Registrations": "4,513",
     "QR Codes Generated": "2,133",
     "NZBN Registered Businesses": 168,
-    "Scans": "2,644,219",
+    "Scans": "2,644,220",
     "Manual Entries": "57,338",
     "Active Devices": "1,202,348",
     "Bluetooth Active (24hr)": "2,308,451"
@@ -6099,7 +6099,7 @@
     "App Registrations": "4,250",
     "QR Codes Generated": "2,073",
     "NZBN Registered Businesses": 166,
-    "Scans": "2,926,635",
+    "Scans": "2,926,636",
     "Manual Entries": "48,612",
     "Active Devices": "1,278,581",
     "Bluetooth Active (24hr)": "2,319,198"
@@ -6132,7 +6132,7 @@
     "App Registrations": "3,722",
     "QR Codes Generated": 855,
     "NZBN Registered Businesses": 67,
-    "Scans": "2,853,769",
+    "Scans": "2,853,770",
     "Manual Entries": "42,132",
     "Active Devices": "1,179,564",
     "Bluetooth Active (24hr)": "2,314,648"
@@ -6143,7 +6143,7 @@
     "App Registrations": "4,111",
     "QR Codes Generated": "1,045",
     "NZBN Registered Businesses": 103,
-    "Scans": "2,715,535",
+    "Scans": "2,715,536",
     "Manual Entries": "52,169",
     "Active Devices": "1,194,105",
     "Bluetooth Active (24hr)": "2,331,803"
@@ -6154,7 +6154,7 @@
     "App Registrations": "5,392",
     "QR Codes Generated": "2,467",
     "NZBN Registered Businesses": 236,
-    "Scans": "2,731,637",
+    "Scans": "2,731,638",
     "Manual Entries": "54,572",
     "Active Devices": "1,227,924",
     "Bluetooth Active (24hr)": "2,339,697"
@@ -6176,7 +6176,7 @@
     "App Registrations": "4,225",
     "QR Codes Generated": "2,994",
     "NZBN Registered Businesses": 241,
-    "Scans": "2,981,297",
+    "Scans": "2,981,298",
     "Manual Entries": "49,361",
     "Active Devices": "1,299,941",
     "Bluetooth Active (24hr)": "2,351,244"
@@ -6220,7 +6220,7 @@
     "App Registrations": "4,640",
     "QR Codes Generated": "1,280",
     "NZBN Registered Businesses": 131,
-    "Scans": "2,764,280",
+    "Scans": "2,764,282",
     "Manual Entries": "44,927",
     "Active Devices": "1,225,343",
     "Bluetooth Active (24hr)": "2,368,841"
@@ -6231,7 +6231,7 @@
     "App Registrations": "4,001",
     "QR Codes Generated": "4,763",
     "NZBN Registered Businesses": 184,
-    "Scans": "2,873,491",
+    "Scans": "2,873,496",
     "Manual Entries": "45,034",
     "Active Devices": "1,267,570",
     "Bluetooth Active (24hr)": "2,370,845"
@@ -6242,7 +6242,7 @@
     "App Registrations": "3,449",
     "QR Codes Generated": "2,202",
     "NZBN Registered Businesses": 124,
-    "Scans": "3,113,640",
+    "Scans": "3,113,643",
     "Manual Entries": "43,867",
     "Active Devices": "1,329,764",
     "Bluetooth Active (24hr)": "2,377,696"
@@ -6253,7 +6253,7 @@
     "App Registrations": "3,261",
     "QR Codes Generated": "2,679",
     "NZBN Registered Businesses": 124,
-    "Scans": "3,237,304",
+    "Scans": "3,237,308",
     "Manual Entries": "42,523",
     "Active Devices": "1,369,159",
     "Bluetooth Active (24hr)": "2,380,924"
@@ -6264,7 +6264,7 @@
     "App Registrations": "2,942",
     "QR Codes Generated": "1,998",
     "NZBN Registered Businesses": 92,
-    "Scans": "3,435,967",
+    "Scans": "3,435,972",
     "Manual Entries": "40,292",
     "Active Devices": "1,404,803",
     "Bluetooth Active (24hr)": "2,381,168"
@@ -6275,7 +6275,7 @@
     "App Registrations": "2,709",
     "QR Codes Generated": "1,653",
     "NZBN Registered Businesses": 80,
-    "Scans": "3,543,963",
+    "Scans": "3,543,967",
     "Manual Entries": "37,385",
     "Active Devices": "1,407,499",
     "Bluetooth Active (24hr)": "2,383,117"
@@ -6286,7 +6286,7 @@
     "App Registrations": "2,539",
     "QR Codes Generated": 730,
     "NZBN Registered Businesses": 73,
-    "Scans": "2,957,896",
+    "Scans": "2,957,909",
     "Manual Entries": "35,295",
     "Active Devices": "1,213,057",
     "Bluetooth Active (24hr)": "2,370,670"
@@ -6297,7 +6297,7 @@
     "App Registrations": "2,594",
     "QR Codes Generated": 836,
     "NZBN Registered Businesses": 83,
-    "Scans": "2,851,736",
+    "Scans": "2,851,745",
     "Manual Entries": "42,063",
     "Active Devices": "1,218,669",
     "Bluetooth Active (24hr)": "2,383,324"
@@ -6308,7 +6308,7 @@
     "App Registrations": "2,453",
     "QR Codes Generated": "2,251",
     "NZBN Registered Businesses": 77,
-    "Scans": "2,885,275",
+    "Scans": "2,885,284",
     "Manual Entries": "41,577",
     "Active Devices": "1,247,389",
     "Bluetooth Active (24hr)": "2,388,741"
@@ -6319,7 +6319,7 @@
     "App Registrations": "1,903",
     "QR Codes Generated": "2,850",
     "NZBN Registered Businesses": 111,
-    "Scans": "3,049,439",
+    "Scans": "3,049,446",
     "Manual Entries": "40,988",
     "Active Devices": "1,288,517",
     "Bluetooth Active (24hr)": "2,393,593"
@@ -6330,7 +6330,7 @@
     "App Registrations": "2,547",
     "QR Codes Generated": "1,399",
     "NZBN Registered Businesses": 106,
-    "Scans": "3,217,645",
+    "Scans": "3,217,654",
     "Manual Entries": "40,946",
     "Active Devices": "1,341,754",
     "Bluetooth Active (24hr)": "2,395,251"
@@ -6341,7 +6341,7 @@
     "App Registrations": "2,602",
     "QR Codes Generated": "1,447",
     "NZBN Registered Businesses": 70,
-    "Scans": "3,527,180",
+    "Scans": "3,527,195",
     "Manual Entries": "44,103",
     "Active Devices": "1,404,331",
     "Bluetooth Active (24hr)": "2,396,926"
@@ -6352,7 +6352,7 @@
     "App Registrations": "2,462",
     "QR Codes Generated": "1,472",
     "NZBN Registered Businesses": 59,
-    "Scans": "3,589,571",
+    "Scans": "3,589,582",
     "Manual Entries": "41,510",
     "Active Devices": "1,388,068",
     "Bluetooth Active (24hr)": "2,395,845"
@@ -6363,7 +6363,7 @@
     "App Registrations": "4,599",
     "QR Codes Generated": "2,006",
     "NZBN Registered Businesses": 93,
-    "Scans": "3,008,384",
+    "Scans": "3,008,397",
     "Manual Entries": "34,721",
     "Active Devices": "1,214,255",
     "Bluetooth Active (24hr)": "2,381,480"
@@ -6374,9 +6374,9 @@
     "App Registrations": "4,136",
     "QR Codes Generated": 641,
     "NZBN Registered Businesses": 48,
-    "Scans": "3,031,409",
+    "Scans": "3,031,416",
     "Manual Entries": "43,133",
-    "Active Devices": "1,247,446",
+    "Active Devices": "1,247,447",
     "Bluetooth Active (24hr)": "2,391,916"
   },
   {
@@ -6385,9 +6385,9 @@
     "App Registrations": "4,096",
     "QR Codes Generated": "1,242",
     "NZBN Registered Businesses": 60,
-    "Scans": "3,349,150",
+    "Scans": "3,349,157",
     "Manual Entries": "43,178",
-    "Active Devices": "1,330,776",
+    "Active Devices": "1,330,780",
     "Bluetooth Active (24hr)": "2,397,195"
   },
   {
@@ -6396,9 +6396,9 @@
     "App Registrations": "2,164",
     "QR Codes Generated": "1,175",
     "NZBN Registered Businesses": 60,
-    "Scans": "3,594,132",
+    "Scans": "3,594,140",
     "Manual Entries": "43,458",
-    "Active Devices": "1,379,128",
+    "Active Devices": "1,379,131",
     "Bluetooth Active (24hr)": "2,399,595"
   },
   {
@@ -6407,9 +6407,9 @@
     "App Registrations": "2,129",
     "QR Codes Generated": "1,106",
     "NZBN Registered Businesses": 48,
-    "Scans": "3,824,424",
+    "Scans": "3,824,430",
     "Manual Entries": "43,645",
-    "Active Devices": "1,431,832",
+    "Active Devices": "1,431,837",
     "Bluetooth Active (24hr)": "2,401,547"
   },
   {
@@ -6418,9 +6418,9 @@
     "App Registrations": "1,992",
     "QR Codes Generated": 858,
     "NZBN Registered Businesses": 36,
-    "Scans": "3,962,619",
+    "Scans": "3,962,630",
     "Manual Entries": "38,882",
-    "Active Devices": "1,450,117",
+    "Active Devices": "1,450,123",
     "Bluetooth Active (24hr)": "2,398,880"
   },
   {
@@ -6429,9 +6429,9 @@
     "App Registrations": "1,667",
     "QR Codes Generated": 427,
     "NZBN Registered Businesses": 21,
-    "Scans": "1,690,672",
+    "Scans": "1,690,688",
     "Manual Entries": "24,553",
-    "Active Devices": "846,836",
+    "Active Devices": "846,842",
     "Bluetooth Active (24hr)": "2,389,232"
   },
   {
@@ -6440,9 +6440,9 @@
     "App Registrations": "1,941",
     "QR Codes Generated": 186,
     "NZBN Registered Businesses": 16,
-    "Scans": "1,160,296",
+    "Scans": "1,160,302",
     "Manual Entries": "25,750",
-    "Active Devices": "555,324",
+    "Active Devices": "555,326",
     "Bluetooth Active (24hr)": "2,366,538"
   },
   {
@@ -6451,9 +6451,9 @@
     "App Registrations": "1,678",
     "QR Codes Generated": 448,
     "NZBN Registered Businesses": 40,
-    "Scans": "2,124,981",
+    "Scans": "2,124,995",
     "Manual Entries": "40,571",
-    "Active Devices": "940,785",
+    "Active Devices": "940,787",
     "Bluetooth Active (24hr)": "2,367,700"
   },
   {
@@ -6462,9 +6462,9 @@
     "App Registrations": "1,973",
     "QR Codes Generated": 223,
     "NZBN Registered Businesses": 18,
-    "Scans": "2,240,268",
+    "Scans": "2,240,286",
     "Manual Entries": "43,563",
-    "Active Devices": "983,985",
+    "Active Devices": "983,991",
     "Bluetooth Active (24hr)": "2,360,372"
   },
   {
@@ -6473,9 +6473,9 @@
     "App Registrations": "3,845",
     "QR Codes Generated": 267,
     "NZBN Registered Businesses": 17,
-    "Scans": "2,501,854",
-    "Manual Entries": "45,423",
-    "Active Devices": "1,063,416",
+    "Scans": "2,501,890",
+    "Manual Entries": "45,424",
+    "Active Devices": "1,063,422",
     "Bluetooth Active (24hr)": "2,367,886"
   },
   {
@@ -6484,9 +6484,9 @@
     "App Registrations": "3,923",
     "QR Codes Generated": 447,
     "NZBN Registered Businesses": 24,
-    "Scans": "2,675,237",
+    "Scans": "2,675,277",
     "Manual Entries": "52,021",
-    "Active Devices": "1,153,423",
+    "Active Devices": "1,153,433",
     "Bluetooth Active (24hr)": "2,368,018"
   },
   {
@@ -6495,9 +6495,9 @@
     "App Registrations": "1,946",
     "QR Codes Generated": "1,053",
     "NZBN Registered Businesses": 64,
-    "Scans": "2,734,586",
+    "Scans": "2,734,629",
     "Manual Entries": "46,115",
-    "Active Devices": "1,156,849",
+    "Active Devices": "1,156,858",
     "Bluetooth Active (24hr)": "2,368,003"
   },
   {
@@ -6506,9 +6506,9 @@
     "App Registrations": "1,471",
     "QR Codes Generated": 951,
     "NZBN Registered Businesses": 74,
-    "Scans": "1,939,797",
+    "Scans": "1,939,821",
     "Manual Entries": "34,940",
-    "Active Devices": "945,147",
+    "Active Devices": "945,157",
     "Bluetooth Active (24hr)": "2,358,838"
   },
   {
@@ -6517,9 +6517,9 @@
     "App Registrations": "2,474",
     "QR Codes Generated": 166,
     "NZBN Registered Businesses": 18,
-    "Scans": "1,606,178",
+    "Scans": "1,606,197",
     "Manual Entries": "34,161",
-    "Active Devices": "834,885",
+    "Active Devices": "834,890",
     "Bluetooth Active (24hr)": "2,347,783"
   },
   {
@@ -6528,9 +6528,9 @@
     "App Registrations": "1,114",
     "QR Codes Generated": 217,
     "NZBN Registered Businesses": 24,
-    "Scans": "1,931,229",
-    "Manual Entries": "39,549",
-    "Active Devices": "924,230",
+    "Scans": "1,931,277",
+    "Manual Entries": "39,550",
+    "Active Devices": "924,237",
     "Bluetooth Active (24hr)": "2,355,346"
   },
   {
@@ -6539,9 +6539,9 @@
     "App Registrations": "2,159",
     "QR Codes Generated": 264,
     "NZBN Registered Businesses": 39,
-    "Scans": "2,037,522",
+    "Scans": "2,037,549",
     "Manual Entries": "38,874",
-    "Active Devices": "945,861",
+    "Active Devices": "945,874",
     "Bluetooth Active (24hr)": "2,357,470"
   },
   {
@@ -6550,9 +6550,9 @@
     "App Registrations": "2,286",
     "QR Codes Generated": 596,
     "NZBN Registered Businesses": 83,
-    "Scans": "2,386,945",
+    "Scans": "2,386,993",
     "Manual Entries": "44,692",
-    "Active Devices": "1,055,575",
+    "Active Devices": "1,055,598",
     "Bluetooth Active (24hr)": "2,369,378"
   },
   {
@@ -6561,9 +6561,9 @@
     "App Registrations": "2,267",
     "QR Codes Generated": 969,
     "NZBN Registered Businesses": 92,
-    "Scans": "2,600,865",
-    "Manual Entries": "45,839",
-    "Active Devices": "1,115,858",
+    "Scans": "2,600,908",
+    "Manual Entries": "45,841",
+    "Active Devices": "1,115,880",
     "Bluetooth Active (24hr)": "2,376,314"
   },
   {
@@ -6572,9 +6572,9 @@
     "App Registrations": "1,430",
     "QR Codes Generated": 715,
     "NZBN Registered Businesses": 54,
-    "Scans": "2,639,474",
-    "Manual Entries": "42,412",
-    "Active Devices": "1,115,264",
+    "Scans": "2,639,540",
+    "Manual Entries": "42,414",
+    "Active Devices": "1,115,293",
     "Bluetooth Active (24hr)": "2,378,921"
   },
   {
@@ -6583,9 +6583,9 @@
     "App Registrations": "1,428",
     "QR Codes Generated": "1,341",
     "NZBN Registered Businesses": 92,
-    "Scans": "2,541,095",
+    "Scans": "2,541,167",
     "Manual Entries": "38,655",
-    "Active Devices": "1,103,045",
+    "Active Devices": "1,103,073",
     "Bluetooth Active (24hr)": "2,377,535"
   },
   {
@@ -6594,9 +6594,9 @@
     "App Registrations": "1,097",
     "QR Codes Generated": "1,028",
     "NZBN Registered Businesses": 72,
-    "Scans": "2,019,738",
+    "Scans": "2,019,788",
     "Manual Entries": "38,631",
-    "Active Devices": "969,673",
+    "Active Devices": "969,702",
     "Bluetooth Active (24hr)": "2,373,170"
   },
   {
@@ -6605,9 +6605,9 @@
     "App Registrations": "1,160",
     "QR Codes Generated": 558,
     "NZBN Registered Businesses": 50,
-    "Scans": "2,213,035",
+    "Scans": "2,213,122",
     "Manual Entries": "45,618",
-    "Active Devices": "1,030,990",
+    "Active Devices": "1,031,041",
     "Bluetooth Active (24hr)": "2,389,121"
   },
   {
@@ -6616,9 +6616,9 @@
     "App Registrations": "1,424",
     "QR Codes Generated": "1,664",
     "NZBN Registered Businesses": 88,
-    "Scans": "2,400,010",
+    "Scans": "2,400,123",
     "Manual Entries": "42,319",
-    "Active Devices": "1,075,330",
+    "Active Devices": "1,075,413",
     "Bluetooth Active (24hr)": "2,388,887"
   },
   {
@@ -6627,9 +6627,9 @@
     "App Registrations": "1,377",
     "QR Codes Generated": "3,147",
     "NZBN Registered Businesses": 154,
-    "Scans": "2,430,358",
-    "Manual Entries": "43,488",
-    "Active Devices": "1,094,022",
+    "Scans": "2,430,532",
+    "Manual Entries": "43,490",
+    "Active Devices": "1,094,142",
     "Bluetooth Active (24hr)": "2,389,939"
   },
   {
@@ -6638,9 +6638,9 @@
     "App Registrations": "1,479",
     "QR Codes Generated": "3,161",
     "NZBN Registered Businesses": 139,
-    "Scans": "2,538,647",
-    "Manual Entries": "41,537",
-    "Active Devices": "1,131,334",
+    "Scans": "2,538,875",
+    "Manual Entries": "41,538",
+    "Active Devices": "1,131,497",
     "Bluetooth Active (24hr)": "2,401,197"
   },
   {
@@ -6649,9 +6649,9 @@
     "App Registrations": "1,443",
     "QR Codes Generated": "1,166",
     "NZBN Registered Businesses": 67,
-    "Scans": "2,625,935",
-    "Manual Entries": "39,822",
-    "Active Devices": "1,142,953",
+    "Scans": "2,626,321",
+    "Manual Entries": "39,823",
+    "Active Devices": "1,143,242",
     "Bluetooth Active (24hr)": "2,401,938"
   },
   {
@@ -6660,9 +6660,9 @@
     "App Registrations": "4,259",
     "QR Codes Generated": "1,298",
     "NZBN Registered Businesses": 79,
-    "Scans": "2,584,684",
-    "Manual Entries": "36,896",
-    "Active Devices": "1,151,560",
+    "Scans": "2,585,344",
+    "Manual Entries": "36,897",
+    "Active Devices": "1,152,121",
     "Bluetooth Active (24hr)": "2,400,283"
   },
   {
@@ -6671,9 +6671,9 @@
     "App Registrations": "1,146",
     "QR Codes Generated": "1,835",
     "NZBN Registered Businesses": 122,
-    "Scans": "2,099,871",
-    "Manual Entries": "32,131",
-    "Active Devices": "988,593",
+    "Scans": "2,100,943",
+    "Manual Entries": "32,135",
+    "Active Devices": "989,756",
     "Bluetooth Active (24hr)": "2,387,398"
   },
   {
@@ -6682,9 +6682,9 @@
     "App Registrations": 803,
     "QR Codes Generated": "1,046",
     "NZBN Registered Businesses": 82,
-    "Scans": "2,177,608",
-    "Manual Entries": "42,612",
-    "Active Devices": "1,021,607",
+    "Scans": "2,180,432",
+    "Manual Entries": "42,618",
+    "Active Devices": "1,025,593",
     "Bluetooth Active (24hr)": "2,401,475"
   },
   {
@@ -6693,9 +6693,42 @@
     "App Registrations": "1,405",
     "QR Codes Generated": "1,913",
     "NZBN Registered Businesses": 109,
-    "Scans": "2,352,443",
-    "Manual Entries": "43,010",
-    "Active Devices": "924,351",
+    "Scans": "2,362,932",
+    "Manual Entries": "43,027",
+    "Active Devices": "1,094,962",
     "Bluetooth Active (24hr)": "2,407,106"
+  },
+  {
+    "Date/Time From": "18/01/2022 13:00",
+    "Date/Time To": "19/01/2022 13:00",
+    "App Registrations": "1,309",
+    "QR Codes Generated": "1,541",
+    "NZBN Registered Businesses": 65,
+    "Scans": "2,425,091",
+    "Manual Entries": "38,342",
+    "Active Devices": "1,104,070",
+    "Bluetooth Active (24hr)": "2,407,014"
+  },
+  {
+    "Date/Time From": "19/01/2022 13:00",
+    "Date/Time To": "20/01/2022 13:00",
+    "App Registrations": "2,634",
+    "QR Codes Generated": "2,023",
+    "NZBN Registered Businesses": 93,
+    "Scans": "2,467,257",
+    "Manual Entries": "39,202",
+    "Active Devices": "1,117,389",
+    "Bluetooth Active (24hr)": "2,408,117"
+  },
+  {
+    "Date/Time From": "20/01/2022 13:00",
+    "Date/Time To": "21/01/2022 13:00",
+    "App Registrations": "1,497",
+    "QR Codes Generated": "1,902",
+    "NZBN Registered Businesses": 89,
+    "Scans": "2,617,194",
+    "Manual Entries": "41,385",
+    "Active Devices": "984,117",
+    "Bluetooth Active (24hr)": "2,409,806"
   }
 ]
