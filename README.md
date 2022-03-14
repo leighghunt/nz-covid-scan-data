@@ -10,7 +10,14 @@ and then convert CSV to JSON using [CVSJ2JSON](https://csvjson.com/csv2json) unt
 ## Accessing scanning data:
 
 If you'd like to access the (non-authoritative) SQLite data containing scan data since 10 September, it can be found here:
-[here](https://github.com/leighghunt/nz-covid-scan-data/tree/main/backup)
+[here](https://github.com/leighghunt/nz-covid-scan-data-backups/tree/main/backup) - if this is out of date, drop me a line and I"ll update it.
+
+## Backing up data when diskspace is low!
+
+Dump in memory, filter with grep, and pipe to gzip.
+```
+sqlite3 .data/database.sqlite .dump | grep '2021-11'  | gzip -9c > database.sqlite.2021-11.gz
+```
 
 ## Backup to another instance:
 
