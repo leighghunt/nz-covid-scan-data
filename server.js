@@ -133,6 +133,11 @@ app.get('/kebabs', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/bluetooth', function(request, response) {
+  response.sendFile(__dirname + '/views/bluetooth.html');
+});
+
+
 server.listen(process.env.PORT);
 
 // var distanceBetweenLocations = require('./distanceBetweenLocations');
