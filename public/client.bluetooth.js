@@ -988,7 +988,7 @@ function updateHistoricGraph(){
       {
         label: 'Active Bluetooth Active (from API)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(150, 150, 255)',
+        borderColor: 'rgb(99, 99, 255)',
         fill: false,
         // lineTension: 0,       
         borderDash: [1, 3],
