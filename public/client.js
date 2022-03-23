@@ -868,6 +868,19 @@ function updateHistoricGraph(){
       y: parseInt(data.Scans.replace(/,/g, ''))
     }
   });
+  let historicBluetoothActiveDevices = historicStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: parseInt(data["Bluetooth Active (24hr)"].replace(/,/g, ''))
+    }
+  });
+  
+  console.log(historicBluetoothActiveDevices[0]);
 
   let historicQRCodeScansFromAPI = previousDaysStats.map(data => {
     return {
@@ -909,6 +922,14 @@ function updateHistoricGraph(){
         fill: false,
         // lineTension: 0,       
         data: historicQRCodeScans
+      },
+      {
+        label: 'Active Bluetooth Active (24hr)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 99, 255)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicBluetoothActiveDevices
       }
     ]
   };
@@ -932,6 +953,14 @@ function updateHistoricGraph(){
         fill: false,
         // lineTension: 0,       
         data: historicQRCodeScans
+      },
+      {
+        label: 'Active Bluetooth Active (24hr)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 99, 255)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicBluetoothActiveDevices
       }
 
     ]
