@@ -879,6 +879,17 @@ function updateHistoricGraph(){
       y: parseInt(data["Bluetooth Active (24hr)"].replace(/,/g, ''))
     }
   });
+  let historicActiveDevices = historicStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: parseInt(data["Active Devices"].replace(/,/g, ''))
+    }
+  });
   
   console.log(historicBluetoothActiveDevices[0]);
 
@@ -896,6 +907,19 @@ function updateHistoricGraph(){
   });
   
   let historicBluetoothActiveFromAPI = previousDaysStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: data.people_with_bluetooth_tracing_active_today
+    }
+  });
+  
+  let historicActiveDevicesFromAPI = previousDaysStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
       x: new Date(
@@ -953,6 +977,14 @@ function updateHistoricGraph(){
         fill: false,
         // lineTension: 0,       
         data: historicBluetoothActiveDevices
+      },
+      {
+        label: 'Active Devices',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 255, 99)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicActiveDevices
       }
     ]
   };
@@ -993,6 +1025,23 @@ function updateHistoricGraph(){
         // lineTension: 0,       
         borderDash: [1, 3],
         data: historicBluetoothActiveFromAPI
+      },
+      {
+        label: 'Active Devices (from MoH spreadsheet)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 255, 99)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicActiveDevices
+      },
+      {
+        label: 'Active Devices (from API)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 255, 99)',
+        fill: false,
+        borderDash: [1, 3],
+        // lineTension: 0,       
+        data: historicActiveDevicesFromAPI
       }
 
     ]
