@@ -425,8 +425,13 @@ function groupByDuration(objectArray, duration = 15) {
 
 function updateGraph(){
 
-  // console.log('updateGraph: todaysStats')
-  // console.log(todaysStats)
+  console.log('updateGraph: todaysStats')
+  console.log(todaysStats)
+  
+  if(todaysStats.Length==0){
+    console.error('todaysStats empty!')
+    return
+  }
 
   let labels = todaysStats.map(data => new Date(data.generated));
 
