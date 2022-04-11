@@ -428,7 +428,7 @@ function updateGraph(){
   console.log('updateGraph: todaysStats')
   console.log(todaysStats)
   
-  if(todaysStats.Length==0){
+  if(todaysStats.Length == 0 || todaysStats[0] == null){
     console.error('todaysStats empty!')
     return
   }
