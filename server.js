@@ -71,6 +71,16 @@ sequelize.authenticate()
       people_with_bluetooth_tracing_active_today: {
         type: Sequelize.INTEGER
       },
+      
+      
+      bluetooth_tracing_codes_uploaded_today: {
+        type: Sequelize.INTEGER
+      },
+      
+      contacts_notified_by_bluetooth_today: {
+        type: Sequelize.INTEGER
+      },
+      
 
       all_time_app_registrations: {
         type: Sequelize.INTEGER
@@ -184,15 +194,20 @@ function updateStats(){
       timestamp: new Date(),
       generated: apiResponse.data.generated,
 
+      people_with_bluetooth_tracing_active_today: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Phones with Bluetooth tracing active today').value.replace(/,/g, '')),
+      bluetooth_tracing_codes_uploaded_today: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Bluetooth tracing codes uploaded today by people with COVID-19').value.replace(/,/g, '')),
+      contacts_notified_by_bluetooth_today: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='Contacts notified by Bluetooth tracing today').value.replace(/,/g, '')),
+
       qr_code_scans_today: parseInt(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='QR code scans today').value.replace(/,/g, '')),
       manual_entries_today: parseInt(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='Manual entries today').value.replace(/,/g, '')),
-      people_with_bluetooth_tracing_active_today: parseInt(apiResponse.data['dashboardItems'][1].find(d => d.subtitle=='People with Bluetooth tracing active today').value.replace(/,/g, '')),
-      
-      all_time_app_registrations: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time app registrations').value.replace(/,/g, '')),
-      all_time_app_registrations_daily_change: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time app registrations').dailyChange,
 
-      all_time_posters_created: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time posters created').value.replace(/,/g, '')),
-      all_time_posters_created_daily_change: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time posters created').dailyChange,
+
+      
+      // all_time_app_registrations: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time app registrations').value.replace(/,/g, '')),
+      // all_time_app_registrations_daily_change: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time app registrations').dailyChange,
+
+      // all_time_posters_created: parseInt(apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time posters created').value.replace(/,/g, '')),
+      // all_time_posters_created_daily_change: apiResponse.data['dashboardItems'][0].find(d => d.subtitle=='All time posters created').dailyChange,
       JSON: JSON.stringify(apiResponse.data)
     }    
     
