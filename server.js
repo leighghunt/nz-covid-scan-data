@@ -302,7 +302,9 @@ app.get('/stats/', async function(request, response) {
 
         })
       
-        statsFiltered.push(stats[stats.length-1])
+        if(stats.length>0){
+          statsFiltered.push(stats[stats.length-1])
+        }
       
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(statsFiltered));
