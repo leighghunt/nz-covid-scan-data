@@ -32,8 +32,8 @@ function displayStats(stats){
     document.getElementById('manual_entries_today').innerText = latestStats.manual_entries_today.toLocaleString()
     document.getElementById('people_with_bluetooth_tracing_active_today').innerText = latestStats.people_with_bluetooth_tracing_active_today.toLocaleString()
 
-    document.getElementById('all_time_app_registrations').innerText = latestStats.all_time_app_registrations.toLocaleString()
-    document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
+    document.getElementById('bluetooth_tracing_codes_uploaded_today').innerText = latestStats.bluetooth_tracing_codes_uploaded_today.toLocaleString()
+    document.getElementById('contacts_notified_by_bluetooth_today').innerText = latestStats.contacts_notified_by_bluetooth_today.toLocaleString()
 
     let percentageOfLastWeek = 0
 
