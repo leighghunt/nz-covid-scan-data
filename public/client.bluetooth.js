@@ -911,6 +911,31 @@ function updateHistoricGraph(){
     }
   });
   
+  let historicBluetoothTracingCodesUploadedFromAPI = previousDaysStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: data.qr_code_scans_today
+    }
+  });
+  let historicQRCodeScansFromAPI = previousDaysStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: data.qr_code_scans_today
+    }
+  });
+  
   let historicBluetoothActiveFromAPI = previousDaysStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
@@ -985,6 +1010,24 @@ function updateHistoricGraph(){
   const dataPrevMonth = {
     // labels: labels,
     datasets: [
+      {
+        label: 'Bluetooth Tracing Codes uploaded',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'blue',
+        fill: false,
+        // lineTension: 0,       
+        // data: historicQRCodeScansFromAPI
+        data: historicBluetoothTracingCodesUploadedFromAPI
+      },
+      {
+        label: 'Contacts notified by Bluetooth',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'red',
+        fill: false,
+        // lineTension: 0,       
+        // data: historicQRCodeScans
+        data: historicContactsNotifiedByBluetooth
+      },
       // {
       //   label: 'Scans from API (12am - 12am)',
       //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
