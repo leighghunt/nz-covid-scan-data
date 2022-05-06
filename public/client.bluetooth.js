@@ -9,6 +9,7 @@ var todaysStats = []
 var thisDayLastWeeksStats = []
 
 var previousDaysStats = []
+var previousDaysBluetoothStats = []
 
 var historicStats = []
 
@@ -328,7 +329,6 @@ const previousDaysBluetoothStatsListener = function(){
   // console.log(previousDaysStats)
   updateGraph()
   updateHistoricGraph()
-}
 }
 
 function getPreviousDaysStats(){

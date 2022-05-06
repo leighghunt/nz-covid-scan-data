@@ -372,24 +372,22 @@ app.get('/bluetoothStats/', async function(request, response) {
 
         // console.log(stats.length)
       
-        var previousTime
+        var previousDate
         var statsFiltered = []
         stats.forEach(function(element){
-          if(previousTime){
+          if(previousDate){
           // console.log(previousTime)
           // console.log(element.generated)
           // console.log(element.generated - previousTime)
 
-            var diffMins = (element.generated - previousTime)/(1000*60)
-            // console.log(diffMins)
-            if(diffMins > granularityMins){
+            if(previousDate.getDate() != element.generated.getDate()){
               statsFiltered.push(element)
-              previousTime = element.generated
+              previousDate = element.generated
             }
             
           } else {
               statsFiltered.push(element)            
-              previousTime = element.generated
+              previousDate = element.generated
           }
           
 
