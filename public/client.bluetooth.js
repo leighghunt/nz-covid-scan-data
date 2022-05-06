@@ -920,10 +920,11 @@ function updateHistoricGraph(){
         // data['Date/Time To'].toString().substr(3, 2) + '-' + 
         // data['Date/Time To'].toString().substr(0, 2) 
       ), 
-      y: data.qr_code_scans_today
+      y: data.bluetooth_tracing_codes_uploaded_today
     }
   });
-  let historicQRCodeScansFromAPI = previousDaysStats.map(data => {
+
+  let historicContactsNotifiedByBluetooth = previousDaysStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
       x: new Date(
@@ -932,7 +933,7 @@ function updateHistoricGraph(){
         // data['Date/Time To'].toString().substr(3, 2) + '-' + 
         // data['Date/Time To'].toString().substr(0, 2) 
       ), 
-      y: data.qr_code_scans_today
+      y: data.contacts_notified_by_bluetooth_today
     }
   });
   
@@ -953,6 +954,23 @@ function updateHistoricGraph(){
   // console.log(historicQRCodeScansFromAPI.length)
 
   historicQRCodeScansFromAPI = historicQRCodeScansFromAPI.filter((element, index, array) => {
+    if(index < array.length-1){
+      if(element.x.getDate() != array[index+1].x.getDate()){
+        return true
+      }
+    } 
+  } )
+  
+    
+  historicBluetoothTracingCodesUploadedFromAPI = historicBluetoothTracingCodesUploadedFromAPI.filter((element, index, array) => {
+    if(index < array.length-1){
+      if(element.x.getDate() != array[index+1].x.getDate()){
+        return true
+      }
+    } 
+  } )
+    
+  historicContactsNotifiedByBluetooth = historicContactsNotifiedByBluetooth.filter((element, index, array) => {
     if(index < array.length-1){
       if(element.x.getDate() != array[index+1].x.getDate()){
         return true
