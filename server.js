@@ -348,10 +348,9 @@ app.get('/bluetoothStats/', async function(request, response) {
     console.log(from)
     console.log(to)
 
-
     Stats.findAll(
-      {
-        where: { 
+    {
+      where: { 
           generated: {
             [Op.and]:[
               {[Op.gte]: from},
@@ -359,45 +358,23 @@ app.get('/bluetoothStats/', async function(request, response) {
             ]
           }
         },
-        order: [['generated']]
+      order: [['generated']],
+      attributes: [Sequelize.fn('max', Sequelize.col('id'))],
+      // group: ["generated"],
+      // group: [sequelize.fn('date_trunc', 'day', sequelize.col('generated'))],
+      group: [sequelize.fn('date_trunc', 'day', sequelize.col('generated'))],
+      raw: true,
       })
       .then(stats => {
-      
-        // Set zero value
-        // stats.unshift({
-        //   generated: from,
-        //   qr_code_scans_today: 0
-        // })
-        // console.log(stats)
-
-        // console.log(stats.length)
-      
-        var previousDate
         var statsFiltered = []
         stats.forEach(function(element){
-          if(previousDate){
-          // console.log(previousTime)
-          // console.log(element.generated)
-          // console.log(element.generated - previousTime)
-
-            if(previousDate.getDate() != element.generated.getDate()){
-              statsFiltered.push(element)
-              previousDate = element.generated
-            }
-            
-          } else {
-              statsFiltered.push(element)            
-              previousDate = element.generated
-          }
-          
-
-
-        })
-      
-        if(stats.length>0){
-          statsFiltered.push(stats[stats.length-1])
-        }
-      
+          statsFiltered.push(
+            {
+              generated: element.generated,
+              bluetooth_tracing_codes_uploaded_today: element.bluetooth_tracing_codes_uploaded_today,
+              contacts_notified_by_bluetooth_today: element.contacts_notified_by_bluetooth_today
+            });
+        });
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(statsFiltered));
     });
