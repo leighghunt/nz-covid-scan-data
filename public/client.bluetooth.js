@@ -32,8 +32,8 @@ function displayStats(stats){
     document.getElementById('manual_entries_today').innerText = latestStats.manual_entries_today.toLocaleString()
     document.getElementById('people_with_bluetooth_tracing_active_today').innerText = latestStats.people_with_bluetooth_tracing_active_today.toLocaleString()
 
-    document.getElementById('all_time_app_registrations').innerText = latestStats.all_time_app_registrations.toLocaleString()
-    document.getElementById('all_time_posters_created').innerText = latestStats.all_time_posters_created.toLocaleString()
+    document.getElementById('bluetooth_tracing_codes_uploaded_today').innerText = latestStats.bluetooth_tracing_codes_uploaded_today.toLocaleString()
+    document.getElementById('contacts_notified_by_bluetooth_today').innerText = latestStats.contacts_notified_by_bluetooth_today.toLocaleString()
 
     let percentageOfLastWeek = 0
 
@@ -425,8 +425,13 @@ function groupByDuration(objectArray, duration = 15) {
 
 function updateGraph(){
 
-  // console.log('updateGraph: todaysStats')
-  // console.log(todaysStats)
+  console.log('updateGraph: todaysStats')
+  console.log(todaysStats)
+  
+  if(todaysStats.Length == 0 || todaysStats[0] == null){
+    console.error('todaysStats empty!')
+    return
+  }
 
   let labels = todaysStats.map(data => new Date(data.generated));
 
@@ -879,6 +884,17 @@ function updateHistoricGraph(){
       y: parseInt(data["Bluetooth Active (24hr)"].replace(/,/g, ''))
     }
   });
+  let historicActiveDevices = historicStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: parseInt(data["Active Devices"].replace(/,/g, ''))
+    }
+  });
   
   console.log(historicBluetoothActiveDevices[0]);
 
@@ -939,7 +955,7 @@ function updateHistoricGraph(){
     // labels: labels,
     datasets: [
       {
-        label: 'from MoH spreadsheet (12pm - 12pm)',
+        label: 'Scans',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
@@ -947,12 +963,20 @@ function updateHistoricGraph(){
         data: historicQRCodeScans
       },
       {
-        label: 'Active Bluetooth Active (24hr)',
+        label: 'Active Bluetooth (24 hours)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(99, 99, 255)',
         fill: false,
         // lineTension: 0,       
         data: historicBluetoothActiveDevices
+      },
+      {
+        label: 'Active Devices',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 255, 99)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicActiveDevices
       }
     ]
   };
@@ -962,7 +986,7 @@ function updateHistoricGraph(){
     // labels: labels,
     datasets: [
       {
-        label: 'from API (12am - 12am)',
+        label: 'Scans from API (12am - 12am)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'white',
         fill: false,
@@ -970,7 +994,7 @@ function updateHistoricGraph(){
         data: historicQRCodeScansFromAPI
       },
       {
-        label: 'from MoH spreadsheet (1pm - 1pm)',
+        label: 'Scans from MoH spreadsheet (1pm - 1pm)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(255, 99, 132)',
         fill: false,
@@ -978,7 +1002,7 @@ function updateHistoricGraph(){
         data: historicQRCodeScans
       },
       {
-        label: 'Active Bluetooth Active (24hr)',
+        label: 'Active Bluetooth (from MoH spreadsheet)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(99, 99, 255)',
         fill: false,
@@ -986,15 +1010,22 @@ function updateHistoricGraph(){
         data: historicBluetoothActiveDevices
       },
       {
-        label: 'Active Bluetooth Active (from API)',
+        label: 'Active Bluetooth (from API)',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
         borderColor: 'rgb(99, 99, 255)',
         fill: false,
         // lineTension: 0,       
         borderDash: [1, 3],
         data: historicBluetoothActiveFromAPI
+      },
+      {
+        label: 'Active Devices (from MoH spreadsheet)',
+        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        borderColor: 'rgb(99, 255, 99)',
+        fill: false,
+        // lineTension: 0,       
+        data: historicActiveDevices
       }
-
     ]
   };
 
