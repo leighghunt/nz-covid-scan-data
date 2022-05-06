@@ -19,6 +19,7 @@ if(window.location.href.endsWith('kebabs')){
 }
 
 const previousDaysScansToShow = 7
+const previousDaysBluetoothNotificationsToShow = 28
   
 
 function displayStats(stats){
@@ -322,7 +323,13 @@ const previousDaysStatsListener = function() {
   updateHistoricGraph()
 }
 
-
+const previousDaysBluetoothStatsListener = function(){
+  previousDaysBluetoothStats = JSON.parse(this.responseText)
+  // console.log(previousDaysStats)
+  updateGraph()
+  updateHistoricGraph()
+}
+}
 
 function getPreviousDaysStats(){
   let startOfTodayNZ = new Date()
@@ -335,6 +342,9 @@ function getPreviousDaysStats(){
   // console.log(startOfTodayNZ)
   let startPreviousScans = new Date(startOfTodayNZ)
   startPreviousScans.setDate(startPreviousScans.getDate() - previousDaysScansToShow)
+
+  let startPreviousBluetoothNotifications = new Date(startOfTodayNZ)
+  startPreviousBluetoothNotifications.setDate(startPreviousBluetoothNotifications.getDate() - previousDaysBluetoothNotificationsToShow)
   
   // console.log(startPreviousScans)
 
@@ -347,6 +357,11 @@ function getPreviousDaysStats(){
   todaysStatsRequest.onload = previousDaysStatsListener;
   todaysStatsRequest.open('get', '/stats?from=' + startPreviousScans.toUTCString() + '&granularityMins=60');
   todaysStatsRequest.send();  
+  
+  const bluetoothStatsRequest = new XMLHttpRequest();
+  bluetoothStatsRequest.onload = previousDaysBluetoothStatsListener;
+  bluetoothStatsRequest.open('get', '/bluetoothStats?from=' + startPreviousBluetoothNotifications.toUTCString());
+  bluetoothStatsRequest.send();  
 }
 
 
@@ -911,7 +926,7 @@ function updateHistoricGraph(){
     }
   });
   
-  let historicBluetoothTracingCodesUploadedFromAPI = previousDaysStats.map(data => {
+  let historicBluetoothTracingCodesUploadedFromAPI = previousDaysBluetoothStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
       x: new Date(
@@ -924,7 +939,7 @@ function updateHistoricGraph(){
     }
   });
 
-  let historicContactsNotifiedByBluetooth = previousDaysStats.map(data => {
+  let historicContactsNotifiedByBluetooth = previousDaysBluetoothStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
       x: new Date(

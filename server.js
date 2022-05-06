@@ -326,7 +326,84 @@ app.get('/stats/', async function(request, response) {
     });
 });
 
+app.get('/bluetoothStats/', async function(request, response) {
 
+  
+    var from = new Date()
+    from.setDate(from.getDate() - 1)
+  
+    if(request.query.from!=null){
+      from = new Date(request.query.from)
+    }
+
+    
+    var to = new Date()
+  
+    if(request.query.to!=null){
+      to = new Date(request.query.to)
+    }
+
+  
+    console.log('stats')
+    console.log(from)
+    console.log(to)
+
+
+    Stats.findAll(
+      {
+        where: { 
+          generated: {
+            [Op.and]:[
+              {[Op.gte]: from},
+              {[Op.lte]: to}
+            ]
+          }
+        },
+        order: [['generated']]
+      })
+      .then(stats => {
+      
+        // Set zero value
+        // stats.unshift({
+        //   generated: from,
+        //   qr_code_scans_today: 0
+        // })
+        // console.log(stats)
+
+        // console.log(stats.length)
+      
+        var previousTime
+        var statsFiltered = []
+        stats.forEach(function(element){
+          if(previousTime){
+          // console.log(previousTime)
+          // console.log(element.generated)
+          // console.log(element.generated - previousTime)
+
+            var diffMins = (element.generated - previousTime)/(1000*60)
+            // console.log(diffMins)
+            if(diffMins > granularityMins){
+              statsFiltered.push(element)
+              previousTime = element.generated
+            }
+            
+          } else {
+              statsFiltered.push(element)            
+              previousTime = element.generated
+          }
+          
+
+
+        })
+      
+        if(stats.length>0){
+          statsFiltered.push(stats[stats.length-1])
+        }
+      
+        response.setHeader('Content-Type', 'application/json')
+        response.send(JSON.stringify(statsFiltered));
+    });
+});
 
 // app.get('/historicStats/', async function(request, response) {
 
