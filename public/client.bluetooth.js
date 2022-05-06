@@ -985,47 +985,47 @@ function updateHistoricGraph(){
   const dataPrevMonth = {
     // labels: labels,
     datasets: [
-      {
-        label: 'Scans from API (12am - 12am)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'white',
-        fill: false,
-        // lineTension: 0,       
-        data: historicQRCodeScansFromAPI
-      },
-      {
-        label: 'Scans from MoH spreadsheet (1pm - 1pm)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(255, 99, 132)',
-        fill: false,
-        // lineTension: 0,       
-        data: historicQRCodeScans
-      },
-      {
-        label: 'Active Bluetooth (from MoH spreadsheet)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(99, 99, 255)',
-        fill: false,
-        // lineTension: 0,       
-        data: historicBluetoothActiveDevices
-      },
-      {
-        label: 'Active Bluetooth (from API)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(99, 99, 255)',
-        fill: false,
-        // lineTension: 0,       
-        borderDash: [1, 3],
-        data: historicBluetoothActiveFromAPI
-      },
-      {
-        label: 'Active Devices (from MoH spreadsheet)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(99, 255, 99)',
-        fill: false,
-        // lineTension: 0,       
-        data: historicActiveDevices
-      }
+      // {
+      //   label: 'Scans from API (12am - 12am)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'white',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicQRCodeScansFromAPI
+      // },
+      // {
+      //   label: 'Scans from MoH spreadsheet (1pm - 1pm)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicQRCodeScans
+      // },
+      // {
+      //   label: 'Active Bluetooth (from MoH spreadsheet)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(99, 99, 255)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicBluetoothActiveDevices
+      // },
+      // {
+      //   label: 'Active Bluetooth (from API)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(99, 99, 255)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   borderDash: [1, 3],
+      //   data: historicBluetoothActiveFromAPI
+      // },
+      // {
+      //   label: 'Active Devices (from MoH spreadsheet)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(99, 255, 99)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicActiveDevices
+      // }
     ]
   };
 
