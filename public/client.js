@@ -9,6 +9,7 @@ var todaysStats = []
 var thisDayLastWeeksStats = []
 
 var previousDaysStats = []
+var previousDaysBluetoothStats = []
 
 var historicStats = []
 
@@ -19,6 +20,7 @@ if(window.location.href.endsWith('kebabs')){
 }
 
 const previousDaysScansToShow = 7
+const previousDaysBluetoothNotificationsToShow = 28
   
 
 function displayStats(stats){
@@ -322,7 +324,13 @@ const previousDaysStatsListener = function() {
   updateHistoricGraph()
 }
 
-
+const previousDaysBluetoothStatsListener = function(){
+  previousDaysBluetoothStats = JSON.parse(this.responseText)
+  // console.log(previousDaysBluetoothStats)
+  // console.log(previousDaysStats)
+  updateGraph()
+  updateHistoricGraph()
+}
 
 function getPreviousDaysStats(){
   let startOfTodayNZ = new Date()
@@ -335,6 +343,9 @@ function getPreviousDaysStats(){
   // console.log(startOfTodayNZ)
   let startPreviousScans = new Date(startOfTodayNZ)
   startPreviousScans.setDate(startPreviousScans.getDate() - previousDaysScansToShow)
+
+  let startPreviousBluetoothNotifications = new Date(startOfTodayNZ)
+  startPreviousBluetoothNotifications.setDate(startPreviousBluetoothNotifications.getDate() - previousDaysBluetoothNotificationsToShow)
   
   // console.log(startPreviousScans)
 
@@ -347,6 +358,11 @@ function getPreviousDaysStats(){
   todaysStatsRequest.onload = previousDaysStatsListener;
   todaysStatsRequest.open('get', '/stats?from=' + startPreviousScans.toUTCString() + '&granularityMins=60');
   todaysStatsRequest.send();  
+  
+  const bluetoothStatsRequest = new XMLHttpRequest();
+  bluetoothStatsRequest.onload = previousDaysBluetoothStatsListener;
+  bluetoothStatsRequest.open('get', '/bluetoothStats?from=' + startPreviousBluetoothNotifications.toUTCString());
+  bluetoothStatsRequest.send();  
 }
 
 
@@ -911,6 +927,32 @@ function updateHistoricGraph(){
     }
   });
   
+  let historicBluetoothTracingCodesUploadedFromAPI = previousDaysBluetoothStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: data.bluetooth_tracing_codes_uploaded_today
+    }
+  });
+
+  let historicContactsNotifiedByBluetooth = previousDaysBluetoothStats.map(data => {
+    return {
+      // x: new Date(data['Date/Time To']), 
+      x: new Date(
+        data.generated
+        // data['Date/Time To'].toString().substr(6, 4) + '-' + 
+        // data['Date/Time To'].toString().substr(3, 2) + '-' + 
+        // data['Date/Time To'].toString().substr(0, 2) 
+      ), 
+      y: data.contacts_notified_by_bluetooth_today
+    }
+  });
+  
   let historicBluetoothActiveFromAPI = previousDaysStats.map(data => {
     return {
       // x: new Date(data['Date/Time To']), 
@@ -934,6 +976,23 @@ function updateHistoricGraph(){
       }
     } 
   } )
+  
+    
+//   historicBluetoothTracingCodesUploadedFromAPI = historicBluetoothTracingCodesUploadedFromAPI.filter((element, index, array) => {
+//     if(index < array.length-1){
+//       if(element.x.getDate() != array[index+1].x.getDate()){
+//         return true
+//       }
+//     } 
+//   } )
+    
+//   historicContactsNotifiedByBluetooth = historicContactsNotifiedByBluetooth.filter((element, index, array) => {
+//     if(index < array.length-1){
+//       if(element.x.getDate() != array[index+1].x.getDate()){
+//         return true
+//       }
+//     } 
+//   } )
 
   // historicBluetoothActiveFromAPI = historicBluetoothActiveFromAPI.filter((element, index, array) => {
   //   if(index < array.length-1){
@@ -986,46 +1045,64 @@ function updateHistoricGraph(){
     // labels: labels,
     datasets: [
       {
-        label: 'Scans from API (12am - 12am)',
+        label: 'Bluetooth Tracing Codes uploaded',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'white',
+        borderColor: 'blue',
         fill: false,
         // lineTension: 0,       
-        data: historicQRCodeScansFromAPI
+        // data: historicQRCodeScansFromAPI
+        data: historicBluetoothTracingCodesUploadedFromAPI
       },
       {
-        label: 'Scans from MoH spreadsheet (1pm - 1pm)',
+        label: 'Contacts notified by Bluetooth',
         // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(255, 99, 132)',
+        borderColor: 'red',
         fill: false,
         // lineTension: 0,       
-        data: historicQRCodeScans
+        // data: historicQRCodeScans
+        data: historicContactsNotifiedByBluetooth
       },
-      {
-        label: 'Active Bluetooth (from MoH spreadsheet)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(99, 99, 255)',
-        fill: false,
-        // lineTension: 0,       
-        data: historicBluetoothActiveDevices
-      },
-      {
-        label: 'Active Bluetooth (from API)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(99, 99, 255)',
-        fill: false,
-        // lineTension: 0,       
-        borderDash: [1, 3],
-        data: historicBluetoothActiveFromAPI
-      },
-      {
-        label: 'Active Devices (from MoH spreadsheet)',
-        // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-        borderColor: 'rgb(99, 255, 99)',
-        fill: false,
-        // lineTension: 0,       
-        data: historicActiveDevices
-      }
+      // {
+      //   label: 'Scans from API (12am - 12am)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'white',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicQRCodeScansFromAPI
+      // },
+      // {
+      //   label: 'Scans from MoH spreadsheet (1pm - 1pm)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicQRCodeScans
+      // },
+      // {
+      //   label: 'Active Bluetooth (from MoH spreadsheet)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(99, 99, 255)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicBluetoothActiveDevices
+      // },
+      // {
+      //   label: 'Active Bluetooth (from API)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(99, 99, 255)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   borderDash: [1, 3],
+      //   data: historicBluetoothActiveFromAPI
+      // },
+      // {
+      //   label: 'Active Devices (from MoH spreadsheet)',
+      //   // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      //   borderColor: 'rgb(99, 255, 99)',
+      //   fill: false,
+      //   // lineTension: 0,       
+      //   data: historicActiveDevices
+      // }
     ]
   };
 
@@ -1066,7 +1143,7 @@ function updateHistoricGraph(){
     type: 'line',
     // data,
     options: {
-      elements: { point: { radius: 0 } },
+      // elements: { point: { radius: 0 } },
       // lineTension: 0, 
 
       scales: {

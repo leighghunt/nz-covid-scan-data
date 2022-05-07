@@ -326,6 +326,7 @@ const previousDaysStatsListener = function() {
 
 const previousDaysBluetoothStatsListener = function(){
   previousDaysBluetoothStats = JSON.parse(this.responseText)
+  console.log(previousDaysBluetoothStats)
   // console.log(previousDaysStats)
   updateGraph()
   updateHistoricGraph()
@@ -1142,7 +1143,7 @@ function updateHistoricGraph(){
     type: 'line',
     // data,
     options: {
-      elements: { point: { radius: 0 } },
+      // elements: { point: { radius: 0 } },
       // lineTension: 0, 
 
       scales: {

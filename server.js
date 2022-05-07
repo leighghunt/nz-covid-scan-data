@@ -385,9 +385,9 @@ app.get('/bluetoothStats/', async function(request, response) {
             } else {
               prev_bluetooth_tracing_codes_uploaded_today = element.bluetooth_tracing_codes_uploaded_today
               latestElementForDate = element
-              if(prev_bluetooth_tracing_codes_uploaded_today > 0){
-                push = true              
-              }
+              // if(prev_bluetooth_tracing_codes_uploaded_today > 0){
+              //   push = true              
+              // }
               // console.log('push2')
             }
 
