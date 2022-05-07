@@ -367,11 +367,11 @@ app.get('/bluetoothStats/', async function(request, response) {
       })
       .then(stats => {
         var statsFiltered = []
+        var prevDate = -1
         stats.forEach(function(element){
-          var prevDate = element.generated.getDate()
-          console.log(prevDate)
+          // console.log(prevDate)
           var push = false
-          if(prevDate){
+          if(prevDate >= 0){
             if(prevDate != element.generated.getDate()){
               prevDate = element.generated.getDate()
               console.log('push1')
@@ -392,7 +392,7 @@ app.get('/bluetoothStats/', async function(request, response) {
                 contacts_notified_by_bluetooth_today: element.contacts_notified_by_bluetooth_today
               });            
           } else {
-            console.log('nah')
+            // console.log('nah')
           }
         });
         response.setHeader('Content-Type', 'application/json')
