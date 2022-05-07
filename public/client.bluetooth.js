@@ -977,21 +977,21 @@ function updateHistoricGraph(){
   } )
   
     
-  historicBluetoothTracingCodesUploadedFromAPI = historicBluetoothTracingCodesUploadedFromAPI.filter((element, index, array) => {
-    if(index < array.length-1){
-      if(element.x.getDate() != array[index+1].x.getDate()){
-        return true
-      }
-    } 
-  } )
+//   historicBluetoothTracingCodesUploadedFromAPI = historicBluetoothTracingCodesUploadedFromAPI.filter((element, index, array) => {
+//     if(index < array.length-1){
+//       if(element.x.getDate() != array[index+1].x.getDate()){
+//         return true
+//       }
+//     } 
+//   } )
     
-  historicContactsNotifiedByBluetooth = historicContactsNotifiedByBluetooth.filter((element, index, array) => {
-    if(index < array.length-1){
-      if(element.x.getDate() != array[index+1].x.getDate()){
-        return true
-      }
-    } 
-  } )
+//   historicContactsNotifiedByBluetooth = historicContactsNotifiedByBluetooth.filter((element, index, array) => {
+//     if(index < array.length-1){
+//       if(element.x.getDate() != array[index+1].x.getDate()){
+//         return true
+//       }
+//     } 
+//   } )
 
   // historicBluetoothActiveFromAPI = historicBluetoothActiveFromAPI.filter((element, index, array) => {
   //   if(index < array.length-1){

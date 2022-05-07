@@ -366,6 +366,7 @@ app.get('/bluetoothStats/', async function(request, response) {
       // raw: true,
       })
       .then(stats => {
+        console.log('query returned')
         var statsFiltered = []
         var prev_bluetooth_tracing_codes_uploaded_today = -1
         var latestElementForDate
@@ -373,7 +374,7 @@ app.get('/bluetoothStats/', async function(request, response) {
           if(element.bluetooth_tracing_codes_uploaded_today != null){
             // console.log(prevDate)
             var push = false
-            if(prev_bluetooth_tracing_codes_uploaded_today >= 0){
+            if(prev_bluetooth_tracing_codes_uploaded_today > 0){
               if(prev_bluetooth_tracing_codes_uploaded_today > element.bluetooth_tracing_codes_uploaded_today){
                 prev_bluetooth_tracing_codes_uploaded_today = element.bluetooth_tracing_codes_uploaded_today
                 // console.log('push1')
@@ -384,7 +385,7 @@ app.get('/bluetoothStats/', async function(request, response) {
             } else {
               prev_bluetooth_tracing_codes_uploaded_today = element.bluetooth_tracing_codes_uploaded_today
               latestElementForDate = element
-              if(prev_bluetooth_tracing_codes_uploaded_today >= 0){
+              if(prev_bluetooth_tracing_codes_uploaded_today > 0){
                 push = true              
               }
               // console.log('push2')
