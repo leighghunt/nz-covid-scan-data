@@ -368,6 +368,7 @@ app.get('/bluetoothStats/', async function(request, response) {
       .then(stats => {
         var statsFiltered = []
         var prevDate = -1
+        var latestElementForDate
         stats.forEach(function(element){
           // console.log(prevDate)
           var push = false
@@ -376,10 +377,13 @@ app.get('/bluetoothStats/', async function(request, response) {
               prevDate = element.generated.getDate()
               console.log('push1')
               push = true
+            } else {
+              latestElementForDate = element
             }
           } else {
             prevDate = element.generated.getDate()
-            console.log('push2')
+            latestElementForDate = element
+            // console.log('push2')
             push = true
           }
           
