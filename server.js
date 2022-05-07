@@ -375,7 +375,7 @@ app.get('/bluetoothStats/', async function(request, response) {
           if(prevDate >= 0){
             if(prevDate != element.generated.getDate()){
               prevDate = element.generated.getDate()
-              console.log('push1')
+              // console.log('push1')
               push = true
             } else {
               latestElementForDate = element
@@ -391,9 +391,9 @@ app.get('/bluetoothStats/', async function(request, response) {
             console.log('yep')
             statsFiltered.push(
               {
-                generated: element.generated,
-                bluetooth_tracing_codes_uploaded_today: element.bluetooth_tracing_codes_uploaded_today,
-                contacts_notified_by_bluetooth_today: element.contacts_notified_by_bluetooth_today
+                generated: latestElementForDate.generated,
+                bluetooth_tracing_codes_uploaded_today: latestElementForDate.bluetooth_tracing_codes_uploaded_today,
+                contacts_notified_by_bluetooth_today: latestElementForDate.contacts_notified_by_bluetooth_today
               });            
           } else {
             // console.log('nah')
