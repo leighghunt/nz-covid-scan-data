@@ -344,7 +344,7 @@ app.get('/bluetoothStats/', async function(request, response) {
     }
 
   
-    console.log('stats')
+    console.log('bluetoothStats')
     console.log(from)
     console.log(to)
 
@@ -367,38 +367,40 @@ app.get('/bluetoothStats/', async function(request, response) {
       })
       .then(stats => {
         var statsFiltered = []
-        var prev_bluetooth_tracing_codes_uploaded_today = null
+        var prev_bluetooth_tracing_codes_uploaded_today = -1
         var latestElementForDate
         stats.forEach(function(element){
-          // console.log(prevDate)
-          var push = false
-          if(prev_bluetooth_tracing_codes_uploaded_today != null && prev_bluetooth_tracing_codes_uploaded_today >= 0){
-            if(prev_bluetooth_tracing_codes_uploaded_today > element.generated.bluetooth_tracing_codes_uploaded_today){
-              prev_bluetooth_tracing_codes_uploaded_today = element.generated.bluetooth_tracing_codes_uploaded_today
-              // console.log('push1')
-              push = true
+          if(element.bluetooth_tracing_codes_uploaded_today != null){
+            // console.log(prevDate)
+            var push = false
+            if(prev_bluetooth_tracing_codes_uploaded_today >= 0){
+              if(prev_bluetooth_tracing_codes_uploaded_today > element.bluetooth_tracing_codes_uploaded_today){
+                prev_bluetooth_tracing_codes_uploaded_today = element.bluetooth_tracing_codes_uploaded_today
+                // console.log('push1')
+                push = true
+              } else {
+                latestElementForDate = element
+              }
             } else {
+              prev_bluetooth_tracing_codes_uploaded_today = element.bluetooth_tracing_codes_uploaded_today
               latestElementForDate = element
+              if(prev_bluetooth_tracing_codes_uploaded_today >= 0){
+                push = true              
+              }
+              // console.log('push2')
             }
-          } else {
-            prev_bluetooth_tracing_codes_uploaded_today = element.generated.bluetooth_tracing_codes_uploaded_today
-            latestElementForDate = element
-            if(prev_bluetooth_tracing_codes_uploaded_today != null && prev_bluetooth_tracing_codes_uploaded_today >= 0){
-              push = true              
+
+            if(push == true){
+              console.log('yep')
+              statsFiltered.push(
+                {
+                  generated: latestElementForDate.generated,
+                  bluetooth_tracing_codes_uploaded_today: latestElementForDate.bluetooth_tracing_codes_uploaded_today,
+                  contacts_notified_by_bluetooth_today: latestElementForDate.contacts_notified_by_bluetooth_today
+                });            
+            } else {
+              // console.log('nah')
             }
-            // console.log('push2')
-          }
-          
-          if(push == true){
-            console.log('yep')
-            statsFiltered.push(
-              {
-                generated: latestElementForDate.generated,
-                bluetooth_tracing_codes_uploaded_today: latestElementForDate.bluetooth_tracing_codes_uploaded_today,
-                contacts_notified_by_bluetooth_today: latestElementForDate.contacts_notified_by_bluetooth_today
-              });            
-          } else {
-            // console.log('nah')
           }
         });
         response.setHeader('Content-Type', 'application/json')
