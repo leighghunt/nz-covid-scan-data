@@ -359,21 +359,41 @@ app.get('/bluetoothStats/', async function(request, response) {
           }
         },
       order: [['generated']],
-      attributes: [Sequelize.fn('max', Sequelize.col('id'))],
+      // attributes: [Sequelize.fn('max', Sequelize.col('id'))],
       // group: ["generated"],
       // group: [sequelize.fn('date_trunc', 'day', sequelize.col('generated'))],
-      group: [sequelize.fn('date_trunc', 'day', sequelize.col('generated'))],
-      raw: true,
+      // group: [sequelize.fn('date_trunc', 'day', sequelize.col('generated'))],
+      // raw: true,
       })
       .then(stats => {
         var statsFiltered = []
         stats.forEach(function(element){
-          statsFiltered.push(
-            {
-              generated: element.generated,
-              bluetooth_tracing_codes_uploaded_today: element.bluetooth_tracing_codes_uploaded_today,
-              contacts_notified_by_bluetooth_today: element.contacts_notified_by_bluetooth_today
-            });
+          var prevDate = element.generated.getDate()
+          console.log(prevDate)
+          var push = false
+          if(prevDate){
+            if(prevDate != element.generated.getDate()){
+              prevDate = element.generated.getDate()
+              console.log('push1')
+              push = true
+            }
+          } else {
+            prevDate = element.generated.getDate()
+            console.log('push2')
+            push = true
+          }
+          
+          if(push == true){
+            console.log('yep')
+            statsFiltered.push(
+              {
+                generated: element.generated,
+                bluetooth_tracing_codes_uploaded_today: element.bluetooth_tracing_codes_uploaded_today,
+                contacts_notified_by_bluetooth_today: element.contacts_notified_by_bluetooth_today
+              });            
+          } else {
+            console.log('nah')
+          }
         });
         response.setHeader('Content-Type', 'application/json')
         response.send(JSON.stringify(statsFiltered));
