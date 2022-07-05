@@ -208,7 +208,7 @@ function displayStats(stats){
        elPeopleWothBluetoothTracingActiveLastWeek.style.color = 'red'
        elPeopleWothBluetoothTracingActiveLastWeek.innerText = '▼' + percentageOfPeopleWithBluetoothTracingActive.toFixed(1) + '%'
      } else {
-       elPeopleWothBluetoothTracingActiveLastWeek.style.color = 'g'
+       elPeopleWothBluetoothTracingActiveLastWeek.style.color = 'green'
        elPeopleWothBluetoothTracingActiveLastWeek.innerText = '▲' + percentageOfPeopleWithBluetoothTracingActive.toFixed(1) + '%'
 
      }
