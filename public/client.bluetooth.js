@@ -150,6 +150,32 @@ function displayStats(stats){
      }
 
 
+    console.log(percentageOfLastWeek)
+    let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+
+    if(percentageOfLastWeek<0){
+       el.style.color = 'red'
+       el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+     } else {
+       el.style.color = 'green'
+       el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+
+     }
+
+
+    console.log(percentageOfLastWeek)
+    let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+
+    if(percentageOfLastWeek<0){
+       el.style.color = 'red'
+       el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+     } else {
+       el.style.color = 'green'
+       el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+
+     }
+
+
     
     updateGraph();  
     
