@@ -38,6 +38,9 @@ function displayStats(stats){
     document.getElementById('contacts_notified_by_bluetooth_today').innerText = latestStats.contacts_notified_by_bluetooth_today.toLocaleString()
 
     let percentageOfLastWeek = 0
+    let percentageOfManualEntriesLastWeek = 0
+    let percentageOfPeopleWithBluetoothTracingActive = 0
+
     let percentageOfBluetoothCodesUploadedLastWeek = 0
     let percentageOfContactsNotifiedByBluetoothLastWeek = 0
 
@@ -111,6 +114,18 @@ function displayStats(stats){
             // }
           // }
 
+          let projectedOldFigureManualEntries = (
+                                      ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
+                                      * (qrScans2.manual_entries_today - qrScans1.manual_entries_today)
+                                    )
+                                    + qrScans1.manual_entries_today
+
+          let projectedOldFigurePeopleWithBluetoothTracingActive = (
+                                      ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
+                                      * (qrScans2.people_with_bluetooth_tracing_active_today - qrScans1.people_with_bluetooth_tracing_active_today)
+                                    )
+                                    + qrScans1.people_with_bluetooth_tracing_active_today
+
           let projectedOldFigureBluetoothCodesUploaded = (
                                       ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
                                       * (qrScans2.bluetooth_tracing_codes_uploaded_today - qrScans1.bluetooth_tracing_codes_uploaded_today)
@@ -152,6 +167,8 @@ function displayStats(stats){
           
 
           percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / projectedOldFigure - 100
+          percentageOfManualEntriesLastWeek = latestStats.manual_entries_today * 100 / projectedOldFigureManualEntries - 100
+          percentageOfPeopleWithBluetoothTracingActive = latestStats.people_with_bluetooth_tracing_active_today * 100 / projectedOldFigurePeopleWithBluetoothTracingActive - 100
           percentageOfBluetoothCodesUploadedLastWeek = latestStats.bluetooth_tracing_codes_uploaded_today * 100 / projectedOldFigureBluetoothCodesUploaded - 100
           percentageOfContactsNotifiedByBluetoothLastWeek = latestStats.contacts_notified_by_bluetooth_today * 100 / projectedOldFigureContactsNotifiedByBluetooth - 100
         }
@@ -162,14 +179,39 @@ function displayStats(stats){
     let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
 
     if(percentageOfLastWeek<0){
-       el.style.color = 'red'
+       // el.style.color = 'red'
        el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
      } else {
-       el.style.color = 'green'
+       // el.style.color = 'green'
        el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
 
      }
 
+
+    console.log(percentageOfManualEntriesLastWeek)
+    let elManualEntriesLastWeek = document.getElementById('manual_entries_compared_to_this_time_last_week')
+
+    if(percentageOfManualEntriesLastWeek<0){
+       elManualEntriesLastWeek.style.color = 'red'
+       elManualEntriesLastWeek.innerText = '▼' + percentageOfManualEntriesLastWeek.toFixed(1) + '%'
+     } else {
+       elManualEntriesLastWeek.style.color = 'green'
+       elManualEntriesLastWeek.innerText = '▲' + percentageOfManualEntriesLastWeek.toFixed(1) + '%'
+
+     }
+
+
+    console.log(percentageOfPeopleWithBluetoothTracingActive)
+    let elPeopleWothBluetoothTracingActiveLastWeek = document.getElementById('people_with_bluetooth_tracing_active_compared_to_this_time_last_week')
+
+    if(percentageOfPeopleWithBluetoothTracingActive<0){
+       elPeopleWothBluetoothTracingActiveLastWeek.style.color = 'red'
+       elPeopleWothBluetoothTracingActiveLastWeek.innerText = '▼' + percentageOfPeopleWithBluetoothTracingActive.toFixed(1) + '%'
+     } else {
+       elPeopleWothBluetoothTracingActiveLastWeek.style.color = 'g'
+       elPeopleWothBluetoothTracingActiveLastWeek.innerText = '▲' + percentageOfPeopleWithBluetoothTracingActive.toFixed(1) + '%'
+
+     }
 
     console.log(percentageOfBluetoothCodesUploadedLastWeek)
     let elBluetoothCodesUploadedLastWeek = document.getElementById('bluetooth_tracing_codes_uploaded_compared_to_this_time_last_week')
@@ -185,7 +227,7 @@ function displayStats(stats){
 
 
     console.log(percentageOfContactsNotifiedByBluetoothLastWeek)
-    let elNotifiedByBluetoothLastWeek = document.getElementById('qcontacts_notified_by_bluetooth_compared_to_this_time_last_week')
+    let elNotifiedByBluetoothLastWeek = document.getElementById('contacts_notified_by_bluetooth_compared_to_this_time_last_week')
 
     if(percentageOfContactsNotifiedByBluetoothLastWeek<0){
        elNotifiedByBluetoothLastWeek.style.color = 'green'
