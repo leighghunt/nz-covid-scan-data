@@ -80,6 +80,11 @@ function displayStats(stats){
             console.log('timeThisScanBut7DaysAgo')
             console.log(timeThisScanBut7DaysAgo)
 
+            console.log('qrScans1')
+            console.log(qrScans1)
+            console.log('qrScans2')
+            console.log(qrScans2)
+
 
 
           
@@ -110,13 +115,13 @@ function displayStats(stats){
                                       ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
                                       * (qrScans2.bluetooth_tracing_codes_uploaded_today - qrScans1.bluetooth_tracing_codes_uploaded_today)
                                     )
-                                    + qrScans1.qr_code_scans_today
+                                    + qrScans1.bluetooth_tracing_codes_uploaded_today
 
           let projectedOldFigureContactsNotifiedByBluetooth = (
                                       ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
                                       * (qrScans2.contacts_notified_by_bluetooth_today - qrScans1.contacts_notified_by_bluetooth_today)
                                     )
-                                    + qrScans1.qr_code_scans_today
+                                    + qrScans1.contacts_notified_by_bluetooth_today
 
           
           if(timeThisScanBut7DaysAgo < dateScan1
@@ -170,10 +175,10 @@ function displayStats(stats){
     let elBluetoothCodesUploadedLastWeek = document.getElementById('bluetooth_tracing_codes_uploaded_compared_to_this_time_last_week')
 
     if(percentageOfBluetoothCodesUploadedLastWeek<0){
-       elBluetoothCodesUploadedLastWeek.style.color = 'red'
+       elBluetoothCodesUploadedLastWeek.style.color = 'green'
        elBluetoothCodesUploadedLastWeek.innerText = '▼' + percentageOfBluetoothCodesUploadedLastWeek.toFixed(1) + '%'
      } else {
-       elBluetoothCodesUploadedLastWeek.style.color = 'green'
+       elBluetoothCodesUploadedLastWeek.style.color = 'red'
        elBluetoothCodesUploadedLastWeek.innerText = '▲' + percentageOfBluetoothCodesUploadedLastWeek.toFixed(1) + '%'
 
      }
@@ -183,10 +188,10 @@ function displayStats(stats){
     let elNotifiedByBluetoothLastWeek = document.getElementById('qcontacts_notified_by_bluetooth_compared_to_this_time_last_week')
 
     if(percentageOfContactsNotifiedByBluetoothLastWeek<0){
-       elNotifiedByBluetoothLastWeek.style.color = 'red'
+       elNotifiedByBluetoothLastWeek.style.color = 'green'
        elNotifiedByBluetoothLastWeek.innerText = '▼' + percentageOfContactsNotifiedByBluetoothLastWeek.toFixed(1) + '%'
      } else {
-       elNotifiedByBluetoothLastWeek.style.color = 'green'
+       elNotifiedByBluetoothLastWeek.style.color = 'red'
        elNotifiedByBluetoothLastWeek.innerText = '▲' + percentageOfContactsNotifiedByBluetoothLastWeek.toFixed(1) + '%'
 
      }
