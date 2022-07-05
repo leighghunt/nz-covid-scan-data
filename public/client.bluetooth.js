@@ -38,6 +38,8 @@ function displayStats(stats){
     document.getElementById('contacts_notified_by_bluetooth_today').innerText = latestStats.contacts_notified_by_bluetooth_today.toLocaleString()
 
     let percentageOfLastWeek = 0
+    let percentageOfBluetoothCodesUploadedLastWeek = 0
+    let percentageOfContactsNotifiedByBluetoothLastWeek = 0
 
 
     // Average approach 2
@@ -103,7 +105,19 @@ function displayStats(stats){
                                     + qrScans1.qr_code_scans_today
             // }
           // }
-          
+
+          let projectedOldFigureBluetoothCodesUploaded = (
+                                      ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
+                                      * (qrScans2.bluetooth_tracing_codes_uploaded_today - qrScans1.bluetooth_tracing_codes_uploaded_today)
+                                    )
+                                    + qrScans1.qr_code_scans_today
+
+          let projectedOldFigureContactsNotifiedByBluetooth = (
+                                      ((timeThisScanBut7DaysAgo - dateScan1) / (dateScan2 - dateScan1)) 
+                                      * (qrScans2.contacts_notified_by_bluetooth_today - qrScans1.contacts_notified_by_bluetooth_today)
+                                    )
+                                    + qrScans1.qr_code_scans_today
+
           
           if(timeThisScanBut7DaysAgo < dateScan1
              || timeThisScanBut7DaysAgo > dateScan2){
@@ -133,6 +147,8 @@ function displayStats(stats){
           
 
           percentageOfLastWeek = latestStats.qr_code_scans_today * 100 / projectedOldFigure - 100
+          percentageOfBluetoothCodesUploadedLastWeek = latestStats.bluetooth_tracing_codes_uploaded_today * 100 / projectedOldFigureBluetoothCodesUploaded - 100
+          percentageOfContactsNotifiedByBluetoothLastWeek = latestStats.contacts_notified_by_bluetooth_today * 100 / projectedOldFigureContactsNotifiedByBluetooth - 100
         }
       }
     }
@@ -150,28 +166,28 @@ function displayStats(stats){
      }
 
 
-    console.log(percentageOfLastWeek)
-    let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+    console.log(percentageOfBluetoothCodesUploadedLastWeek)
+    let elBluetoothCodesUploadedLastWeek = document.getElementById('bluetooth_tracing_codes_uploaded_compared_to_this_time_last_week')
 
-    if(percentageOfLastWeek<0){
-       el.style.color = 'red'
-       el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+    if(percentageOfBluetoothCodesUploadedLastWeek<0){
+       elBluetoothCodesUploadedLastWeek.style.color = 'red'
+       elBluetoothCodesUploadedLastWeek.innerText = '▼' + percentageOfBluetoothCodesUploadedLastWeek.toFixed(1) + '%'
      } else {
-       el.style.color = 'green'
-       el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+       elBluetoothCodesUploadedLastWeek.style.color = 'green'
+       elBluetoothCodesUploadedLastWeek.innerText = '▲' + percentageOfBluetoothCodesUploadedLastWeek.toFixed(1) + '%'
 
      }
 
 
-    console.log(percentageOfLastWeek)
-    let el = document.getElementById('qr_code_scans_compared_to_this_time_last_week')
+    console.log(percentageOfContactsNotifiedByBluetoothLastWeek)
+    let elNotifiedByBluetoothLastWeek = document.getElementById('qcontacts_notified_by_bluetooth_compared_to_this_time_last_week')
 
-    if(percentageOfLastWeek<0){
-       el.style.color = 'red'
-       el.innerText = '▼' + percentageOfLastWeek.toFixed(1) + '%'
+    if(percentageOfContactsNotifiedByBluetoothLastWeek<0){
+       elNotifiedByBluetoothLastWeek.style.color = 'red'
+       elNotifiedByBluetoothLastWeek.innerText = '▼' + percentageOfContactsNotifiedByBluetoothLastWeek.toFixed(1) + '%'
      } else {
-       el.style.color = 'green'
-       el.innerText = '▲' + percentageOfLastWeek.toFixed(1) + '%'
+       elNotifiedByBluetoothLastWeek.style.color = 'green'
+       elNotifiedByBluetoothLastWeek.innerText = '▲' + percentageOfContactsNotifiedByBluetoothLastWeek.toFixed(1) + '%'
 
      }
 
