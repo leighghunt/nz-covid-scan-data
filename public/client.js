@@ -718,126 +718,126 @@ function updateGraph(){
     ]
   };
   
-  var previousDayColours = [
-    // 'rgb(255, 99, 132)',
-    'white',
-    'orange',
-    'yellow',
-    'green',
-    'blue',
-    'indigo',
-    'violet',
-    'red'
-  ]
+//   var previousDayColours = [
+//     // 'rgb(255, 99, 132)',
+//     'white',
+//     'orange',
+//     'yellow',
+//     'green',
+//     'blue',
+//     'indigo',
+//     'violet',
+//     'red'
+//   ]
 
-  var previousDayWidths = [
-    4, 2, 2, 2, 2, 2, 2, 5
-  ]
+//   var previousDayWidths = [
+//     4, 2, 2, 2, 2, 2, 2, 5
+//   ]
 
-  var previousDayDashes = [
-    [],
-    [1],
-    [1],
-    [1],
-    [1],
-    [1],
-    [1],
-    []
-  ]
-
-
+//   var previousDayDashes = [
+//     [],
+//     [1],
+//     [1],
+//     [1],
+//     [1],
+//     [1],
+//     [1],
+//     []
+//   ]
 
 
-  for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
 
-    var previousDay = new Date(startOfTodayNZ)
-    previousDay.setDate(previousDay.getDate()-(previousDayIndex))
+
+//   for(var previousDayIndex = 0; previousDayIndex <= previousDaysScansToShow; ++previousDayIndex){
+
+//     var previousDay = new Date(startOfTodayNZ)
+//     previousDay.setDate(previousDay.getDate()-(previousDayIndex))
     
-    var dataset = {
-      label: previousDay.toString().substr(0, 3),
-      // borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - (previousDayIndex/2))/(previousDaysScansToShow)).toString() + ')',
-      borderColor: previousDayColours[previousDayIndex],
-      borderWidth: previousDayWidths[previousDayIndex],
-      borderDash: previousDayDashes[previousDayIndex],
+//     var dataset = {
+//       label: previousDay.toString().substr(0, 3),
+//       // borderColor: 'rgba(255, 99, 132, ' + ((previousDaysScansToShow - (previousDayIndex/2))/(previousDaysScansToShow)).toString() + ')',
+//       borderColor: previousDayColours[previousDayIndex],
+//       borderWidth: previousDayWidths[previousDayIndex],
+//       borderDash: previousDayDashes[previousDayIndex],
 
-      // borderWidth: (7 - previousDayIndex)/2,
+//       // borderWidth: (7 - previousDayIndex)/2,
 
-      // borderWidth: (7 - previousDayIndex)/2,
+//       // borderWidth: (7 - previousDayIndex)/2,
 
-      // borderDash: [1, 3],
+//       // borderDash: [1, 3],
 
-      // borderDash: [1, previousDayIndex ],
+//       // borderDash: [1, previousDayIndex ],
 
-      fill: false,
-      data: previousDaysQRCodeScans[previousDayIndex],
-    }
+//       fill: false,
+//       data: previousDaysQRCodeScans[previousDayIndex],
+//     }
     
 
-    if(previousDaysQRCodeScans[previousDayIndex] && previousDaysQRCodeScans[previousDayIndex].length>0){
-      // dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
-    }
+//     if(previousDaysQRCodeScans[previousDayIndex] && previousDaysQRCodeScans[previousDayIndex].length>0){
+//       // dataset.label = previousDaysQRCodeScans[previousDayIndex][0].x.toString().substr(0,3)
+//     }
 
-    // console.log(dataset.label)
-    // console.log(dataset.borderColor)
-    // console.log(previousDaysQRCodeScans[previousDayIndex])
+//     // console.log(dataset.label)
+//     // console.log(dataset.borderColor)
+//     // console.log(previousDaysQRCodeScans[previousDayIndex])
 
-    data.datasets.push(dataset)
+//     data.datasets.push(dataset)
 
-  }    
+//   }    
 
-  data.datasets[0].label = 'Today'
+//   data.datasets[0].label = 'Today'
 
 
-  const config = {
-    type: 'line',
-    data: data,
-    options: {
+//   const config = {
+//     type: 'line',
+//     data: data,
+//     options: {
 
-      elements: { point: { radius: 0 } },
-      plugins: {
-        title: {
-          text: 'Chart.js Time Scale',
-          display: true
-        }
-      },      
+//       elements: { point: { radius: 0 } },
+//       plugins: {
+//         title: {
+//           text: 'Chart.js Time Scale',
+//           display: true
+//         }
+//       },      
       
-      scales: {
-        xAxes: [{
-          type: 'time',
-          ticks: { 
-            unit: 'hour',
-            // min: startOfWorkingDayNZ,
-            // max: endOfWorkingDayNZ
-          },
-        }],
+//       scales: {
+//         xAxes: [{
+//           type: 'time',
+//           ticks: { 
+//             unit: 'hour',
+//             // min: startOfWorkingDayNZ,
+//             // max: endOfWorkingDayNZ
+//           },
+//         }],
         
-       yAxes: [
-         {
-          ticks: {
-            min: 0,
-            // max: 3000000,
-             callback: function(value, index, values) {
-               return value.toLocaleString("en-NZ",{});
-           }
-         }
-      }]
-      },      
-      animation: {
-        duration:0  // prevent pesky animation, espcially on update
-      }
-    }
-  };
+//        yAxes: [
+//          {
+//           ticks: {
+//             min: 0,
+//             // max: 3000000,
+//              callback: function(value, index, values) {
+//                return value.toLocaleString("en-NZ",{});
+//            }
+//          }
+//       }]
+//       },      
+//       animation: {
+//         duration:0  // prevent pesky animation, espcially on update
+//       }
+//     }
+//   };
 
 
-  if(chart==null){
-    chart = new Chart(
-      document.getElementById('chart'),
-      config
-    )
-  } else {
-    chart.config.data = data;
-    chart.update(/*{mode: 'none'}*/);
-  } 
+  // if(chart==null){
+  //   chart = new Chart(
+  //     document.getElementById('chart'),
+  //     config
+  //   )
+  // } else {
+  //   chart.config.data = data;
+  //   chart.update(/*{mode: 'none'}*/);
+  // } 
   
   // if(kebabs){
   //   var startOfKebabs = new Date(startOfTodayNZ)
@@ -1257,7 +1257,7 @@ function updateHistoricGraph(){
         duration:0  // prevent pesky animation, espcially on update
       }
     }
-  };
+  }
 
 
   if(chartHistoric==null){
